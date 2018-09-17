@@ -1,10 +1,10 @@
 import java.util.*;
 
 /**
- * Write a description of class Order here.
+ * Enity class Order stores order information.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Team118
+ * @version 1.1
  */
 public class Order
 {
@@ -43,10 +43,139 @@ public class Order
     }
     
     /**
-     * Hello World!
+     * Add line items to order.
      */
-    public void sampleMethod()
+    public void addLineItem(String lineItem)
     {
-        System.out.println("Hello World!");
+        lineItems.add(lineItem);
+    }
+    
+     /**
+     * Get the customer account ID associated with the order.
+     */
+    public String getAccID()
+    {
+        return accID;
+    }
+    
+    /**
+     * Get the date the order is to be delivered. 
+     */
+    public String getDeliveryDate()
+    {
+        return deliveryDate;
+    }
+    
+     /**
+     * Get line item collection.
+     */
+    public ArrayList getLineItems()
+    {
+        return lineItems;
+    }
+    
+    /**
+     * Get the date & time the order was placed.
+     */
+    public String getOrderDate()
+    {
+        return orderDate;
+    }
+    
+    /**
+     * Get the order receipt method.
+     */
+    public boolean getOrderReceiptMethod()
+    {
+        return delivery;
+    }
+    
+    /**
+     * Get order status.
+     */
+    public boolean getOrderStatus()
+    {
+        return orderStatus;
+    }
+    
+    /**
+     * Get order payment method.
+     */
+    public String getPaymentMethod()
+    {
+        return payMeth;
+    }
+    
+    /**
+     * Get order price.
+     */
+    public double getPrice()
+    {
+        return price;
+    }
+    
+    /**
+     * Set the customer account ID associated with the order.
+     */
+    public void setAccID(String id)
+    {
+        accID = id;
+    }
+    
+    /**
+     * Set the date the order is to be delivered.
+     */
+    public void setDeliveryDate(String delDate)
+    {
+        deliveryDate = delDate;
+    }
+    
+    /**
+     * Set line item collection.
+     */
+    public void setLineItems(ArrayList lineItemz)
+    {
+        lineItems = lineItemz;
+    }
+    
+     /**
+     * Set the date and time the order was placed.
+     */
+    public void setOrderDate(String ordDate)
+    {
+        orderDate = ordDate;
+    }
+    
+    /**
+     * Set the order receipt method.
+     */
+    public void setOrderReceiptMethod(boolean recMeth)
+    {
+        delivery = recMeth;
+    }
+    
+    /**
+     * Set order status.
+     */
+    public void setOrderStatus(boolean orderStat)
+    {
+        orderStatus = orderStat;
+    }
+    
+    /**
+     * Set order payment method.
+     */
+    public void setPaymentMethod(String payMethod)
+    {
+        payMeth = payMethod;
+    }
+    
+    /**
+     * Set order price.
+     */
+    public void setPrice(double p)
+    {
+        price = p;
     }
 }
+
