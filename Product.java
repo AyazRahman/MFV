@@ -128,6 +128,6 @@ public class Product
         }
         
         return amount;
-        //remember some have only sale type in that we only display amount[0]
+        //remember some products have only sale type in that we only display amount[0]
     }
 }
