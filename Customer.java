@@ -42,79 +42,79 @@ public class Customer extends User
         // put your code here
         return accountStatus;
     }
-
+    
     public String getCardCCV()
     {
         // put your code here
         return cardCCV;
     }
-
+    
     public String getCardName()
     {
         // put your code here
         return cardName;
     }
-
+    
     public String getCardNumber()
     {
         // put your code here
         return cardNumber;
     }
-
+    
     public String getCollectionPreference()
     {
         // put your code here
         return collectionPreference;
     }
-
+    
     public ArrayList<String> getOrderArray()
     {
         // put your code here
         return orderArray;
     }
-
+    
      public String getPaymentPreference()
     {
         // put your code here
         return paymentPreference;
     }
-
+    
      public void setaccountStatus(boolean status)
     {
         // put your code here
         accountStatus = status;
     }
-
+    
     public void setCardCCV(String ccv)
     {
         // put your code here
         cardCCV = ccv;
     }
-
+    
     public void setCardName(String name)
     {
         // put your code here
         cardName = name;
     }
-
+    
     public void setCardNumber(String number)
     {
         // put your code here
         cardNumber = number;
     }
-
+    
     public void setCollectionPreference(String preference)
     {
         // put your code here
         collectionPreference = preference;
     }
-
+    
     public void setOrderArray()
     {
         // put your code here
         ;
     }
-
+    
      public void setPaymentPreference(String preference)
     {
         // put your code here
