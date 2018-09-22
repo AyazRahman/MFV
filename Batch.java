@@ -6,6 +6,7 @@
  */
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Batch
 {
@@ -31,6 +32,27 @@ public class Batch
         price = 0.0;
         source = "";
         name = "";
+    }
+    
+    public Batch(int newBatchID, int newQuantity, 
+                 String newDateReceived, String newSaleMethod, 
+                 double newPrice, String newSource, String newName)
+    {
+        batchID = newBatchID;
+        quantity = newQuantity;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try
+        {
+            dateReceived = format.parse(newDateReceived);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not set date");
+        }
+        saleMethod = newSaleMethod;
+        price = newPrice;
+        source = newSource;
+        name = newName;
     }
 
     // getters

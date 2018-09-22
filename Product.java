@@ -24,6 +24,15 @@ public class Product
         batches = new ArrayList<Batch>();
         saleTypes = new String[2]; // from the data given there is a max of 2 different forms of salem methods
     }
+    
+    public Product(int newProductID, String newName, int newAvgShelfLife, String[] newSaleTypes)
+    {
+        productID = newProductID;
+        name = newName;
+        avgShelfLife = newAvgShelfLife; 
+        batches = new ArrayList<Batch>();
+        saleTypes = newSaleTypes; // from the data given there is a max of 2 different forms of salem methods
+    }
 
     //getters
     public int getProductID()
@@ -82,6 +91,17 @@ public class Product
      */
     public boolean addBatch(Batch item)
     {
+        return batches.add(item);
+    }
+    
+    /**
+     * 
+     */
+    public boolean addBatch(int batchID, int quantity, 
+                            String dateReceived, String saleMethod, 
+                            double price, String source, String name)
+    {
+        Batch item = new Batch(batchID, quantity, dateReceived, saleMethod, price, source, name);
         return batches.add(item);
     }
     
