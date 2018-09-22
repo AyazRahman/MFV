@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 *.class
 *.ctxt
 package.bluej
 package.bluej
 *.bluej
+=======
+
+package.bluej
+package.bluej
+package.bluej
+>>>>>>> lineItem
