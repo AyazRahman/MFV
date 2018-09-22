@@ -127,5 +127,10 @@ public class Batch
         name = newName;
     }
     
+    public String toString()
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return (batchID + ", " + quantity + ", " + format.format(dateReceived) + ", " + saleMethod + ", " + price + ", " + source + ", " + name + ", ");
+    }
     
 }

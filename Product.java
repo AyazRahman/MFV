@@ -95,7 +95,7 @@ public class Product
     }
     
     /**
-     * 
+     * adds a new batch with all the given batch information
      */
     public boolean addBatch(int batchID, int quantity, 
                             String dateReceived, String saleMethod, 
@@ -129,7 +129,7 @@ public class Product
     }
     
     /**
-     * 
+     * returns the total quantity in the form of an array for all the different saleMethods
      */
     public int[] totalQty()
     {
@@ -149,5 +149,10 @@ public class Product
         
         return amount;
         //remember some products have only sale type in that we only display amount[0]
+    }
+    
+    public String toString()
+    {
+        return (productID + ", " + name + ", " +  avgShelfLife + ", " + saleTypes[0] + ", " + saleTypes[1] + ", ");
     }
 }
