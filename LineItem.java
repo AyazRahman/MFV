@@ -10,8 +10,8 @@
 public class LineItem
 {
     // instance variables - replace the example below with your own
-    private String [] items;
-    private int quantity;
+    private String item;
+    private int totalQuantity;
     private double totalPrice;
 
 
@@ -21,30 +21,20 @@ public class LineItem
     public LineItem()
     {
         // initialise instance variables
-        items = new String[0];
-        quantity = 0;
+        item = "initialValue";
+        totalQuantity = 0;
         totalPrice = 0.00;
     }
-    // initialise getters
-    public String[] getItems()
+    
+    // initialise setters methods
+        public void setItem(String newItem)
     {
-        return items; 
+        item = newItem;
     }
     
-    public int getQuantity()
+    public void setQuantity(int newQuantity)
     {
-        return quantity;
-    }
-    
-        public double getTotalPrice()
-    {
-        return totalPrice;
-    }
-    
-    // initialise setters
-        public void setItems(String[] newItems)
-    {
-        items = newItems;
+        totalQuantity = newQuantity;
     }
     
         public void setTotalPrice(double newTotalPrice)
@@ -52,14 +42,34 @@ public class LineItem
         totalPrice = newTotalPrice;
     }
 
+    // initialise getters methods
+    public String getItem()
+    {
+        return item; 
+    }
+    
+    public int getQuantity()
+    {
+        return totalQuantity;
+    }
+    
+    public double getTotalPrice()
+    {
+        return totalPrice;
+    }
+    
+
     /**
      * An example of a method - replace this comment with your own
      *
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public void addToLineItem(String itemName, double price, int quantity)
+    public void addToLineItem(String itemName, int quantity, double price)
     { 
         // still thinking about the logic here ..
+        item = itemName;
+        totalQuantity = quantity;
+        totalPrice = price;
     }
 }
