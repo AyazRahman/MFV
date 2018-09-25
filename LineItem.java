@@ -2,18 +2,17 @@
 
 
 /**
- * Write a description of class LineItem here.
+ * A unique instance of product-price-quantity detailing a specific line item e.g. on an invoice.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Team118
+ * @version v1.1.0
  */
 public class LineItem
 {
-    // instance variables - replace the example below with your own
-    private String item;
-    private int totalQuantity;
-    private double totalPrice;
-
+    private String name;
+    private int qty;
+    private double unitPrice;
+    private double price;
 
     /**
      * Constructor for objects of class LineItem
@@ -21,55 +20,60 @@ public class LineItem
     public LineItem()
     {
         // initialise instance variables
-        item = "initialValue";
-        totalQuantity = 0;
-        totalPrice = 0.00;
+        name = "";
+        qty = 0;
+        price = 0.00;
     }
     
-    // initialise setters methods
-        public void setItem(String newItem)
+    /**
+     * Alt. constructor for creating line items.
+     */
+    public LineItem(String name, int qty, double unitPrice)
     {
-        item = newItem;
+        this.name = name;
+        this.qty = qty;
+        this.unitPrice = unitPrice;
+        price = qty * unitPrice;
     }
     
-    public void setQuantity(int newQuantity)
+    public void setItem(String name)
     {
-        totalQuantity = newQuantity;
+        this.name = name;
     }
     
-        public void setTotalPrice(double newTotalPrice)
+    public void setQuantity(int qty)
     {
-        totalPrice = newTotalPrice;
+        this.qty = qty;
     }
-
-    // initialise getters methods
+    
+    public void setTotalPrice(double price)
+    {
+        this.price = price;
+    }
+    
+    public void setUnitPrice(double unitPrice)
+    {
+        this.unitPrice = unitPrice;
+    }
+    
     public String getItem()
     {
-        return item; 
+        return name; 
     }
     
     public int getQuantity()
     {
-        return totalQuantity;
+        return qty;
     }
     
-    public double getTotalPrice()
+    public double getPrice()
     {
-        return totalPrice;
+        return price;
     }
     
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public void addToLineItem(String itemName, int quantity, double price)
-    { 
-        // still thinking about the logic here ..
-        item = itemName;
-        totalQuantity = quantity;
-        totalPrice = price;
+    public double getUnitPrice()
+    {
+        return unitPrice;
     }
+    
 }

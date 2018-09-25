@@ -13,10 +13,10 @@ public class Order
     // instance variables - replace the example below with your own
     private boolean orderStatus;
     private String accID; //customer ID
-    private ArrayList<String> lineItems; //replace String with lineItem class
+    private ArrayList<LineItem> lineItems;
     private double price;
-    private String orderDate; //replace String with date class
-    private String deliveryDate; //replace String with date class
+    private Date orderDate; //replace String with date class
+    private Date deliveryDate; //replace String with date class
     private boolean delivery; //to signal if order is delivery or pickup
     private String payMeth; //payment method
     
@@ -27,10 +27,10 @@ public class Order
     {
         orderStatus = false;
         accID = "";
-        lineItems = new ArrayList<String>(); //replace String with lineItem class
+        lineItems = new ArrayList<LineItem>();
         price = 0.00;
-        orderDate = "";
-        deliveryDate = "";
+        orderDate = new Date();
+        deliveryDate = new Date();
         delivery = false;
         payMeth = "";
     }
@@ -38,7 +38,7 @@ public class Order
     /**
      * Alternative constructor to initiate an empty order but also assign it to a customer and date/time it.
      */
-    public Order(String cusID, String ordDate)
+    public Order(String cusID, Date ordDate)
     {
         accID = cusID;
         orderDate = ordDate;
@@ -47,12 +47,12 @@ public class Order
     /**
      * Add line items to order.
      */
-    public void addLineItem(String lineItem)
+    public void addLineItem(LineItem line)
     {
-        lineItems.add(lineItem);
+        lineItems.add(line);
     }
     
-     /**
+    /**
      * Get the customer account ID associated with the order.
      */
     public String getAccID()
@@ -63,7 +63,7 @@ public class Order
     /**
      * Get the date the order is to be delivered. 
      */
-    public String getDeliveryDate()
+    public Date getDeliveryDate()
     {
         return deliveryDate;
     }
@@ -79,7 +79,7 @@ public class Order
     /**
      * Get the date & time the order was placed.
      */
-    public String getOrderDate()
+    public Date getOrderDate()
     {
         return orderDate;
     }
@@ -127,7 +127,7 @@ public class Order
     /**
      * Set the date the order is to be delivered.
      */
-    public void setDeliveryDate(String delDate)
+    public void setDeliveryDate(Date delDate)
     {
         deliveryDate = delDate;
     }
@@ -135,7 +135,7 @@ public class Order
     /**
      * Set line item collection.
      */
-    public void setLineItems(ArrayList lineItemz)
+    public void setLineItems(ArrayList<LineItem> lineItemz)
     {
         lineItems = lineItemz;
     }
@@ -143,7 +143,7 @@ public class Order
      /**
      * Set the date and time the order was placed.
      */
-    public void setOrderDate(String ordDate)
+    public void setOrderDate(Date ordDate)
     {
         orderDate = ordDate;
     }
