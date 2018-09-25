@@ -8,7 +8,7 @@ import java.util.*;
 public class Customer extends User
 {
     // instance variables - replace the example below with your own
-    private ArrayList<String> orderArray;
+    //private ArrayList<String> orderArray;
     private String cardNumber;
     private String cardName;
     private String cardCCV;
@@ -22,7 +22,7 @@ public class Customer extends User
     public Customer()
     {
         // initialise instance variables
-        orderArray = new ArrayList<String>();
+        //orderArray = new ArrayList<String>();
         cardNumber = "";
         cardName = "";
         cardCCV = "";
@@ -67,11 +67,11 @@ public class Customer extends User
         return collectionPreference;
     }
     
-    public ArrayList<String> getOrderArray()
-    {
-        // put your code here
-        return orderArray;
-    }
+//     public ArrayList<String> getOrderArray()
+//     {
+//         // put your code here
+//         return orderArray;
+//     }
     
      public String getPaymentPreference()
     {
@@ -79,7 +79,7 @@ public class Customer extends User
         return paymentPreference;
     }
     
-     public void setaccountStatus(boolean status)
+     public void setAccountStatus(boolean status)
     {
         // put your code here
         accountStatus = status;
@@ -109,15 +109,23 @@ public class Customer extends User
         collectionPreference = preference;
     }
     
-    public void setOrderArray()
-    {
-        // put your code here
-        ;
-    }
+//     public void setOrderArray()
+//     {
+//         // put your code here
+//         ;
+//     }
     
      public void setPaymentPreference(String preference)
     {
         // put your code here
         paymentPreference = preference;
+    }
+    
+    public String toString()
+    {
+        return (this.getUId() + "," + this.getFName() + "," + this.getLName() + "," + this.getAddress()
+                 + "," + this.getSuburb() + "," + this.getPostcode() + "," + this.getState() + "," + 
+                 this.getEmail() + "," + this.getPassword() + "," + cardNumber + "," + cardName + "," + 
+                 cardCCV + "," + accountStatus + "," + paymentPreference + "," + collectionPreference);
     }
 }

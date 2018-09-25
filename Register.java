@@ -17,13 +17,13 @@ public class Register
     private String password;
     public void registerUser()
     {
-        System.out.println("Welcome To Registration Page");
+        System.out.println("******** Registration Page ********");
         
-        System.out.println("Type a user name");
+        System.out.println("Type a User Name Please");
         Scanner user = new Scanner(System.in);
         userName = user.nextLine();
         
-        System.out.println("Type a password");
+        System.out.println("Type a Password");
         Scanner pass = new Scanner(System.in);
         password = pass.nextLine();
         boolean found = false;
@@ -44,18 +44,16 @@ public class Register
                 {
                     found = true;
                 }
-                
-                
             }
             
             if (found)
             {
-                System.out.println("This User Name Is Already Registred");
+                System.out.println("This User Name Is Already Registred\n");
             }
             else
             {
                 writeToFile(userName, password);
-                System.out.println("You have successfully registred");
+                System.out.println("You Have Successfully Registred \nYou Can Now Login\n");
                 
             }
         }
