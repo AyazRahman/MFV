@@ -14,27 +14,15 @@ public class Login
 {
     private static Scanner scan;
     private String filePath = "users.csv";
-    private String userName;
-    private String password;
-    
     private String checkUserName;
     private String checkPassword;
 
-    public void loginUser()
+    public boolean loginUser(String userName,String password)
     {
-        System.out.println("Login");
-        
-        System.out.println("Type Your User Name");
-        Scanner user = new Scanner(System.in);
-        userName = user.nextLine();
-        
-        System.out.println("Type Your Password");
-        Scanner pass = new Scanner(System.in);
-        password = pass.nextLine();
-        
         boolean found = false;
         checkUserName = "";
         checkPassword = ""; 
+        boolean status = false;
         
         try 
         {
@@ -59,19 +47,22 @@ public class Login
             
             if (found)
             {
-                System.out.println("You have successfully Logged In");
+                System.out.println("You have successfully Logged In\n");
+                status = true;
             }
             else
             {
                 
-                System.out.println("Wrong User Name or Password");
-                
+                System.out.println("Wrong User Name or Password\n");
+                status = false;
             }
         }
         catch(IOException e) {
             e.printStackTrace();
             System.out.println("Error");
         }
+        
+        return status;
     }
      
 } 
