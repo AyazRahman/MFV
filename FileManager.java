@@ -11,6 +11,8 @@ public class FileManager
     // instance variables - replace the example below with your own
     private Hashtable<Integer, Product> products;
     private HashMap<String, Integer> keywords;
+    private User loggedUser;
+    private List<Customer> users;
 
     /**
      * Constructor for objects of class FileManager
@@ -19,6 +21,8 @@ public class FileManager
     {
         products = new Hashtable<Integer, Product>();
         keywords = new HashMap<String, Integer>();
+        loggedUser = new User();
+        users  = new ArrayList<Customer>();
     }
 
     //getters
@@ -32,6 +36,16 @@ public class FileManager
         return keywords;
     }
     
+    public User getLoggedUser()
+    {
+        return loggedUser;
+    }
+    
+    public List<Customer> getUsers()
+    {
+        return users;
+    }
+    
     //setters
     public void setProducts(Hashtable<Integer, Product> newProducts)
     {
@@ -41,6 +55,16 @@ public class FileManager
     public void setKeywords(HashMap<String, Integer> newKeywords)
     {
         keywords = newKeywords;
+    }
+    
+    public void setLoggedUser(User newUser)
+    {
+        loggedUser = newUser;
+    }
+    
+    public void setUsers(List<Customer> newUsers)
+    {
+        users = newUsers;
     }
     
     /**
@@ -132,6 +156,57 @@ public class FileManager
         }
     }
     
+    public void createUsers()
+    {
+        String filename = ("User.csv");
+        
+        try
+        {
+            FileReader inputFile = new FileReader(filename);
+            Scanner parser = new Scanner(inputFile);
+            
+            while (parser.hasNextLine())
+            {
+                String [] userInfo = parser.nextLine().split(",");
+                
+                Customer newCustomer = new Customer();
+                
+                newCustomer.setUId(Integer.parseInt(userInfo[0].trim())); 
+                newCustomer.setFName(userInfo[1].trim());
+                newCustomer.setLName(userInfo[2].trim());
+                newCustomer.setAddress(userInfo[3].trim());
+                newCustomer.setSuburb(userInfo[4].trim());
+                newCustomer.setPostcode(Integer.parseInt(userInfo[5].trim()));
+                newCustomer.setState(userInfo[6].trim());
+                newCustomer.setEmail(userInfo[7].trim());
+                newCustomer.setPassword(userInfo[8].trim());
+                newCustomer.setCardNumber(userInfo[9].trim());
+                newCustomer.setCardName(userInfo[10].trim());
+                newCustomer.setCardCCV(userInfo[11].trim());
+                newCustomer.setAccountStatus(Boolean.parseBoolean(userInfo[12].trim()));
+                newCustomer.setPaymentPreference(userInfo[13].trim());
+                newCustomer.setCollectionPreference(userInfo[14].trim());
+                
+                users.add(newCustomer);
+                
+            }
+            inputFile.close();
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println(filename + " not found");
+        }
+
+        catch(IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    
     /**
      * Loads data from the CSV files according to the type of entity
      */
@@ -140,6 +215,7 @@ public class FileManager
     {
         createProducts();
         createBatches();
+        createUsers();
     }
     
     /**
@@ -150,6 +226,7 @@ public class FileManager
         Product[] allProducts = products.values().toArray(new Product[0]);
         saveProducts(allProducts);
         saveBatches(allProducts);
+        saveUsers();
     }
     
     /**
@@ -213,6 +290,34 @@ public class FileManager
             }
     }
     
+    public void saveUsers()
+    {
+        String filename = ("User.csv");
+        
+        try
+            {
+                PrintWriter outputFile = new PrintWriter(filename);
+                for (Customer u : users)
+                {
+                    outputFile.println(u.toString());
+                    System.out.println(u.toString());
+                }
+                outputFile.close();
+            }
+            catch (IOException e)
+            {
+                System.out.println("Unexpected I/O error");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Something went wrong");
+            }
+            finally
+            {
+                System.out.println("Users saved");
+            }
+    }
+    
     /**
      * Adds a new product to the hashtable
      */
@@ -234,6 +339,10 @@ public class FileManager
         Product p = products.get(productID);
         int initialSize = p.getBatches().size();
         p.addBatch(batchID, quantity, dateReceived, saleMethod, price, source, name);
+        if (!keywords.containsKey(name))
+        {
+            keywords.put(name, productID);
+        }
         return (p.getBatches().size() == (initialSize + 1));
     }
     

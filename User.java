@@ -140,7 +140,7 @@ public class User
     public void setState(String stateName)
     {
         // put your code here
-        this.state = state;
+        this.state = stateName;
     }
     
     public void setUId(int Id)
