@@ -23,12 +23,12 @@ public class Customer extends User
     {
         // initialise instance variables
         //orderArray = new ArrayList<String>();
-        cardNumber = "";
-        cardName = "";
-        cardCCV = "";
+        cardNumber = " ";
+        cardName = " ";
+        cardCCV = " ";
         accountStatus = false;
-        paymentPreference = "";
-        collectionPreference = "";
+        paymentPreference = " ";
+        collectionPreference = " ";
     }
 
     /**

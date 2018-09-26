@@ -28,6 +28,9 @@ public class Test
     {
         String[] saletype = {"Kg","Bag"};
         
+        FileManager db = new FileManager();
+        db.loadData();
+        
         products.add(new Product());
         products.add(new Product());
         
@@ -98,5 +101,12 @@ public class Test
             i++;
         }
         System.out.println();
+        
+        for (Customer c : db.getUsers())
+        {
+            //System.out.println(c.toString());
+            System.out.println(c.getEmail()); 
+            System.out.println(c.getPassword());
+        }
     }
 }
