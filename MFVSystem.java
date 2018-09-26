@@ -10,13 +10,25 @@
 import java.io.*;
 import java.lang.*;
 import java.util.*;
+<<<<<<< HEAD
+import java.lang.System;
+import java.util.Calendar;
+=======
 
+>>>>>>> master
 
 public class MFVSystem
 {
     private static Scanner scan;
     private static String option;
 
+    private FileManager db;
+    
+    public MFVSystem()
+    {
+        db = new FileManager();
+        db.loadData();
+    }
     
     public static void main(String[] args) 
     {

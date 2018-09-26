@@ -1,6 +1,4 @@
- 
-
-import java.util.*;
+ import java.util.*;
 
 /**
  * Enity class Order stores order information.
@@ -26,13 +24,13 @@ public class Order
     public Order()
     {
         orderStatus = false;
-        accID = "";
+        accID = " ";
         lineItems = new ArrayList<LineItem>();
         price = 0.00;
         orderDate = new Date();
         deliveryDate = new Date();
         delivery = false;
-        payMeth = "";
+        payMeth = " ";
     }
 
     /**

@@ -300,7 +300,7 @@ public class FileManager
                 for (Customer u : users)
                 {
                     outputFile.println(u.toString());
-                    System.out.println(u.toString());
+                    //System.out.println(u.toString());
                 }
                 outputFile.close();
             }
@@ -345,6 +345,13 @@ public class FileManager
         }
         return (p.getBatches().size() == (initialSize + 1));
     }
+    
+    private boolean addUser(Customer newCustomer)
+    {
+        return users.add(newCustomer);
+    }
+    
+    
     
     /**
      * Remove batch with its given ID

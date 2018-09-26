@@ -25,14 +25,14 @@ public class User
     {   
         // initialise instance variables
         uId = 0;
-        fName = "";
-        lName = "";
-        address = "";
-        suburb = "";
+        fName = " ";
+        lName = " ";
+        address = " ";
+        suburb = " ";
         postcode = 0;
-        state = "";
-        email = "";
-        password = "";
+        state = " ";
+        email = " ";
+        password = " ";
     }
 
     /**
