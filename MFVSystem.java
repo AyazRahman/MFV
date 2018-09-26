@@ -5,31 +5,54 @@
  * @author (your name)
  * @version (a version number or a date)
  */
- 
 
 import java.io.*;
 import java.lang.*;
 import java.util.*;
-<<<<<<< HEAD
 import java.lang.System;
 import java.util.Calendar;
-=======
-
->>>>>>> master
 
 public class MFVSystem
 {
     private static Scanner scan;
     private static String option;
-
     private FileManager db;
-    
+    private Menu menu;
+
     public MFVSystem()
     {
         db = new FileManager();
         db.loadData();
+        menu = new Menu();
+        menu.loadMenuItems();
     }
-    
+
+    private void displayLogo()
+    {
+        System.out.println(" __  __ _____   __ ");
+        System.out.println("|  \\/  | __\\ \\ / /");
+        System.out.println("| |\\/| | _| \\ V /");                 
+        System.out.println("|_|  |_|_|   \\_/ ");                    
+
+    }
+
+    public void systemStart()
+    {
+        displayLogo();
+
+        String selection = menu.displayStartMenu();
+
+        if (selection.matches("[Aa]"))
+        {
+            System.out.println("Call login method here");
+        }
+        else
+        {
+            System.out.println("Call Register method here");
+        }
+
+    }
+
     public static void main(String[] args) 
     {
         while (true) 
@@ -39,7 +62,7 @@ public class MFVSystem
             System.out.println("(v) To View Products \n(l) To Login \n(r) To Register\n");
             Scanner o = new Scanner(System.in);
             option = o.nextLine();
-            
+
             if (option.equals("v"))
             {
                 System.out.println("There should be product method taken from Product class\n");
@@ -47,15 +70,15 @@ public class MFVSystem
             else if (option.equals("l"))
             {
                 System.out.println("******* Login Page *******");
-                
+
                 System.out.println("Type Your User Name Please");
                 Scanner u = new Scanner(System.in);
                 String userName = u.nextLine();
-        
+
                 System.out.println("Type Your Password");
                 Scanner pass = new Scanner(System.in);
                 String password = pass.nextLine();
-                
+
                 Login user = new Login();
                 boolean loggedIn = false;
                 boolean isAdmin = false;
@@ -67,7 +90,7 @@ public class MFVSystem
                         isAdmin = true;
                     }
                 }
-                
+
                 while(loggedIn && isAdmin)
                 {
                     System.out.println("***** This Is Admin Main Page ******");
@@ -94,7 +117,7 @@ public class MFVSystem
                         System.out.println("All the rest methods should be linked here\n");
                     }
                 }
-                
+
                 while (loggedIn && !isAdmin)
                 {
                     System.out.println("***** Welcom " + userName + " This Is Your Main Page ******");
