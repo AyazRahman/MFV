@@ -40,17 +40,21 @@ public class MFVSystem
     {
         displayLogo();
 
-        String selection = menu.displayStartMenu();
+        String selection = menu.displayMenu(1);
 
         if (selection.matches("[Aa]"))
         {
             System.out.println("Call login method here");
         }
-        else
+        else if (selection.matches("[Bb]"))
         {
             System.out.println("Call Register method here");
         }
-
+        else if (selection.matches("[Cc]"))
+        {
+            System.exit(0);
+        }
+        //Unexpected input handled inside Menu class
     }
 
     public static void main(String[] args) 
