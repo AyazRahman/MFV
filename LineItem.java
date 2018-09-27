@@ -22,6 +22,7 @@ public class LineItem
         // initialise instance variables
         name = "";
         qty = 0;
+        unitPrice = 0.00;
         price = 0.00;
     }
     
@@ -76,4 +77,9 @@ public class LineItem
         return unitPrice;
     }
     
+    public String toString()
+    {
+        return name + "," + qty + "," + unitPrice + "," + price;
+    }
+   
 }

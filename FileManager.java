@@ -13,6 +13,7 @@ public class FileManager
     private HashMap<String, Integer> keywords;
     private User loggedUser;
     private List<Customer> users;
+    private List<Order> orders;
 
     /**
      * Constructor for objects of class FileManager
@@ -23,6 +24,7 @@ public class FileManager
         keywords = new HashMap<String, Integer>();
         loggedUser = new User();
         users  = new ArrayList<Customer>();
+        orders = new ArrayList<Order>();
     }
 
     //getters
@@ -46,6 +48,11 @@ public class FileManager
         return users;
     }
     
+    public List<Order> getOrders()
+    {
+        return orders;
+    }
+    
     //setters
     public void setProducts(Hashtable<Integer, Product> newProducts)
     {
@@ -65,6 +72,11 @@ public class FileManager
     public void setUsers(List<Customer> newUsers)
     {
         users = newUsers;
+    }
+    
+    public void setOrders(List<Order> newOrders)
+    {
+        orders = newOrders;
     }
     
     /**
@@ -156,7 +168,7 @@ public class FileManager
         }
     }
     
-    public void createUsers()
+    private void createUsers()
     {
         String filename = ("User.csv");
         
@@ -208,6 +220,61 @@ public class FileManager
     }
     
     /**
+     * 
+     */
+    private void createOrders()
+    {
+        String filename = ("Orders.csv");
+        
+        try
+        {
+            FileReader inputFile = new FileReader(filename);
+            Scanner parser = new Scanner(inputFile);
+            while (parser.hasNextLine())
+            {
+                String [] orderInfo = parser.nextLine().split(",");
+                Order orderItem  = new Order();
+                orderItem.setOrderStatus(Boolean.parseBoolean(orderInfo[0].trim()));
+                orderItem.setAccID(orderInfo[1].trim());
+                orderItem.setPrice(Double.parseDouble(orderInfo[2].trim()));
+                orderItem.setOrderDate(orderInfo[3].trim());
+                orderItem.setDeliveryDate(orderInfo[4].trim());
+                orderItem.setDelivery(Boolean.parseBoolean(orderInfo[5].trim()));
+                orderItem.setPaymentMethod(orderInfo[6].trim());
+                String[] lineInfo = parser.nextLine().split(",");
+                if (lineInfo[0].trim().equals("--Start--"))
+                {
+                    lineInfo = parser.nextLine().split(",");
+                    while (parser.hasNextLine() && !(lineInfo[0].trim().equals("--End--")))
+                    {
+                        
+                        String name = lineInfo[0].trim();
+                        int qty = Integer.parseInt(lineInfo[1].trim());
+                        double unitPrice = Double.parseDouble(lineInfo[2].trim());
+                        orderItem.addLineItem(name, qty, unitPrice);
+                        lineInfo = parser.nextLine().split(",");
+                    }
+                }
+                orders.add(orderItem);
+            }
+            inputFile.close();
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println(filename + " not found");
+        }
+
+        catch(IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    
+    /**
      * Loads data from the CSV files according to the type of entity
      */
     
@@ -216,6 +283,7 @@ public class FileManager
         createProducts();
         createBatches();
         createUsers();
+        createOrders();
     }
     
     /**
@@ -227,6 +295,7 @@ public class FileManager
         saveProducts(allProducts);
         saveBatches(allProducts);
         saveUsers();
+        saveOrders();
     }
     
     /**
@@ -290,7 +359,7 @@ public class FileManager
             }
     }
     
-    public void saveUsers()
+    private void saveUsers()
     {
         String filename = ("User.csv");
         
@@ -315,6 +384,37 @@ public class FileManager
             finally
             {
                 System.out.println("Users saved");
+            }
+    }
+    
+    private void saveOrders()
+    {
+        String filename = ("Orders.csv");
+        
+        try
+            {
+                PrintWriter outputFile = new PrintWriter(filename);
+                for (Order o : orders)
+                {
+                    String[] s = o.toStringArray();
+                    for (String line: s)
+                    {
+                        outputFile.println(line);
+                    }
+                }
+                outputFile.close();
+            }
+            catch (IOException e)
+            {
+                System.out.println("Unexpected I/O error");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Something went wrong");
+            }
+            finally
+            {
+                System.out.println("Orders saved");
             }
     }
     
