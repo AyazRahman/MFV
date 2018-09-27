@@ -1,4 +1,5 @@
  import java.util.*;
+ import java.text.SimpleDateFormat;
 
 /**
  * Enity class Order stores order information.
@@ -48,6 +49,11 @@ public class Order
     public void addLineItem(LineItem line)
     {
         lineItems.add(line);
+    }
+    
+    public void addLineItem(String name, int qty, double unitPrice)
+    {
+        lineItems.add(new LineItem(name, qty, unitPrice));
     }
     
     /**
@@ -123,11 +129,24 @@ public class Order
     }
     
     /**
+     * 
+     */
+    public void setDelivery(boolean newDelivery)
+    {
+        delivery = newDelivery;
+    }
+    
+    /**
      * Set the date the order is to be delivered.
      */
     public void setDeliveryDate(Date delDate)
     {
         deliveryDate = delDate;
+    }
+    
+    public void setDeliveryDate(String date)
+    {
+        deliveryDate = stringToDate(date);
     }
     
     /**
@@ -144,6 +163,26 @@ public class Order
     public void setOrderDate(Date ordDate)
     {
         orderDate = ordDate;
+    }
+    
+    public void setOrderDate(String date)
+    {
+        orderDate = stringToDate(date);
+    }
+    
+    private Date stringToDate(String date)
+    {
+        Date d = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try
+        {
+            d = format.parse(date);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not set date");
+        }
+        return d;
     }
     
     /**
@@ -176,6 +215,23 @@ public class Order
     public void setPrice(double p)
     {
         price = p;
+    }
+    
+    public String[] toStringArray()
+    {
+        String[] s = new String[lineItems.size() + 3];
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        s[0] = orderStatus + "," + accID  + "," + price + "," + format.format(orderDate) 
+               + "," + format.format(deliveryDate) + "," + delivery + "," + payMeth;
+        s[1] = "--Start--";
+        int i = 2;
+        for (LineItem l: lineItems)
+        {
+            s[i] = l.toString();
+            i++;
+        }
+        s[s.length - 1] = "--End--";
+        return s;
     }
 }
 
