@@ -75,21 +75,22 @@ public class MFVSystem
             {
                 System.out.println("******* Login Page *******");
 
-                System.out.println("Type Your User Name Please");
-                Scanner u = new Scanner(System.in);
-                String userName = u.nextLine();
+                System.out.println("Type Your Email Please");
+                Scanner e = new Scanner(System.in);
+                String entredEmail = e.nextLine();
 
                 System.out.println("Type Your Password");
                 Scanner pass = new Scanner(System.in);
                 String password = pass.nextLine();
 
-                Login user = new Login();
+                
+                FileManager user = new FileManager();
                 boolean loggedIn = false;
                 boolean isAdmin = false;
-                if(user.loginUser(userName, password))
+                if(user.loginUser(entredEmail, password))
                 {
                     loggedIn = true;
-                    if(userName.equals("admin"))
+                    if(entredEmail.equals("admin"))
                     {
                         isAdmin = true;
                     }
@@ -124,7 +125,7 @@ public class MFVSystem
 
                 while (loggedIn && !isAdmin)
                 {
-                    System.out.println("***** Welcom " + userName + " This Is Your Main Page ******");
+                    System.out.println("***** Welcom " + entredEmail + " This Is Your Main Page ******");
                     System.out.println("Choose One Of The Following Options:");
                     System.out.println("(v) To View Products \n(l) To Logout \n(?) ect..\n");
                     Scanner a = new Scanner(System.in);
@@ -146,10 +147,12 @@ public class MFVSystem
             }
             else if (option.equals("r"))
             {
-                Register user = new Register();
-                user.registerUser();
+                FileManager CheckUserToRegister = new FileManager();
+                CheckUserToRegister.registerUser();
             }
             else System.out.println("Plese Select a Valid Option\n");
         }
     }
+    
+
 }

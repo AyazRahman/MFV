@@ -462,4 +462,110 @@ public class FileManager
         Product p = products.get(productID);
         return p.removeBatch(batchID);
     }
+    
+
+    
+    public void registerUser()
+    {
+        System.out.println("******** Registration ********");
+        
+        System.out.println("Type an Email Please");
+        Scanner user = new Scanner(System.in);
+        String entredEmail = user.nextLine();
+        
+        System.out.println("Type a Password");
+        Scanner pass = new Scanner(System.in);
+        String password = pass.nextLine();
+        boolean found = false;
+        String checkEmail = "";
+        
+        try 
+        {
+            Scanner scan = new Scanner(new File("User.csv"));
+            
+            while(scan.hasNext() && !found)
+            {
+                String data = scan.next();
+                String[] values = data.split(",");
+                checkEmail = values[0];
+                
+                if(checkEmail.equals(entredEmail))
+                {
+                    found = true;
+                }
+            }
+            
+            if (found)
+            {
+                System.out.println("This User Name Is Already Registred\n");
+            }
+            else
+            {
+                writeToFile(entredEmail, password);
+                System.out.println("You Have Successfully Registred \nYou Can Now Login\n");
+                
+            }
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void writeToFile(String email, String password) throws IOException 
+    {
+        BufferedWriter out = new BufferedWriter(new FileWriter("User.csv", true));
+        out.write("null,null,null,null,null,null,null,"
+                    + email +","+ password +",null,null,null,true,null,null");
+        out.newLine();
+        out.close();
+    }
+    
+    
+        public boolean loginUser(String email,String password)
+    {
+        boolean found = false;
+        String checkEmail = "";
+        String checkPassword = ""; 
+        boolean status = false;
+        
+        try 
+        {
+            Scanner scan = new Scanner(new File("User.csv"));
+            
+            
+            while(scan.hasNext() && !found)
+            {
+                String data = scan.next();
+                String[] values = data.split(",");
+                
+                checkEmail = values[7];
+                checkPassword = values[8];
+                
+                if(checkEmail.equals(email) && checkPassword.equals(password) )
+                {
+                    found = true;
+                }
+                
+                
+            }
+            
+            if (found)
+            {
+                System.out.println("You have successfully Logged In\n");
+                status = true;
+            }
+            else
+            {
+                
+                System.out.println("Wrong Email or Password\n");
+                status = false;
+            }
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+            System.out.println("Error");
+        }
+        
+        return status;
+    }
 }
