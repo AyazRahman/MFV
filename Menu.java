@@ -15,9 +15,6 @@ public class Menu
     String cusStartRange;
     private ArrayList<String> ownStartMenu;
     String ownStartRange;
-<<<<<<< HEAD
-    Validation valid;
-=======
     private ArrayList<String> cusProductMenu;
     String cusProductRange;
     private ArrayList<String> prodSelectMenu;
@@ -28,8 +25,8 @@ public class Menu
     String ownProductRange;
     private ArrayList<String> ownProductMenu2;
     String ownProductRange2;
+    Validation valid;
     
->>>>>>> Deep-Menus
     /**
      * Constructor for objects of class Menu
      */
@@ -43,10 +40,8 @@ public class Menu
         cusStartRange = "[A-Ga-g]";
         //ID: 3
         ownStartMenu = new ArrayList<String>();
-<<<<<<< HEAD
         ownStartRange = "[A-La-l]";
         valid = new Validation();
-=======
         ownStartRange = "[A-Ea-e]";
         //ID: 4
         cusProductMenu = new ArrayList<String>();
@@ -63,7 +58,6 @@ public class Menu
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
         ownProductRange2 = "[A-Fa-f]";
->>>>>>> Deep-Menus
     }
 
     public void loadMenuItems()

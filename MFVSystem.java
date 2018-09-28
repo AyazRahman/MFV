@@ -52,13 +52,8 @@ public class MFVSystem
         }
         else if (selection.matches("[Cc]"))
         {
-<<<<<<< HEAD
             //exit
             exitProgram();
-=======
-            db.saveData();
-            System.exit(0);
->>>>>>> Deep-Menus
         }
         //Unexpected input handled inside Menu class
     }
