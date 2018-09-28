@@ -52,8 +52,13 @@ public class MFVSystem
         }
         else if (selection.matches("[Cc]"))
         {
+<<<<<<< HEAD
             //exit
             exitProgram();
+=======
+            db.saveData();
+            System.exit(0);
+>>>>>>> Deep-Menus
         }
         //Unexpected input handled inside Menu class
     }
@@ -144,7 +149,6 @@ public class MFVSystem
                 Scanner pass = new Scanner(System.in);
                 String password = pass.nextLine();
 
-                
                 FileManager user = new FileManager();
                 boolean loggedIn = false;
                 boolean isAdmin = false;
@@ -214,6 +218,5 @@ public class MFVSystem
             else System.out.println("Plese Select a Valid Option\n");
         }
     }
-    
 
 }
