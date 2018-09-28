@@ -15,7 +15,7 @@ public class Menu
     String cusStartRange;
     private ArrayList<String> ownStartMenu;
     String ownStartRange;
-    
+    Validation valid;
     /**
      * Constructor for objects of class Menu
      */
@@ -27,6 +27,7 @@ public class Menu
         cusStartRange = "[A-Ha-h]";
         ownStartMenu = new ArrayList<String>();
         ownStartRange = "[A-La-l]";
+        valid = new Validation();
     }
 
     public void loadMenuItems()
@@ -107,5 +108,67 @@ public class Menu
         }
         
         return selection;
+    }
+    
+    public String searchBox()
+    {
+        clearScreen();
+        System.out.println("Enter the name of the product you want to search:");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        return input.trim();
+    }
+    
+    public void searchResult(String input, Product p)
+    {
+        clearScreen();
+        System.out.println("Searched keyword: " + input);
+        System.out.println();
+        System.out.println("Closest match");
+        displayProduct(p);
+    }
+    
+    public void browseResult(Product p)
+    {
+        clearScreen();
+        displayProduct(p);
+    }
+    
+    public String displayAllProduct(Product[] products)
+    {
+        clearScreen();
+        for (Product p : products)
+        {
+            displayProduct(p);
+        }
+        //Needs validation
+        System.out.println("Enter Product ID to select the product: ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine().trim();
+    }
+    
+    public void displayProduct(Product p)
+    {
+        System.out.println("Product ID:" + p.getProductID() +"\t Name: " + p.getName());
+    }
+    
+    public void searchError(String keyword)
+    {
+        clearScreen();
+        System.out.println("Searched keyword: " + keyword);
+        System.out.println("The searched product does not exist. Or check the spelling and try again");
+        pressEnter();
+    }
+    
+    private void clearScreen()
+    {
+        System.out.print('\u000C');
+    }
+    
+    private void pressEnter()
+    {
+        System.out.println("Press Enter to continue");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 }

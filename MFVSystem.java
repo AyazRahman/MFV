@@ -9,8 +9,7 @@
 import java.io.*;
 import java.lang.*;
 import java.util.*;
-import java.lang.System;
-import java.util.Calendar;
+
 
 public class MFVSystem
 {
@@ -45,6 +44,7 @@ public class MFVSystem
         if (selection.matches("[Aa]"))
         {
             System.out.println("Call login method here");
+            //after login call user menu
         }
         else if (selection.matches("[Bb]"))
         {
@@ -52,11 +52,72 @@ public class MFVSystem
         }
         else if (selection.matches("[Cc]"))
         {
-            System.exit(0);
+            //exit
+            exitProgram();
         }
         //Unexpected input handled inside Menu class
     }
 
+    //TODO: change the method to private after testing
+    public void userMenu()
+    {
+        if (db.getLoggedUser() instanceof Customer)
+        {
+            //call Customer menu
+            String selection = menu.displayMenu(2);
+            if (selection.matches("[Aa]"))
+            {
+                //browse products
+                //TODO: test
+                String id = menu.displayAllProduct(db.getProductArray());
+                int pid = Integer.parseInt(id);
+                browseSelect(pid);
+            }
+            else if (selection.matches("[Bb]"))
+            {
+                //search
+                search();
+            }
+        }
+        else
+        {
+            //call Admin menu
+            String selection = menu.displayMenu(3);
+        }
+    }
+    //turn to private after testing
+    public void search()
+    {
+        String input = menu.searchBox();
+        if (db.getKeywords().containsKey(input.toLowerCase()))
+        {
+            Product result = db.getProducts().get(db.getKeywords().get(input.toLowerCase()));
+            //send result to view search result
+            menu.searchResult(input, result);
+            //TODO: display user options for product
+        }
+        else
+        {
+            //call does not exist method
+            menu.searchError(input);
+            userMenu();
+        }
+        
+    }
+    
+    private void browseSelect(int pid)
+    {
+        Product p = db.getProducts().get(pid);
+        menu.browseResult(p);
+        //TODO: display user options for product
+    }
+    
+    private void exitProgram()
+    {
+        db.saveData();
+        System.exit(0);
+    }
+    
     public static void main(String[] args) 
     {
         while (true) 

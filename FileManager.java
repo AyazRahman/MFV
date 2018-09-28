@@ -33,6 +33,11 @@ public class FileManager
         return products;
     }
     
+    public Product[] getProductArray()
+    {
+        return products.values().toArray(new Product[0]);
+    }
+    
     public HashMap<String, Integer> getKeywords()
     {
         return keywords;
@@ -94,11 +99,17 @@ public class FileManager
             {
                 String [] productInfo = parser.nextLine().split(",");
                 String[] saleTypes = {productInfo[3], productInfo[4]};
-                int productID = Integer.parseInt(productInfo[0].trim()); 
+                int productID = Integer.parseInt(productInfo[0].trim());
+                String name = productInfo[1].trim();
                 products.put(productID, new Product(productID, 
-                                                    productInfo[1].trim(), 
+                                                    name, 
                                                     Integer.parseInt(productInfo[2].trim()),
                                                     saleTypes));
+                //add to dictionary if name is not in keywords
+                if (!keywords.containsKey(name.toLowerCase()))
+                {
+                    keywords.put(name.toLowerCase(), productID);
+                }
             }
             inputFile.close();
         }
@@ -145,9 +156,9 @@ public class FileManager
                 
                 p.addBatch(batchID, quantity, dateReceived, saleMethod, price, source, name);
                 //add to dictionary if keyword doesnt exist
-                if (!keywords.containsKey(name))
+                if (!keywords.containsKey(name.toLowerCase()))
                 {
-                    keywords.put(name, productID);
+                    keywords.put(name.toLowerCase(), productID);
                 }
             }
             inputFile.close();
@@ -291,7 +302,7 @@ public class FileManager
      */
     public void saveData()
     {
-        Product[] allProducts = products.values().toArray(new Product[0]);
+        Product[] allProducts = getProductArray();
         saveProducts(allProducts);
         saveBatches(allProducts);
         saveUsers();
