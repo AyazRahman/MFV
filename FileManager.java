@@ -535,7 +535,7 @@ public class FileManager
             
             while(scan.hasNext() && !found)
             {
-                String data = scan.next();
+                String data = scan.nextLine();
                 String[] values = data.split(",");
                 
                 checkEmail = values[7];
