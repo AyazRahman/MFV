@@ -17,6 +17,7 @@ public class MFVSystem
     private static String option;
     private FileManager db;
     private Menu menu;
+    private User loggedUser;
 
     public MFVSystem()
     {
@@ -43,12 +44,14 @@ public class MFVSystem
 
         if (selection.matches("[Aa]"))
         {
-            System.out.println("Call login method here");
-            //after login call user menu
+            //System.out.println("Call login method here");
+            userLogin();
         }
         else if (selection.matches("[Bb]"))
         {
             System.out.println("Call Register method here");
+            //TODO: implement userRegister()
+            userRegister();
         }
         else if (selection.matches("[Cc]"))
         {
@@ -58,10 +61,66 @@ public class MFVSystem
         //Unexpected input handled inside Menu class
     }
 
-    //TODO: change the method to private after testing
-    public void userMenu()
+    private void userLogin()
     {
-        if (db.getLoggedUser() instanceof Customer)
+        //TODO: create Login form to get email and password from user
+        String email = "admin@admin.com";
+        String password = "1234abcd";
+        for (User u : db.getUsers())
+        {
+            if (email.equals(u.getEmail()) && password.equals(u.getPassword()))
+            {
+                loggedUser = u;
+                break;
+            }
+        }
+        
+        if (loggedUser.getEmail().equals(email))
+        {
+            //display userMenu()
+            userMenu();
+        }
+        else
+        {
+            //TODO: display login error or user does not exit or the password is wrong
+        }
+        
+    }
+    
+    private void userRegister()
+    {
+        //TODO create register form and get more information other that email and password
+        String email = " ";
+        String password = " ";
+        boolean userExist = false;
+        for (User u : db.getUsers())
+        {
+            if ( email.equals(u.getEmail()))
+            {
+                userExist = true;
+                break;
+            }
+        }
+        if (userExist)
+        {
+            //TODO call method in menu to display user already exist method
+            systemStart();
+        }
+        else
+        {
+            //create new user and add it to the database
+            User newUser = new Customer();
+            newUser.setEmail(email);
+            newUser.setPassword(password);
+            //add to the DB list
+            db.getUsers().add(newUser);
+        }
+    }
+    
+    //TODO: change the method to private after testing
+    private void userMenu()
+    {
+        if (loggedUser instanceof Customer)
         {
             //call Customer menu
             String selection = menu.displayMenu(2);
@@ -83,8 +142,10 @@ public class MFVSystem
         {
             //call Admin menu
             String selection = menu.displayMenu(3);
+            //TODO: check selection
         }
     }
+    
     //turn to private after testing
     public void search()
     {
@@ -93,6 +154,7 @@ public class MFVSystem
         {
             Product result = db.getProducts().get(db.getKeywords().get(input.toLowerCase()));
             //send result to view search result
+            //TODO: pass only values instead of the Product object
             menu.searchResult(input, result);
             //TODO: display user options for product
         }
@@ -108,6 +170,7 @@ public class MFVSystem
     private void browseSelect(int pid)
     {
         Product p = db.getProducts().get(pid);
+        //TODO: send the values rather than the product object
         menu.browseResult(p);
         //TODO: display user options for product
     }
@@ -118,7 +181,9 @@ public class MFVSystem
         System.exit(0);
     }
     
-    public static void main(String[] args) 
+    //TODO: the following may be deleted
+    
+    /*public static void main(String[] args) 
     {
         while (true) 
         {
@@ -212,6 +277,6 @@ public class MFVSystem
             }
             else System.out.println("Plese Select a Valid Option\n");
         }
-    }
+    }*/
 
 }

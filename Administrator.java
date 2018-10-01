@@ -36,4 +36,11 @@ public class Administrator extends User
         // put your code here
         accountStatus = status;
     }
+    
+    public String toString()
+    {
+        return (this.getUId() + "," + this.getFName() + "," + this.getLName() + "," + this.getAddress()
+                 + "," + this.getSuburb() + "," + this.getPostcode() + "," + this.getState() + "," + 
+                 this.getEmail() + "," + this.getPassword() + "," + accountStatus);
+    }
 }

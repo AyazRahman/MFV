@@ -11,8 +11,8 @@ public class FileManager
     // instance variables - replace the example below with your own
     private Hashtable<Integer, Product> products;
     private HashMap<String, Integer> keywords;
-    private User loggedUser;
-    private List<Customer> users;
+    //private User loggedUser;
+    private List<User> users;
     private List<Order> orders;
 
     /**
@@ -22,8 +22,8 @@ public class FileManager
     {
         products = new Hashtable<Integer, Product>();
         keywords = new HashMap<String, Integer>();
-        loggedUser = new User();
-        users  = new ArrayList<Customer>();
+        //loggedUser = new User();
+        users  = new ArrayList<User>();
         orders = new ArrayList<Order>();
     }
 
@@ -33,6 +33,9 @@ public class FileManager
         return products;
     }
     
+    /**
+     * returns an array of products instead of the entire hashtable
+     */
     public Product[] getProductArray()
     {
         return products.values().toArray(new Product[0]);
@@ -43,12 +46,12 @@ public class FileManager
         return keywords;
     }
     
-    public User getLoggedUser()
+    /*public User getLoggedUser()
     {
         return loggedUser;
-    }
+    }*/
     
-    public List<Customer> getUsers()
+    public List<User> getUsers()
     {
         return users;
     }
@@ -69,12 +72,12 @@ public class FileManager
         keywords = newKeywords;
     }
     
-    public void setLoggedUser(User newUser)
+    /*public void setLoggedUser(User newUser)
     {
         loggedUser = newUser;
-    }
+    }*/
     
-    public void setUsers(List<Customer> newUsers)
+    public void setUsers(List<User> newUsers)
     {
         users = newUsers;
     }
@@ -105,7 +108,7 @@ public class FileManager
                                                     name, 
                                                     Integer.parseInt(productInfo[2].trim()),
                                                     saleTypes));
-                //add to dictionary if name is not in keywords
+                //add to HashMap if name is not in keywords
                 if (!keywords.containsKey(name.toLowerCase()))
                 {
                     keywords.put(name.toLowerCase(), productID);
@@ -188,6 +191,22 @@ public class FileManager
             FileReader inputFile = new FileReader(filename);
             Scanner parser = new Scanner(inputFile);
             
+            //for admin user
+            String[] adminInfo = parser.nextLine().split(",");
+            Administrator admin = new Administrator();
+            admin.setUId(Integer.parseInt(adminInfo[0].trim())); 
+            admin.setFName(adminInfo[1].trim());
+            admin.setLName(adminInfo[2].trim());
+            admin.setAddress(adminInfo[3].trim());
+            admin.setSuburb(adminInfo[4].trim());
+            admin.setPostcode(Integer.parseInt(adminInfo[5].trim()));
+            admin.setState(adminInfo[6].trim());
+            admin.setEmail(adminInfo[7].trim());
+            admin.setPassword(adminInfo[8].trim());
+            admin.setAccountStatus(Boolean.parseBoolean(adminInfo[9].trim()));
+            users.add(admin);
+            
+            //for all other users
             while (parser.hasNextLine())
             {
                 String [] userInfo = parser.nextLine().split(",");
@@ -377,7 +396,7 @@ public class FileManager
         try
             {
                 PrintWriter outputFile = new PrintWriter(filename);
-                for (Customer u : users)
+                for (User u : users)
                 {
                     outputFile.println(u.toString());
                     //System.out.println(u.toString());
@@ -457,13 +476,6 @@ public class FileManager
         return (p.getBatches().size() == (initialSize + 1));
     }
     
-    private boolean addUser(Customer newCustomer)
-    {
-        return users.add(newCustomer);
-    }
-    
-    
-    
     /**
      * Remove batch with its given ID
      */
@@ -475,8 +487,10 @@ public class FileManager
     }
     
 
+    //TODO: Move Login and RegisterUser Logic to System class
+    //File Manager should not have any print statements or Decision Logic 
     
-    public void registerUser()
+   /* public void registerUser()
     {
         System.out.println("******** Registration ********");
         
@@ -578,5 +592,5 @@ public class FileManager
         }
         
         return status;
-    }
+    }*/
 }

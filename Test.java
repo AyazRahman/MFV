@@ -24,7 +24,7 @@ public class Test
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public void sampleMethod()
+    public User sampleMethod()
     {
         String[] saletype = {"Kg","Bag"};
         
@@ -102,11 +102,15 @@ public class Test
         }
         System.out.println();
         
-        for (Customer c : db.getUsers())
+        for (User c : db.getUsers())
         {
             //System.out.println(c.toString());
             System.out.println(c.getEmail()); 
             System.out.println(c.getPassword());
         }
+        
+        //Administrator a = new Administrator();
+        Customer a = new Customer();
+        return a;
     }
 }
