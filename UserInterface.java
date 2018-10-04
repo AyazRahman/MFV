@@ -113,9 +113,10 @@ public class UserInterface
                 System.out.println("Passwords must be at least 5 characters long.");
             }
         }
-        System.out.println("Registration Successful! Now you can login.");
         return pwd;
     }
+    
+    
 
     public void displayLogo()
     {
