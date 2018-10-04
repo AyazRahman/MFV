@@ -10,46 +10,34 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-
 public class MFVSystem
 {
     private static Scanner scan;
     private static String option;
     private FileManager db;
-    private Menu menu;
+    private UserInterface ui;
     private User loggedUser;
 
     public MFVSystem()
     {
         db = new FileManager();
         db.loadData();
-        menu = new Menu();
-        menu.loadMenuItems();
-    }
-
-    private void displayLogo()
-    {
-        System.out.println(" __  __ _____   __ ");
-        System.out.println("|  \\/  | __\\ \\ / /");
-        System.out.println("| |\\/| | _| \\ V /");                 
-        System.out.println("|_|  |_|_|   \\_/ ");                    
-
+        ui = new UserInterface();
+        ui.loadMenuItems();
     }
 
     public void systemStart()
     {
-        displayLogo();
+        ui.displayLogo();
 
-        String selection = menu.displayMenu(1);
+        String selection = ui.displayMenu(1);
 
         if (selection.matches("[Aa]"))
         {
-            //System.out.println("Call login method here");
             userLogin();
         }
         else if (selection.matches("[Bb]"))
         {
-            System.out.println("Call Register method here");
             //TODO: implement userRegister()
             userRegister();
         }
@@ -74,7 +62,7 @@ public class MFVSystem
                 break;
             }
         }
-        
+
         if (loggedUser.getEmail().equals(email))
         {
             //display userMenu()
@@ -84,14 +72,14 @@ public class MFVSystem
         {
             //TODO: display login error or user does not exit or the password is wrong
         }
-        
+
     }
-    
+
     private void userRegister()
     {
         //TODO create register form and get more information other that email and password
-        String email = " ";
-        String password = " ";
+        String email = ui.emailInput();
+        String password = ui.pwdInput();
         boolean userExist = false;
         for (User u : db.getUsers())
         {
@@ -103,7 +91,7 @@ public class MFVSystem
         }
         if (userExist)
         {
-            //TODO call method in menu to display user already exist method
+            ui.userExistsMsg();
             systemStart();
         }
         else
@@ -115,20 +103,21 @@ public class MFVSystem
             //add to the DB list
             db.getUsers().add(newUser);
         }
+        ui.displayMenu(1);
     }
-    
+
     //TODO: change the method to private after testing
     private void userMenu()
     {
         if (loggedUser instanceof Customer)
         {
             //call Customer menu
-            String selection = menu.displayMenu(2);
+            String selection = ui.displayMenu(2);
             if (selection.matches("[Aa]"))
             {
                 //browse products
                 //TODO: test
-                String id = menu.displayAllProduct(db.getProductArray());
+                String id = ui.displayAllProduct(db.getProductArray());
                 int pid = Integer.parseInt(id);
                 browseSelect(pid);
             }
@@ -141,142 +130,142 @@ public class MFVSystem
         else
         {
             //call Admin menu
-            String selection = menu.displayMenu(3);
+            String selection = ui.displayMenu(3);
             //TODO: check selection
         }
     }
-    
+
     //turn to private after testing
     public void search()
     {
-        String input = menu.searchBox();
+        String input = ui.searchBox();
         if (db.getKeywords().containsKey(input.toLowerCase()))
         {
             Product result = db.getProducts().get(db.getKeywords().get(input.toLowerCase()));
             //send result to view search result
             //TODO: pass only values instead of the Product object
-            menu.searchResult(input, result);
+            ui.searchResult(input, result);
             //TODO: display user options for product
         }
         else
         {
             //call does not exist method
-            menu.searchError(input);
+            ui.searchError(input);
             userMenu();
         }
-        
+
     }
-    
+
     private void browseSelect(int pid)
     {
         Product p = db.getProducts().get(pid);
         //TODO: send the values rather than the product object
-        menu.browseResult(p);
+        ui.browseResult(p);
         //TODO: display user options for product
     }
-    
+
     private void exitProgram()
     {
         db.saveData();
         System.exit(0);
     }
-    
+
     //TODO: the following may be deleted
-    
+
     /*public static void main(String[] args) 
     {
-        while (true) 
-        {
-            System.out.println("**** Welcom To MFV Store ****");
-            System.out.println("Choose One Of The Following Options:");
-            System.out.println("(v) To View Products \n(l) To Login \n(r) To Register\n");
-            Scanner o = new Scanner(System.in);
-            option = o.nextLine();
+    while (true) 
+    {
+    System.out.println("**** Welcom To MFV Store ****");
+    System.out.println("Choose One Of The Following Options:");
+    System.out.println("(v) To View Products \n(l) To Login \n(r) To Register\n");
+    Scanner o = new Scanner(System.in);
+    option = o.nextLine();
 
-            if (option.equals("v"))
-            {
-                System.out.println("There should be product method taken from Product class\n");
-            }
-            else if (option.equals("l"))
-            {
-                System.out.println("******* Login Page *******");
+    if (option.equals("v"))
+    {
+    System.out.println("There should be product method taken from Product class\n");
+    }
+    else if (option.equals("l"))
+    {
+    System.out.println("******* Login Page *******");
 
-                System.out.println("Type Your Email Please");
-                Scanner e = new Scanner(System.in);
-                String entredEmail = e.nextLine();
+    System.out.println("Type Your Email Please");
+    Scanner e = new Scanner(System.in);
+    String entredEmail = e.nextLine();
 
-                System.out.println("Type Your Password");
-                Scanner pass = new Scanner(System.in);
-                String password = pass.nextLine();
+    System.out.println("Type Your Password");
+    Scanner pass = new Scanner(System.in);
+    String password = pass.nextLine();
 
-                FileManager user = new FileManager();
-                boolean loggedIn = false;
-                boolean isAdmin = false;
-                if(user.loginUser(entredEmail, password))
-                {
-                    loggedIn = true;
-                    if(entredEmail.equals("admin"))
-                    {
-                        isAdmin = true;
-                    }
-                }
+    FileManager user = new FileManager();
+    boolean loggedIn = false;
+    boolean isAdmin = false;
+    if(user.loginUser(entredEmail, password))
+    {
+    loggedIn = true;
+    if(entredEmail.equals("admin"))
+    {
+    isAdmin = true;
+    }
+    }
 
-                while(loggedIn && isAdmin)
-                {
-                    System.out.println("***** This Is Admin Main Page ******");
-                    System.out.println("Choose One Of The Following Options:");
-                    System.out.println("(v) To View Products \n(m) To Open Admin Menu \n(l) To Logout \n");
-                    Scanner a = new Scanner(System.in);
-                    option = a.nextLine();
-                    if (option.equals("v"))
-                    {
-                        System.out.println("There should be product method taken from Product class\n");
-                    }
-                    if (option.equals("m"))
-                    {
-                        System.out.println("Admin Menu method should work here\n");
-                    }
-                    else if(option.equals("l"))
-                    {
-                        System.out.println("You Are Logged Out Successfully\n");
-                        loggedIn = false;
-                        isAdmin = false;
-                    }
-                    else if(option.equals("?"))
-                    {
-                        System.out.println("All the rest methods should be linked here\n");
-                    }
-                }
+    while(loggedIn && isAdmin)
+    {
+    System.out.println("***** This Is Admin Main Page ******");
+    System.out.println("Choose One Of The Following Options:");
+    System.out.println("(v) To View Products \n(m) To Open Admin Menu \n(l) To Logout \n");
+    Scanner a = new Scanner(System.in);
+    option = a.nextLine();
+    if (option.equals("v"))
+    {
+    System.out.println("There should be product method taken from Product class\n");
+    }
+    if (option.equals("m"))
+    {
+    System.out.println("Admin Menu method should work here\n");
+    }
+    else if(option.equals("l"))
+    {
+    System.out.println("You Are Logged Out Successfully\n");
+    loggedIn = false;
+    isAdmin = false;
+    }
+    else if(option.equals("?"))
+    {
+    System.out.println("All the rest methods should be linked here\n");
+    }
+    }
 
-                while (loggedIn && !isAdmin)
-                {
-                    System.out.println("***** Welcom " + entredEmail + " This Is Your Main Page ******");
-                    System.out.println("Choose One Of The Following Options:");
-                    System.out.println("(v) To View Products \n(l) To Logout \n(?) ect..\n");
-                    Scanner a = new Scanner(System.in);
-                    option = a.nextLine();
-                    if (option.equals("v"))
-                    {
-                        System.out.println("There should be product method taken from Product class\n");
-                    }
-                    else if(option.equals("l"))
-                    {
-                        System.out.println("You Are Logged Out Successfully\n");
-                        loggedIn = false;
-                    }
-                    else if(option.equals("?"))
-                    {
-                        System.out.println("All the rest of methods should be linked here\n");
-                    }
-                }
-            }
-            else if (option.equals("r"))
-            {
-                FileManager CheckUserToRegister = new FileManager();
-                CheckUserToRegister.registerUser();
-            }
-            else System.out.println("Plese Select a Valid Option\n");
-        }
+    while (loggedIn && !isAdmin)
+    {
+    System.out.println("***** Welcom " + entredEmail + " This Is Your Main Page ******");
+    System.out.println("Choose One Of The Following Options:");
+    System.out.println("(v) To View Products \n(l) To Logout \n(?) ect..\n");
+    Scanner a = new Scanner(System.in);
+    option = a.nextLine();
+    if (option.equals("v"))
+    {
+    System.out.println("There should be product method taken from Product class\n");
+    }
+    else if(option.equals("l"))
+    {
+    System.out.println("You Are Logged Out Successfully\n");
+    loggedIn = false;
+    }
+    else if(option.equals("?"))
+    {
+    System.out.println("All the rest of methods should be linked here\n");
+    }
+    }
+    }
+    else if (option.equals("r"))
+    {
+    FileManager CheckUserToRegister = new FileManager();
+    CheckUserToRegister.registerUser();
+    }
+    else System.out.println("Plese Select a Valid Option\n");
+    }
     }*/
 
 }
