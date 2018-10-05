@@ -16,33 +16,23 @@ public class MFVSystem
     private static Scanner scan;
     private static String option;
     private FileManager db;
-    private Menu menu;
+    private UserInterface ui;
     private User loggedUser;
 
     public MFVSystem()
     {
         db = new FileManager();
         db.loadData();
-        menu = new Menu();
-        menu.loadMenuItems();
+        ui = new UserInterface();
+        ui.loadMenuItems();
         loggedUser = new User();
-    }
-
-    //TODO: maybe move it to menu class
-    private void displayLogo()
-    {
-        System.out.println(" __  __ _____   __ ");
-        System.out.println("|  \\/  | __\\ \\ / /");
-        System.out.println("| |\\/| | _| \\ V /");                 
-        System.out.println("|_|  |_|_|   \\_/ ");                    
-
     }
 
     public void systemStart()
     {
-        displayLogo();
+        ui.displayLogo();
 
-        String selection = menu.displayMenu(1);
+        String selection = ui.displayMenu(1);
 
         if (selection.matches("[Aa]"))
         {
@@ -92,8 +82,8 @@ public class MFVSystem
     private void userRegister()
     {
         //TODO create register form and get more information other that email and password
-        String email = " ";
-        String password = " ";
+        String email = ui.emailInput();
+        String password = ui.pwdInput();
         boolean userExist = false;
         for (User u : db.getUsers())
         {
@@ -105,7 +95,7 @@ public class MFVSystem
         }
         if (userExist)
         {
-            //TODO call method in menu to display user already exist method
+            ui.userExistsMsg();
             systemStart();
         }
         else
@@ -117,6 +107,7 @@ public class MFVSystem
             //add to the DB list
             db.getUsers().add(newUser);
         }
+        systemStart();
     }
     
     //TODO: change the method to private after testing
@@ -125,12 +116,12 @@ public class MFVSystem
         if (loggedUser instanceof Customer)
         {
             //call Customer menu
-            String selection = menu.displayMenu(2);
+            String selection =ui.displayMenu(2);
             if (selection.matches("[Aa]"))
             {
                 //browse products
                 //TODO: test
-                String id = menu.displayAllProduct(db.getProductArray());
+                String id = ui.displayAllProduct(db.getProductArray());
                 int pid = Integer.parseInt(id);
                 browseSelect(pid);
             }
@@ -143,7 +134,7 @@ public class MFVSystem
         else
         {
             //call Admin menu
-            String selection = menu.displayMenu(3);
+            String selection = ui.displayMenu(3);
             //TODO: check selection
         }
     }
@@ -151,19 +142,19 @@ public class MFVSystem
     //turn to private after testing
     public void search()
     {
-        String input = menu.searchBox();
+        String input = ui.searchBox();
         if (db.getKeywords().containsKey(input.toLowerCase()))
         {
             Product result = db.getProducts().get(db.getKeywords().get(input.toLowerCase()));
             //send result to view search result
             //TODO: pass only values instead of the Product object
-            menu.searchResult(input, result);
+            ui.searchResult(input, result);
             //TODO: display user options for product
         }
         else
         {
             //call does not exist method
-            menu.searchError(input);
+            ui.searchError(input);
             userMenu();
         }
         
@@ -173,7 +164,7 @@ public class MFVSystem
     {
         Product p = db.getProducts().get(pid);
         //TODO: send the values rather than the product object
-        menu.browseResult(p);
+        ui.browseResult(p);
         //TODO: display user options for product
     }
     
