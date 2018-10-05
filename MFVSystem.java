@@ -25,8 +25,10 @@ public class MFVSystem
         db.loadData();
         menu = new Menu();
         menu.loadMenuItems();
+        loggedUser = new User();
     }
 
+    //TODO: maybe move it to menu class
     private void displayLogo()
     {
         System.out.println(" __  __ _____   __ ");

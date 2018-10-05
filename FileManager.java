@@ -456,6 +456,10 @@ public class FileManager
     {
         int initialSize = products.size();
         products.put(productID, new Product(productID, name, avgShelfLife, saleTypes));
+        if (!keywords.containsKey(name))
+        {
+            keywords.put(name, productID);
+        }
         return (products.size() == (initialSize + 1));
     }
     
