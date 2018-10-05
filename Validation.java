@@ -21,6 +21,14 @@ public class Validation
         x = 0;
     }
 
+    public boolean validatePwd(String pwd)
+    {
+        if (pwd.length() >= 5)
+        return true;
+        else
+        return false;
+    }
+    
     /**
      * An example of a method - replace this comment with your own
      *
@@ -71,4 +79,5 @@ public class Validation
             return false; 
         return pat.matcher(email).matches(); 
     }
+    
 }
