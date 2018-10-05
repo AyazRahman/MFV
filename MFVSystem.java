@@ -61,6 +61,7 @@ public class MFVSystem
             if (email.equals(u.getEmail()) && password.equals(u.getPassword()))
             {
                 loggedUser = u;
+                ui.logSuccess();
                 break;
             }
         }
@@ -73,6 +74,7 @@ public class MFVSystem
         else
         {
             ui.loginError();
+            systemStart();
         }
     }
 
@@ -103,6 +105,7 @@ public class MFVSystem
             newUser.setPassword(password);
             //add to the DB list
             db.getUsers().add(newUser);
+            ui.regSuccess();
         }
         systemStart();
     }

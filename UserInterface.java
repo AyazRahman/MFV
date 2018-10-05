@@ -329,4 +329,14 @@ public class UserInterface
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
+    
+    public void regSuccess()
+    {
+        System.out.println("\n" + "Registration Successful!" + "\n");
+    }
+    
+    public void logSuccess()
+    {
+        System.out.println("\n" + "Login Successful!" + "\n");
+    }
 }
