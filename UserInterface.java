@@ -67,7 +67,7 @@ public class UserInterface
     {
         System.out.println("You already have an account. Login or register with a different email address.");
     }
-    
+
     public String emailInput()
     {
         Scanner scan = new Scanner(System.in);
@@ -86,6 +86,23 @@ public class UserInterface
             }
         }    
         return email;
+    }
+
+    public String pwdLogin()
+    {
+        System.out.println("Enter your password: ");
+        String pwd = "";
+        while(pwd.equals(""))
+        {
+            String input = scan.nextLine();
+            pwd = input;
+        }
+        return pwd;
+    }
+
+    public void loginError()
+    {
+        System.out.println("Error: Check your login credentials and try again.");
     }
 
     public String pwdInput()
@@ -115,8 +132,7 @@ public class UserInterface
         }
         return pwd;
     }
-    
-    
+
 
     public void displayLogo()
     {
@@ -126,7 +142,7 @@ public class UserInterface
         System.out.println("|_|  |_|_|   \\_/ ");                    
 
     }
-    
+
     public void loadMenuItems()
     {
         //Start menu items ID: 1
