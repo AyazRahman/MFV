@@ -11,7 +11,6 @@ public class FileManager
     // instance variables - replace the example below with your own
     private Hashtable<Integer, Product> products;
     private HashMap<String, Integer> keywords;
-    //private User loggedUser;
     private List<User> users;
     private List<Order> orders;
 
@@ -46,10 +45,6 @@ public class FileManager
         return keywords;
     }
     
-    /*public User getLoggedUser()
-    {
-        return loggedUser;
-    }*/
     
     public List<User> getUsers()
     {
