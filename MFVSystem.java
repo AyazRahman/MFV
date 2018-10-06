@@ -33,17 +33,22 @@ public class MFVSystem
 
         String selection = ui.displayMenu(1);
 
-        if (selection.matches("[Aa]"))
+        while (!selection.matches("[Cc]"))
         {
-            //System.out.println("Call login method here");
-            userLogin();
+            if (selection.matches("[Aa]"))
+            {
+                //System.out.println("Call login method here");
+                userLogin();
+            }
+            else if (selection.matches("[Bb]"))
+            {
+                //TODO: implement userRegister()
+                userRegister();
+            }
+
+            selection = ui.displayMenu(1);
         }
-        else if (selection.matches("[Bb]"))
-        {
-            //TODO: implement userRegister()
-            userRegister();
-        }
-        else if (selection.matches("[Cc]"))
+        if (selection.matches("[Cc]"))
         {
             //exit
             exitProgram();
@@ -74,7 +79,7 @@ public class MFVSystem
         else
         {
             ui.loginError();
-            systemStart();
+
         }
     }
 
@@ -95,19 +100,20 @@ public class MFVSystem
         if (userExist)
         {
             ui.userExistsMsg();
-            systemStart();
+            //systemStart();
         }
         else
         {
             //create new user and add it to the database
             User newUser = new Customer();
+            newUser.setUId(db.getUsers().size());
             newUser.setEmail(email);
             newUser.setPassword(password);
             //add to the DB list
             db.getUsers().add(newUser);
             ui.regSuccess();
         }
-        systemStart();
+
     }
 
     //TODO: change the method to private after testing
@@ -116,29 +122,180 @@ public class MFVSystem
         if (loggedUser instanceof Customer)
         {
             //call Customer menu
-            String selection =ui.displayMenu(2);
-            if (selection.matches("[Aa]"))
+            String selection = ui.displayMenu(2);
+            while (!selection.matches("[Ff]") && !selection.matches("[Gg]"))
             {
-                //browse products
-                //TODO: test
-                String id = ui.displayAllProduct(db.getProductArray());
-                int pid = Integer.parseInt(id);
-                browseSelect(pid);
+                //TODO: check for user menu options
+                if (selection.matches("[Aa]"))
+                {
+                    //view product 
+                    String s = ui.displayMenu(4);
+                    while (!s.matches("[Cc]"))
+                    {
+                        if (s.matches("[Aa]"))
+                        {
+                            search();
+                        }
+                        else if (s.matches("[Bb]"))
+                        {
+                            browse();
+                        }
+                    }
+                }
+                else if (selection.matches("[Bb]"))
+                {
+                    //shopping cart
+                    
+                }
+                else if (selection.matches("[Cc]"))
+                {
+                    //checkout
+                    
+                }
+                else if (selection.matches("[Dd]"))
+                {
+                    //order history
+                    
+                }
+                else if (selection.matches("[Ee]"))
+                {
+                    //account details
+                    
+                }
+                
+
             }
-            else if (selection.matches("[Bb]"))
+            if (selection.matches("[Ff]"))
             {
-                //search
-                search();
+                loggedUser = new User();
             }
+            else if (selection.matches("[Gg]"))
+            {
+                exitProgram();
+            }
+
         }
         else
         {
             //call Admin menu
             String selection = ui.displayMenu(3);
-            //TODO: check selection
+            while (!selection.matches("[Dd]") && !selection.matches("[Ee]"))
+            {
+                if (selection.matches("[Aa]"))
+                {
+                    productManagement();
+                }
+                else if (selection.matches("[Bb]"))
+                {
+                    orderManagement();
+                }
+                else if (selection.matches("[Cc]"))
+                {
+                    //TODO:UI Account Edit form
+                }
+                selection = ui.displayMenu(3);
+            }
+            if (selection.matches("[Dd]"))
+            {
+                loggedUser = new User();
+            }
+            else if (selection.matches("[Ee]"))
+            {
+                exitProgram();
+            }
         }
     }
 
+    private void productManagement()
+    {
+        String selection  = ui.displayMenu(6);
+        while (!selection.matches("[Dd]"))
+        {
+            if (selection.matches("[Aa]"))
+            {
+                search();
+            }
+            else if (selection.matches("[Bb]"))
+            {
+                browse();
+            }
+            else if (selection.matches("[Cc]"))
+            {
+                //TODO:UI Add product form
+                
+            }
+            selection = ui.displayMenu(6);
+        }
+    }
+
+    private void browse()
+    {
+        String id = ui.displayAllProduct(db.getProductArray());
+        int pid = Integer.parseInt(id);
+        if (db.getProducts().containsKey(pid))
+        {
+            browseSelect(pid);
+        }
+        else
+        {
+            System.out.println("Wrong Id selected");
+        }
+
+    }
+
+    private void productMenu()
+    {
+        if (loggedUser instanceof Customer)
+        {
+            //call customer product menu
+            String selection = ui.displayMenu(7);
+            while (!selection.matches("[Bb]"))
+            {
+                if (selection.matches("[Aa]"))
+                {
+                    //TODO: purchase product sequence and logic for customer
+                    //TODO: UI need options for purchasing a batch
+                }
+            }
+        }
+        else
+        {
+            //call admin menu
+            String selection = ui.displayMenu(8);
+            while (!selection.matches("[Ff]"))
+            {
+                if (selection.matches("[Aa]"))
+                {
+                    //TODO: Edit product sequence
+                    //TODO:UI Edit product sequence form
+                }
+                else if (selection.matches("[Bb]"))
+                {
+                    //TODO:UI confirmation for removing product form. Return type boolean
+                    if (false)
+                    {
+                        //TODO: remove product Logic
+                    }
+                }
+                else if (selection.matches("[Cc]"))
+                {
+                    //TODO:UI Add batch form and  System sequence
+                }
+                //  confusion for rest of the options
+                selection = ui.displayMenu(8);
+            }
+        }
+    }
+
+    private void orderManagement()
+    {
+        //TODO: call orderManagement menu
+    }
+
+    private void orderMenu()
+    {
+        //TODO: need form for Order Management
+    }
     //turn to private after testing
     public void search()
     {
@@ -146,16 +303,18 @@ public class MFVSystem
         if (db.getKeywords().containsKey(input.toLowerCase()))
         {
             Product result = db.getProducts().get(db.getKeywords().get(input.toLowerCase()));
+            int pId = result.getProductID();
             //send result to view search result
             //TODO: pass only values instead of the Product object
             ui.searchResult(input, result);
-            //TODO: display user options for product
+           
+            productMenu();
         }
         else
         {
             //call does not exist method
             ui.searchError(input);
-            userMenu();
+            
         }
 
     }
@@ -165,7 +324,8 @@ public class MFVSystem
         Product p = db.getProducts().get(pid);
         //TODO: send the values rather than the product object
         ui.browseResult(p);
-        //TODO: display user options for product
+        
+        productMenu();
     }
 
     private void exitProgram()
@@ -173,103 +333,5 @@ public class MFVSystem
         db.saveData();
         System.exit(0);
     }
-
-    //TODO: the following may be deleted
-
-    /*public static void main(String[] args) 
-    {
-    while (true) 
-    {
-    System.out.println("**** Welcom To MFV Store ****");
-    System.out.println("Choose One Of The Following Options:");
-    System.out.println("(v) To View Products \n(l) To Login \n(r) To Register\n");
-    Scanner o = new Scanner(System.in);
-    option = o.nextLine();
-
-    if (option.equals("v"))
-    {
-    System.out.println("There should be product method taken from Product class\n");
-    }
-    else if (option.equals("l"))
-    {
-    System.out.println("******* Login Page *******");
-
-    System.out.println("Type Your Email Please");
-    Scanner e = new Scanner(System.in);
-    String entredEmail = e.nextLine();
-
-    System.out.println("Type Your Password");
-    Scanner pass = new Scanner(System.in);
-    String password = pass.nextLine();
-
-    FileManager user = new FileManager();
-    boolean loggedIn = false;
-    boolean isAdmin = false;
-    if(user.loginUser(entredEmail, password))
-    {
-    loggedIn = true;
-    if(entredEmail.equals("admin"))
-    {
-    isAdmin = true;
-    }
-    }
-
-    while(loggedIn && isAdmin)
-    {
-    System.out.println("***** This Is Admin Main Page ******");
-    System.out.println("Choose One Of The Following Options:");
-    System.out.println("(v) To View Products \n(m) To Open Admin Menu \n(l) To Logout \n");
-    Scanner a = new Scanner(System.in);
-    option = a.nextLine();
-    if (option.equals("v"))
-    {
-    System.out.println("There should be product method taken from Product class\n");
-    }
-    if (option.equals("m"))
-    {
-    System.out.println("Admin Menu method should work here\n");
-    }
-    else if(option.equals("l"))
-    {
-    System.out.println("You Are Logged Out Successfully\n");
-    loggedIn = false;
-    isAdmin = false;
-    }
-    else if(option.equals("?"))
-    {
-    System.out.println("All the rest methods should be linked here\n");
-    }
-    }
-
-    while (loggedIn && !isAdmin)
-    {
-    System.out.println("***** Welcom " + entredEmail + " This Is Your Main Page ******");
-    System.out.println("Choose One Of The Following Options:");
-    System.out.println("(v) To View Products \n(l) To Logout \n(?) ect..\n");
-    Scanner a = new Scanner(System.in);
-    option = a.nextLine();
-    if (option.equals("v"))
-    {
-    System.out.println("There should be product method taken from Product class\n");
-    }
-    else if(option.equals("l"))
-    {
-    System.out.println("You Are Logged Out Successfully\n");
-    loggedIn = false;
-    }
-    else if(option.equals("?"))
-    {
-    System.out.println("All the rest of methods should be linked here\n");
-    }
-    }
-    }
-    else if (option.equals("r"))
-    {
-    FileManager CheckUserToRegister = new FileManager();
-    CheckUserToRegister.registerUser();
-    }
-    else System.out.println("Plese Select a Valid Option\n");
-    }
-    }*/
-
 }
+

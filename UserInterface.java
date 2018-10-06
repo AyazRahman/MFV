@@ -57,7 +57,7 @@ public class UserInterface
         cusProductRange2 = "[A-Ca-c]";
         //ID: 7
         ownProductMenu = new ArrayList<String>();
-        ownProductRange = "[A-Ba-b]";
+        ownProductRange = "[A-Ea-e]";
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
         ownProductRange2 = "[A-Fa-f]";
