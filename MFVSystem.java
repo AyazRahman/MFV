@@ -116,6 +116,93 @@ public class MFVSystem
 
     }
 
+    private void updateAccount()
+    {
+        String selection = ui.displayMenu(9);
+
+        if (selection.matches("[Aa]"))
+        {
+            String fname = ui.updateFname();
+            ui.updateMsg("First Name"); //Success message when detail is updated/set
+        }
+        else if (selection.matches("[Bb]"))
+        {
+            String lname = ui.updateLname();
+            ui.updateMsg("Last Name");
+        }
+        else if (selection.matches("[Cc]"))
+        {
+            String address = ui.updateAddress();
+            ui.updateMsg("Address");
+        }
+        else if (selection.matches("[Dd]"))
+        {
+            String suburb = ui.updateSuburb();
+            ui.updateMsg("Suburb");
+        }
+        else if (selection.matches("[Ee]"))
+        {
+            String pc = ui.updatePostcode();
+            ui.updateMsg("Postcode");
+        }
+        else if (selection.matches("[Ff]"))
+        {
+            String state = ui.updateState();
+            ui.updateMsg("State");
+        }
+        else if (selection.matches("[Gg]"))
+        {
+            String email = ui.emailInput();
+            ui.updateMsg("Email Address");
+        }
+        else if (selection.matches("[Hh]"))
+        {
+            String pwd = ui.pwdInput();
+            ui.updateMsg("Password");
+        }
+        else if (selection.matches("[Ii]"))
+        {
+            String cardNo = ui.updateCardNumber();
+            ui.updateMsg("Bank Card");
+        }
+        else if (selection.matches("[Jj]"))
+        {
+            String cardName = ui.updateCardName();
+            ui.updateMsg("Bank Card Name");
+        }
+        else if (selection.matches("[Kk]"))
+        {
+            String ccv = ui.updateCCV();
+            ui.updateMsg("Bank Card CCV");
+        }
+        else if (selection.matches("[Ll]"))
+        {
+            String payPref = ui.updatePayPref();
+            ui.updateMsg("Payment Preference");
+        }
+        else if (selection.matches("[Mm]"))
+        {
+            String collPref = ui.updateCollectionPref();
+            ui.updateMsg("Collection Preference");
+        }
+        else if (selection.matches("[Nn]"))
+        {
+            String choice = ui.unregister();
+            if (choice.matches("[Yy]"))
+            {
+                System.out.println("Call unregister method here");
+            }
+            if (choice.matches("[Nn]"))
+            {
+                userMenu();
+            }
+        }
+        else if (selection.matches("[Oo]"))
+        {
+            ui.displayMenu(2);
+        }
+    }
+
     //TODO: change the method to private after testing
     private void userMenu()
     {
@@ -145,24 +232,23 @@ public class MFVSystem
                 else if (selection.matches("[Bb]"))
                 {
                     //shopping cart
-                    
+
                 }
                 else if (selection.matches("[Cc]"))
                 {
                     //checkout
-                    
+
                 }
                 else if (selection.matches("[Dd]"))
                 {
                     //order history
-                    
+
                 }
                 else if (selection.matches("[Ee]"))
                 {
-                    //account details
-                    
+                    updateAccount();
+
                 }
-                
 
             }
             if (selection.matches("[Ff]"))
@@ -222,7 +308,7 @@ public class MFVSystem
             else if (selection.matches("[Cc]"))
             {
                 //TODO:UI Add product form
-                
+
             }
             selection = ui.displayMenu(6);
         }
@@ -307,14 +393,14 @@ public class MFVSystem
             //send result to view search result
             //TODO: pass only values instead of the Product object
             ui.searchResult(input, result);
-           
+
             productMenu();
         }
         else
         {
             //call does not exist method
             ui.searchError(input);
-            
+
         }
 
     }
@@ -324,7 +410,7 @@ public class MFVSystem
         Product p = db.getProducts().get(pid);
         //TODO: send the values rather than the product object
         ui.browseResult(p);
-        
+
         productMenu();
     }
 
