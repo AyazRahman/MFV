@@ -96,7 +96,7 @@ public class FileManager
             while (parser.hasNextLine())
             {
                 String [] productInfo = parser.nextLine().split(",");
-                String[] saleTypes = {productInfo[3], productInfo[4]};
+                String[] saleTypes = {productInfo[3].trim(), (productInfo[4].equals(" ") ? productInfo[4] : productInfo[4].trim())};
                 int productID = Integer.parseInt(productInfo[0].trim());
                 String name = productInfo[1].trim();
                 products.put(productID, new Product(productID, 
@@ -190,12 +190,12 @@ public class FileManager
             String[] adminInfo = parser.nextLine().split(",");
             Administrator admin = new Administrator();
             admin.setUId(Integer.parseInt(adminInfo[0].trim())); 
-            admin.setFName(adminInfo[1].trim());
-            admin.setLName(adminInfo[2].trim());
-            admin.setAddress(adminInfo[3].trim());
-            admin.setSuburb(adminInfo[4].trim());
+            admin.setFName(adminInfo[1].equals(" ") ? adminInfo[1] : adminInfo[1].trim());
+            admin.setLName(adminInfo[2].equals(" ") ? adminInfo[2] : adminInfo[2].trim());
+            admin.setAddress(adminInfo[3].equals(" ") ? adminInfo[3] : adminInfo[3].trim());
+            admin.setSuburb(adminInfo[4].equals(" ") ? adminInfo[4] : adminInfo[4].trim());
             admin.setPostcode(Integer.parseInt(adminInfo[5].trim()));
-            admin.setState(adminInfo[6].trim());
+            admin.setState(adminInfo[6].equals(" ") ? adminInfo[6] : adminInfo[6].trim());
             admin.setEmail(adminInfo[7].trim());
             admin.setPassword(adminInfo[8].trim());
             admin.setAccountStatus(Boolean.parseBoolean(adminInfo[9].trim()));
@@ -209,20 +209,20 @@ public class FileManager
                 Customer newCustomer = new Customer();
                 
                 newCustomer.setUId(Integer.parseInt(userInfo[0].trim())); 
-                newCustomer.setFName(userInfo[1].trim());
-                newCustomer.setLName(userInfo[2].trim());
-                newCustomer.setAddress(userInfo[3].trim());
-                newCustomer.setSuburb(userInfo[4].trim());
+                newCustomer.setFName(userInfo[1].equals(" ") ? userInfo[1] : userInfo[1].trim());
+                newCustomer.setLName(userInfo[2].equals(" ") ? userInfo[2] : userInfo[2].trim());
+                newCustomer.setAddress(userInfo[3].equals(" ") ? userInfo[3] : userInfo[3].trim());
+                newCustomer.setSuburb(userInfo[4].equals(" ") ? userInfo[4] : userInfo[4].trim());
                 newCustomer.setPostcode(Integer.parseInt(userInfo[5].trim()));
-                newCustomer.setState(userInfo[6].trim());
+                newCustomer.setState(userInfo[6].equals(" ") ? userInfo[6] : userInfo[6].trim());
                 newCustomer.setEmail(userInfo[7].trim());
                 newCustomer.setPassword(userInfo[8].trim());
-                newCustomer.setCardNumber(userInfo[9].trim());
-                newCustomer.setCardName(userInfo[10].trim());
-                newCustomer.setCardCCV(userInfo[11].trim());
+                newCustomer.setCardNumber(userInfo[9].equals(" ") ? userInfo[9] : userInfo[9].trim());
+                newCustomer.setCardName(userInfo[10].equals(" ") ? userInfo[10] : userInfo[10].trim());
+                newCustomer.setCardCCV(userInfo[11].equals(" ") ? userInfo[11] : userInfo[11].trim());
                 newCustomer.setAccountStatus(Boolean.parseBoolean(userInfo[12].trim()));
-                newCustomer.setPaymentPreference(userInfo[13].trim());
-                newCustomer.setCollectionPreference(userInfo[14].trim());
+                newCustomer.setPaymentPreference(userInfo[13].equals(" ") ? userInfo[13] : userInfo[13].trim());
+                newCustomer.setCollectionPreference(userInfo[14].equals(" ") ? userInfo[14] : userInfo[14].trim());
                 
                 users.add(newCustomer);
                 
@@ -484,112 +484,5 @@ public class FileManager
         Product p = products.get(productID);
         return p.removeBatch(batchID);
     }
-    
-
-    //TODO: Move Login and RegisterUser Logic to System class
-    //File Manager should not have any print statements or Decision Logic 
-    
-   /* public void registerUser()
-    {
-        System.out.println("******** Registration ********");
-        
-        System.out.println("Type an Email Please");
-        Scanner user = new Scanner(System.in);
-        String entredEmail = user.nextLine();
-        
-        System.out.println("Type a Password");
-        Scanner pass = new Scanner(System.in);
-        String password = pass.nextLine();
-        boolean found = false;
-        String checkEmail = "";
-        
-        try 
-        {
-            Scanner scan = new Scanner(new File("User.csv"));
-            
-            while(scan.hasNext() && !found)
-            {
-                String data = scan.next();
-                String[] values = data.split(",");
-                checkEmail = values[0];
-                
-                if(checkEmail.equals(entredEmail))
-                {
-                    found = true;
-                }
-            }
-            
-            if (found)
-            {
-                System.out.println("This User Name Is Already Registred\n");
-            }
-            else
-            {
-                writeToFile(entredEmail, password);
-                System.out.println("You Have Successfully Registred \nYou Can Now Login\n");
-                
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void writeToFile(String email, String password) throws IOException 
-    {
-        BufferedWriter out = new BufferedWriter(new FileWriter("User.csv", true));
-        out.write("null,null,null,null,null,null,null,"
-                    + email +","+ password +",null,null,null,true,null,null");
-        out.newLine();
-        out.close();
-    }
-    
-    
-        public boolean loginUser(String email,String password)
-    {
-        boolean found = false;
-        String checkEmail = "";
-        String checkPassword = ""; 
-        boolean status = false;
-        
-        try 
-        {
-            Scanner scan = new Scanner(new File("User.csv"));
-            
-            
-            while(scan.hasNext() && !found)
-            {
-                String data = scan.nextLine();
-                String[] values = data.split(",");
-                
-                checkEmail = values[7];
-                checkPassword = values[8];
-                
-                if(checkEmail.equals(email) && checkPassword.equals(password) )
-                {
-                    found = true;
-                }
-                
-                
-            }
-            
-            if (found)
-            {
-                System.out.println("You have successfully Logged In\n");
-                status = true;
-            }
-            else
-            {
-                
-                System.out.println("Wrong Email or Password\n");
-                status = false;
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-            System.out.println("Error");
-        }
-        
-        return status;
-    }*/
+  
 }

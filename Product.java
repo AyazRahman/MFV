@@ -153,6 +153,6 @@ public class Product
     
     public String toString()
     {
-        return (productID + ", " + name + ", " +  avgShelfLife + ", " + saleTypes[0] + ", " + saleTypes[1] + ", ");
+        return (productID + "," + name + "," +  avgShelfLife + "," + saleTypes[0] + "," + saleTypes[1] + ",");
     }
 }
