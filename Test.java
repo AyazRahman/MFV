@@ -36,12 +36,12 @@ public class Test
         
         products.get(0).setProductID(100);
         products.get(0).setName("Apples");
-        products.get(0).setAvgShelfLife( 7 * 7 );
+        //products.get(0).setAvgShelfLife( 7 * 7 );
         products.get(0).setSaleTypes(saletype);
         
         products.get(1).setProductID(101);
         products.get(1).setName("Apricots");
-        products.get(1).setAvgShelfLife( 9 * 4 * 7 );
+        //products.get(1).setAvgShelfLife( 9 * 4 * 7 );
         products.get(1).setSaleTypes(saletype);
         
         products.get(0).getBatches().add(new Batch());
