@@ -25,15 +25,16 @@ public class UserInterface
     String ownProductRange;
     private ArrayList<String> ownProductMenu2;
     String ownProductRange2;
+    private ArrayList<String> accDetailsMenu;
+    String accDetailsRange;
     Validation valid;
-    private Scanner scan;
 
     /**
      * Constructor for objects of class Menu
      */
     public UserInterface()
     {
-        scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         valid = new Validation();
 
         //ID: 1
@@ -60,85 +61,9 @@ public class UserInterface
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
         ownProductRange2 = "[A-Ga-g]";
-    }
-
-    public void userExistsMsg()
-    {
-        System.out.println("You already have an account. Login or register with a different email address.");
-    }
-
-    public String emailInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your email address: ");
-        String email = "";
-        while(email.equals(""))
-        {
-            String input = scan.nextLine();
-            if (valid.validateEmail(input.trim()) == true)
-            {
-                email = input.trim();
-            }
-            else
-            {
-                System.out.println("Valid email addresses only mate!");
-            }
-        }    
-        return email;
-    }
-
-    public String pwdLogin()
-    {
-        System.out.println("Enter your password: ");
-        String pwd = "";
-        while(pwd.equals(""))
-        {
-            String input = scan.nextLine();
-            pwd = input;
-        }
-        return pwd;
-    }
-
-    public void loginError()
-    {
-        System.out.println("Error: Check your login credentials and try again.");
-    }
-
-    public String pwdInput()
-    {
-        System.out.println("Enter your password: ");
-        String pwd = "";
-        while(pwd.equals(""))
-        {
-            String input = scan.nextLine();
-            if (valid.validatePwd(input.trim()) == true)
-            {
-                System.out.println("Confirm your password: ");
-                String confirm = scan.nextLine();
-                if (input.equals(confirm))
-                {
-                    pwd = input;
-                }
-                else
-                {
-                    System.out.println("Passwords don't match, please enter a new password and confirm it again.");
-                }
-            }
-            else
-            {
-                System.out.println("Passwords must be at least 5 characters long.");
-            }
-        }
-        return pwd;
-    }
-
-    public void displayLogo()
-    {
-        System.out.println(" __  __ _____   __ ");
-        System.out.println("|  \\/  | __\\ \\ / /");
-        System.out.println("| |\\/| | _| \\ V /");                 
-        System.out.println("|_|  |_|_|   \\_/ ");                    
-
+        //ID: 9
+        accDetailsMenu = new ArrayList<String>();
+        accDetailsRange = "[A-Oa-o]";
     }
 
     public void loadMenuItems()
@@ -198,6 +123,110 @@ public class UserInterface
         ownProductMenu2.add("[E] Remove Batch");
         ownProductMenu2.add("[F] Add Keywords");
         ownProductMenu2.add("[G] Back");
+        
+        //Customer update account details menu ID: 9
+        accDetailsMenu.add("Set Account Details");
+        accDetailsMenu.add("[A] First Name");
+        accDetailsMenu.add("[B] Last Name");
+        accDetailsMenu.add("[C] Address");
+        accDetailsMenu.add("[D] Suburb");
+        accDetailsMenu.add("[E] Postcode");
+        accDetailsMenu.add("[F] State");
+        accDetailsMenu.add("[G] Email");
+        accDetailsMenu.add("[H] Password");
+        accDetailsMenu.add("[I] Bank Card Number");
+        accDetailsMenu.add("[J] Bank Card Name");
+        accDetailsMenu.add("[K] Bank Card CCV");
+        accDetailsMenu.add("[L] Payment Preference");
+        accDetailsMenu.add("[M] Delivery Preference");
+        accDetailsMenu.add("[N] Unregister");
+        accDetailsMenu.add("[O] Back");
+    }
+    
+    public void updateMsg(String detail)
+    {
+        System.out.println("\n" + detail + " Updated!" + "\n");
+    }
+    
+    public void userExistsMsg()
+    {
+        System.out.println("You already have an account. Login or register with a different email address.");
+    }
+
+    public String emailInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your email address: ");
+        String email = "";
+        while(email.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateEmail(input.trim()) == true)
+            {
+                email = input.trim();
+            }
+            else
+            {
+                System.out.println("Valid email addresses only mate!");
+            }
+        }    
+        return email;
+    }
+
+    public String pwdLogin()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your password: ");
+        String pwd = "";
+        while(pwd.equals(""))
+        {
+            String input = scan.nextLine();
+            pwd = input;
+        }
+        return pwd;
+    }
+
+    public void loginError()
+    {
+        System.out.println("Error: Check your login credentials and try again.");
+    }
+
+    public String pwdInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your password: ");
+        String pwd = "";
+        while(pwd.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validatePwd(input.trim()) == true)
+            {
+                System.out.println("Confirm your password: ");
+                String confirm = scan.nextLine();
+                if (input.equals(confirm))
+                {
+                    pwd = input;
+                }
+                else
+                {
+                    System.out.println("Passwords don't match, please enter a new password and confirm it again.");
+                }
+            }
+            else
+            {
+                System.out.println("Passwords must be at least 5 characters long.");
+            }
+        }
+        return pwd;
+    }
+
+    public void displayLogo()
+    {
+        System.out.println(" __  __ _____   __ ");
+        System.out.println("|  \\/  | __\\ \\ / /");
+        System.out.println("| |\\/| | _| \\ V /");                 
+        System.out.println("|_|  |_|_|   \\_/ ");                    
+
     }
 
     public String displayMenu(int menuID)
@@ -205,6 +234,7 @@ public class UserInterface
         String range = "";
         ArrayList<String> options = startMenu;
         String selection = "";
+        Scanner scanner = new Scanner(System.in);
 
         switch (menuID)
         {
@@ -239,6 +269,9 @@ public class UserInterface
             case 8:
             range = ownProductRange2;
             options = ownProductMenu2;
+            case 9:
+            range = accDetailsRange;
+            options = accDetailsMenu;
             break;
             default:
             System.out.println("Menu failed to initialise, give it a valid argument.");
@@ -251,7 +284,6 @@ public class UserInterface
 
         while (selection.equals(""))
         {
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (input.trim().matches(range))
             {
@@ -340,6 +372,7 @@ public class UserInterface
 
     public String updateFname()
     {
+        Scanner scan = new Scanner(System.in);
         String fName = "";
         System.out.println("Enter your first name: ");
         while (fName.equals(""))
@@ -359,6 +392,7 @@ public class UserInterface
 
     public String updateLname()
     {
+        Scanner scan = new Scanner(System.in);
         String lName = "";
         System.out.println("Enter your last name: ");
         while (lName.equals(""))
@@ -378,6 +412,7 @@ public class UserInterface
 
     public String updateAddress()
     {
+        Scanner scan = new Scanner(System.in);
         String address = "";
         System.out.println("Enter your street name and number (e.g. 1 Monash Drive): ");
         while (address.equals(""))
@@ -397,6 +432,7 @@ public class UserInterface
 
     public String updateSuburb()
     {
+        Scanner scan = new Scanner(System.in);
         String suburb = "";
         System.out.println("Enter your suburb: ");
         while (suburb.equals(""))
@@ -416,6 +452,7 @@ public class UserInterface
 
     public String updatePostcode()
     {
+        Scanner scan = new Scanner(System.in);
         String pc = "";
         System.out.println("Enter your postcode: ");
         while (pc.equals(""))
@@ -435,6 +472,7 @@ public class UserInterface
 
     public String updateState()
     {
+        Scanner scan = new Scanner(System.in);
         String state = "";
         System.out.println("Enter your state: ");
         while (state.equals(""))
@@ -454,6 +492,7 @@ public class UserInterface
 
     public String updateCardNumber()
     {
+        Scanner scan = new Scanner(System.in);
         String cardno = "";
         System.out.println("Enter your card number: ");
         while (cardno.equals(""))
@@ -473,6 +512,7 @@ public class UserInterface
 
     public String updateCardName()
     {
+        Scanner scan = new Scanner(System.in);
         String cardname = "";
         System.out.println("Enter your full name as it appears on your card: ");
         while (cardname.equals(""))
@@ -492,6 +532,7 @@ public class UserInterface
 
     public String updateCCV()
     {
+        Scanner scan = new Scanner(System.in);
         String ccv = "";
         System.out.println("Enter your CCV: ");
         while (ccv.equals(""))
@@ -511,12 +552,13 @@ public class UserInterface
 
     public String updatePayPref()
     {
+        Scanner scan = new Scanner(System.in);
         String paypref = "";
         System.out.println("To set your payment preference, enter 'c' for cash or 'b' for bank card: ");
         while (paypref.equals(""))
         {
             String input = scan.nextLine();
-            if (input.trim().matches("[Cc][Bb]"))
+            if (input.trim().matches("[Cc]|[Bb]"))
             {
                 paypref = input.trim();
             }
@@ -530,12 +572,13 @@ public class UserInterface
 
     public String updateCollectionPref()
     {
+        Scanner scan = new Scanner(System.in);
         String collpref = "";
         System.out.println("To set your order collection preference, enter 'p' for pick up or 'd' for delivery: ");
         while (collpref.equals(""))
         {
             String input = scan.nextLine();
-            if (input.trim().matches("[Pp][Dd]"))
+            if (input.trim().matches("[Pp]|[Dd]"))
             {
                 collpref = input.trim();
             }
@@ -545,5 +588,25 @@ public class UserInterface
             }
         }
         return collpref; 
+    }
+    
+    public String unregister()
+    {
+        Scanner scan = new Scanner(System.in);
+        String unregister = "";
+        System.out.println("Are you sure you want to unregister? Enter 'y' for yes or 'n' for no.");
+        while (unregister.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().matches("[Yy]|[Nn]"))
+            {
+                unregister = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid selection.");
+            }
+        }
+        return unregister; 
     }
 }
