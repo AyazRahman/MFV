@@ -170,7 +170,7 @@ public class Validation
     
     public boolean validateShelfLife(String days)
     {
-        if (days.matches("[0-9]") && days.length() < 1000)
+        if (days.trim().matches("[0-9]") && days.trim().length() < 4)
         {
             return true;
         }
