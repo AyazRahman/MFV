@@ -122,6 +122,16 @@ public class MFVSystem
 
     }
 
+    private void addProduct()
+    {
+        String productName = ui.prodNameInput();
+        String minShelfLife = ui.minShelfLifeInput();
+        String maxShelfLife = ui.maxShelfLifeInput();
+        String saleType = ui.saleTypeInput(); //Run this multiple times to get multiple sale types
+        ui.addSaleType(); //Prompts user if he wants to add additional sale type, only returns y or n
+        ui.addProductMsg(); //Success message when product is added
+    }
+    
     private void updateAccount()
     {
         String selection = ui.displayMenu(9);

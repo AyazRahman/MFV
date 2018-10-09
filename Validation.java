@@ -11,7 +11,7 @@ public class Validation
 {
     private ArrayList<String> postcodes;
     private ArrayList<String> states;
-    
+    private ArrayList<String> saleTypes;
 
     /**
      * Constructor for objects of class Validation
@@ -22,6 +22,7 @@ public class Validation
                                                   "3183", "3184", "3185", "3186", "3187", "3188", "3204"));
         states = new ArrayList<>(Arrays.asList("VIC", "Victoria", "NSW", "New South Wales", "QLD", "Queensland", "ACT", "Australian Capital Territory", 
                                                "SA", "South Australia", "NT", "Northern Territory", "TAS", "Tasmania", "WA", "Western Australia"));
+        saleTypes = new ArrayList<>(Arrays.asList("kg", "bag", "box", "punnet"));                                       
     }
     
     public boolean validatePwd(String pwd)
@@ -152,5 +153,42 @@ public class Validation
         else 
         return s.matches(regex);
     }
+    
+    public boolean validateProdName(String prodName)
+    {
+        for (char c : prodName.toCharArray()) {
+            if (!Character.isAlphabetic(c)){
+                System.out.println("INVALID");
+                return false;
+            }
+        }
+        
+        if (prodName.length() < 2 || prodName.length() > 20)
+            return false;
+        return true;
+    }
+    
+    public boolean validateShelfLife(String days)
+    {
+        if (days.matches("[0-9]") && days.length() < 1000)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    public boolean validateSaleType(String saleType)
+    {
+        if (saleType.trim() == "")
+            return false;
+        for (String s : saleTypes)
+        {
+            if (saleType.trim().equalsIgnoreCase(s))
+            return true;
+        }
+        return false;
+    }
+    
     
 }

@@ -11,25 +11,27 @@ public class Product
 {
     private int productID;
     private String name;
-    private int avgShelfLife; //shelf life always in days
+    private int minShelfLife;
+    private int maxShelfLife;
     private List<Batch> batches;
     private String[] saleTypes;
-    
     
     public Product()
     {
         productID = 0;
         name = "";
-        avgShelfLife = 0; 
+        minShelfLife = 0; 
+        maxShelfLife = 0;
         batches = new ArrayList<Batch>();
         saleTypes = new String[2]; // from the data given there is a max of 2 different forms of salem methods
     }
     
-    public Product(int newProductID, String newName, int newAvgShelfLife, String[] newSaleTypes)
+    public Product(int newProductID, String newName, int newMinShelfLife, int newMaxShelfLife, String[] newSaleTypes)
     {
         productID = newProductID;
         name = newName;
-        avgShelfLife = newAvgShelfLife; 
+        minShelfLife = newMinShelfLife;
+        maxShelfLife = newMaxShelfLife;
         batches = new ArrayList<Batch>();
         saleTypes = newSaleTypes; // from the data given there is a max of 2 different forms of salem methods
     }
@@ -45,9 +47,14 @@ public class Product
         return name;
     }
     
-    public int getAvgShelfLife()
+    public int getMinShelfLife()
     {
-        return avgShelfLife;
+        return minShelfLife;
+    }
+    
+    public int getMaxShelfLife()
+    {
+        return maxShelfLife;
     }
     
     public List<Batch> getBatches()
@@ -71,9 +78,14 @@ public class Product
         name = newName;
     }
     
-    public void setAvgShelfLife(int newAvgShelfLife)
+    public void setMinShelfLife(int newMinShelfLife)
     {
-        avgShelfLife = newAvgShelfLife;
+        minShelfLife = newMinShelfLife;
+    }
+    
+    public void setMaxShelfLife(int newMaxShelfLife)
+    {
+        maxShelfLife = newMaxShelfLife;
     }
     
     public void setBatches(List<Batch> newBatches)
@@ -153,6 +165,6 @@ public class Product
     
     public String toString()
     {
-        return (productID + "," + name + "," +  avgShelfLife + "," + saleTypes[0] + "," + saleTypes[1] + ",");
+        return (productID + "," + name + "," +  minShelfLife + "," + maxShelfLife + "," + saleTypes[0] + "," + saleTypes[1] + ",");
     }
 }

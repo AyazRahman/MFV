@@ -123,7 +123,7 @@ public class UserInterface
         ownProductMenu2.add("[E] Remove Batch");
         ownProductMenu2.add("[F] Add Keywords");
         ownProductMenu2.add("[G] Back");
-        
+
         //Customer update account details menu ID: 9
         accDetailsMenu.add("Set Account Details");
         accDetailsMenu.add("[A] First Name");
@@ -142,12 +142,12 @@ public class UserInterface
         accDetailsMenu.add("[N] Unregister");
         accDetailsMenu.add("[O] Back");
     }
-    
+
     public void updateMsg(String detail)
     {
         System.out.println("\n" + detail + " Updated!" + "\n");
     }
-    
+
     public void userExistsMsg()
     {
         System.out.println("You already have an account. Login or register with a different email address.");
@@ -589,7 +589,7 @@ public class UserInterface
         }
         return collpref; 
     }
-    
+
     public String unregister()
     {
         Scanner scan = new Scanner(System.in);
@@ -608,5 +608,110 @@ public class UserInterface
             }
         }
         return unregister; 
+    }
+
+    public String prodNameInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        String prodName = "";
+        System.out.println("Enter the product name: ");
+        while (prodName.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateProdName(input.trim()) == true)
+            {
+                prodName = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid product name.");
+            }
+        }
+        return prodName; 
+    }
+
+    public String minShelfLifeInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        String minShelf = "";
+        System.out.println("Enter the product's minimum shelf life in days: ");
+        while (minShelf.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateShelfLife(input.trim()) == true)
+            {
+                minShelf = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid product name.");
+            }
+        }
+        return minShelf; 
+    }
+
+    public String maxShelfLifeInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        String maxShelf = "";
+        System.out.println("Enter the product's minimum shelf life in days: ");
+        while (maxShelf.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateShelfLife(input.trim()) == true)
+            {
+                maxShelf = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid product name.");
+            }
+        }
+        return maxShelf; 
+    }
+
+    public String saleTypeInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        String saleType = "";
+        System.out.println("Enter the product's sale type (e.g. 'kg', 'bag', 'box', 'punnet'): ");
+        while (saleType.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateSaleType(input.trim()) == true)
+            {
+                saleType = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid sale type.");
+            }
+        }
+        return saleType; 
+    }
+
+    public String addSaleType()
+    {
+        Scanner scan = new Scanner(System.in);
+        String response = "";
+        System.out.println("Do you want to add an additional sale type? (enter 'y' for yes or 'n' for no): ");
+        while (response.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().matches("[Yy]|[Nn])"))
+            {
+                response = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid response.");
+            }
+        }
+        return response; 
+    }
+
+    public void addProductMsg()
+    {
+        System.out.println("\n" + "Product Added!" + "\n");
     }
 }
