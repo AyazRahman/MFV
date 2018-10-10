@@ -221,6 +221,7 @@ public class MFVSystem
                 String choice = ui.unregister();
                 if (choice.matches("[Yy]"))
                 {
+                    //System TODO
                     System.out.println("Call unregister method here");
                 }
 
@@ -357,7 +358,7 @@ public class MFVSystem
 
     }
 
-    private void productMenu()
+    private void productMenu(Product p)
     {
         if (loggedUser instanceof Customer)
         {
@@ -380,8 +381,7 @@ public class MFVSystem
             {
                 if (selection.matches("[Aa]"))
                 {
-                    //TODO: Edit product sequence
-                    //TODO:UI Edit product sequence form
+                    editProduct(p);
                 }
                 else if (selection.matches("[Bb]"))
                 {
@@ -401,6 +401,51 @@ public class MFVSystem
         }
     }
 
+    private void editProduct(Product p)
+    {
+        ui.displayProduct(p);
+        String input = ui.displayMenu(10);
+        while (!input.matches("[Ee]"))
+        {
+            if (input.matches("[Aa]"))
+            {
+                System.out.println("Current Name: " + p.getName());
+                p.setName(ui.prodNameInput());
+            }
+            else if (input.matches("[Bb]"))
+            {
+                //min shelf life
+                System.out.println("Current Min Shelf Life: " + p.getMinShelfLife());
+                p.setMinShelfLife(Integer.parseInt(ui.minShelfLifeInput()));
+            }
+            else if (input.matches("[Cc]"))
+            {
+                //max shelf life
+                System.out.println("Current Max Shelf Life: " + p.getMaxShelfLife());
+                p.setMaxShelfLife(Integer.parseInt(ui.maxShelfLifeInput()));
+            }
+            else if (input.matches("[Dd]"))
+            {
+                //sale types
+                System.out.println("Current Sale Types: " + p.getSaleTypes()[0] + ", " + p.getSaleTypes()[0]);
+                String saleType1 = ui.saleTypeInput();
+                if (ui.addSaleType().matches("[Yy]"))
+                {
+                    String saleType2 = ui.saleTypeInput();
+                    String[] saleTypes = {saleType1, saleType2};
+                    p.setSaleTypes(saleTypes);
+                }
+                else
+                {
+                    String[] saleTypes = {saleType1, " "};
+                    p.setSaleTypes(saleTypes);
+                }
+            }
+            ui.displayProduct(p);
+            input = ui.displayMenu(10);
+        }
+    }
+    
     private void orderManagement()
     {
         //TODO: call orderManagement menu
@@ -422,7 +467,7 @@ public class MFVSystem
             //TODO: pass only values instead of the Product object
             ui.searchResult(input, result);
 
-            productMenu();
+            productMenu(result);
         }
         else
         {
@@ -439,7 +484,7 @@ public class MFVSystem
         //TODO: send the values rather than the product object
         ui.browseResult(p);
 
-        productMenu();
+        productMenu(p);
     }
 
     private void exitProgram()
