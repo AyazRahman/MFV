@@ -27,6 +27,8 @@ public class UserInterface
     String ownProductRange2;
     private ArrayList<String> accDetailsMenu;
     String accDetailsRange;
+    private ArrayList<String> editProdMenu;
+    String editProdRange;
     Validation valid;
 
     /**
@@ -45,7 +47,7 @@ public class UserInterface
         cusStartRange = "[A-Ga-g]";
         //ID: 3
         ownStartMenu = new ArrayList<String>();
-        ownStartRange = "[A-Ea-e]";
+        ownStartRange = "[A-Fa-f]";
         //ID: 4
         cusProductMenu = new ArrayList<String>();
         cusProductRange = "[A-Ca-c]";
@@ -64,6 +66,9 @@ public class UserInterface
         //ID: 9
         accDetailsMenu = new ArrayList<String>();
         accDetailsRange = "[A-Oa-o]";
+        //ID: 10
+        editProdMenu = new ArrayList<String>();
+        editProdRange = "[A-Ea-e]";
     }
 
     public void loadMenuItems()
@@ -88,8 +93,9 @@ public class UserInterface
         ownStartMenu.add("[A] Product Management");
         ownStartMenu.add("[B] Order Management");
         ownStartMenu.add("[C] Account Management");
-        ownStartMenu.add("[D] Logout");
-        ownStartMenu.add("[E] Exit");
+        ownStartMenu.add("[D] Reporting");
+        ownStartMenu.add("[E] Logout");
+        ownStartMenu.add("[F] Exit");
 
         //Customer Initial product menu ID: 4
         cusProductMenu.add("Menu");
@@ -141,6 +147,14 @@ public class UserInterface
         accDetailsMenu.add("[M] Delivery Preference");
         accDetailsMenu.add("[N] Unregister");
         accDetailsMenu.add("[O] Back");
+        
+        //Owner edit product menu ID:10
+        editProdMenu.add("Edit Product");
+        editProdMenu.add("[A] Name");
+        editProdMenu.add("[B] Minimum Shelf Life");
+        editProdMenu.add("[C] Maximum Shelf Life");
+        editProdMenu.add("[D] Sale Types");
+        editProdMenu.add("[E] Back");
     }
 
     public void updateMsg(String detail)
@@ -674,7 +688,7 @@ public class UserInterface
     {
         Scanner scan = new Scanner(System.in);
         String saleType = "";
-        System.out.println("Enter the product's sale type (e.g. 'kg', 'bag', 'box', 'punnet'): ");
+        System.out.println("Enter the product's sale type (e.g. 'kg', 'bag', 'box', 'punnet', 'peice', 'bundle', 'stalk'): ");
         while (saleType.equals(""))
         {
             String input = scan.nextLine();

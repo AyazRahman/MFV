@@ -22,7 +22,7 @@ public class Validation
                                                   "3183", "3184", "3185", "3186", "3187", "3188", "3204"));
         states = new ArrayList<>(Arrays.asList("VIC", "Victoria", "NSW", "New South Wales", "QLD", "Queensland", "ACT", "Australian Capital Territory", 
                                                "SA", "South Australia", "NT", "Northern Territory", "TAS", "Tasmania", "WA", "Western Australia"));
-        saleTypes = new ArrayList<>(Arrays.asList("kg", "bag", "box", "punnet"));                                       
+        saleTypes = new ArrayList<>(Arrays.asList("kg", "bag", "box", "punnet", "piece", "bundle", "stalk"));                                       
     }
     
     public boolean validatePwd(String pwd)
