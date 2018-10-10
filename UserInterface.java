@@ -30,6 +30,12 @@ public class UserInterface
     String accDetailsRange;
     private ArrayList<String> editProdMenu;
     String editProdRange;
+    private ArrayList<String> selBatchMenu;
+    String selBatchRange;
+    private ArrayList<String> batchMenu;
+    String batchRange;
+    private ArrayList<String> edBatchMenu;
+    String edBatchRange;
     Validation valid;
 
     /**
@@ -63,13 +69,22 @@ public class UserInterface
         cusProductRange = "[A-Ba-b]";
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
-        ownProductRange2 = "[A-Ga-g]";
+        ownProductRange2 = "[A-Fa-f]";
         //ID: 9
         accDetailsMenu = new ArrayList<String>();
         accDetailsRange = "[A-Oa-o]";
         //ID: 10
         editProdMenu = new ArrayList<String>();
         editProdRange = "[A-Ea-e]";
+        //ID: 11
+        selBatchMenu = new ArrayList<String>();
+        selBatchRange = "[A-Ba-b]";
+        //ID: 12
+        batchMenu = new ArrayList<String>();
+        batchRange = "[A-Ca-c]";
+        //ID: 13
+        edBatchMenu = new ArrayList<String>();
+        edBatchRange = "[A-Fa-f]";
     }
 
     public void loadMenuItems()
@@ -82,19 +97,19 @@ public class UserInterface
         //Customer menu items ID: 2
         cusStartMenu.add("Menu");
         cusStartMenu.add("[A] View Products");
-        cusStartMenu.add("[B] Shopping Cart");
-        cusStartMenu.add("[C] Checkout");
-        cusStartMenu.add("[D] Order History");
-        cusStartMenu.add("[E] Account Details");
+        cusStartMenu.add("[B] Shopping Cart"); //TODO
+        cusStartMenu.add("[C] Checkout"); //TODO
+        cusStartMenu.add("[D] Order History"); //TODO
+        cusStartMenu.add("[E] Account Details"); 
         cusStartMenu.add("[F] Logout");
         cusStartMenu.add("[G] Exit");
 
         //Owner menu items ID: 3
         ownStartMenu.add("Menu");
-        ownStartMenu.add("[A] Product Management");
-        ownStartMenu.add("[B] Order Management");
-        ownStartMenu.add("[C] Account Management");
-        ownStartMenu.add("[D] Reporting");
+        ownStartMenu.add("[A] Product Management"); //Remove prod
+        ownStartMenu.add("[B] Order Management"); //View all order, complete, uncomplete => set to complete, cancel order
+        ownStartMenu.add("[C] Account Management"); //TODO
+        ownStartMenu.add("[D] Reporting"); //Daily report, total sales, order list, total orders
         ownStartMenu.add("[E] Logout");
         ownStartMenu.add("[F] Exit");
 
@@ -118,18 +133,17 @@ public class UserInterface
 
         //Customer product interaction menu ID: 7
         cusProductMenu2.add("Menu");
-        cusProductMenu2.add("[A] Purchase Product");
+        cusProductMenu2.add("[A] Purchase Product"); //TODO
         cusProductMenu2.add("[B] Back");
 
         //Owner product interaction menu ID: 8
         ownProductMenu2.add("Menu");
         ownProductMenu2.add("[A] Edit Product");
-        ownProductMenu2.add("[B] Remove Product");
-        ownProductMenu2.add("[C] Add Batch");
-        ownProductMenu2.add("[D] Edit Batch");
-        ownProductMenu2.add("[E] Remove Batch");
-        ownProductMenu2.add("[F] Add Keywords");
-        ownProductMenu2.add("[G] Back");
+        ownProductMenu2.add("[B] Remove Product"); //TODO
+        ownProductMenu2.add("[C] Add Batch"); //Hasan
+        ownProductMenu2.add("[D] View Batches"); //Print batch function
+        ownProductMenu2.add("[E] Add Keywords"); //TODO + error message
+        ownProductMenu2.add("[F] Back");
 
         //Customer update account details menu ID: 9
         accDetailsMenu.add("Set Account Details");
@@ -156,6 +170,24 @@ public class UserInterface
         editProdMenu.add("[C] Maximum Shelf Life");
         editProdMenu.add("[D] Sale Types");
         editProdMenu.add("[E] Back");
+        
+        //Owner select batch menu ID:11
+        selBatchMenu.add("[A] Select Batch"); //Prompt form
+        selBatchMenu.add("[B] Back");
+        
+        //Owner batch interaction menu ID: 12
+        batchMenu.add("[A] Edit Batch"); //Hasan
+        batchMenu.add("[B] Remove Batch"); //Hasan
+        batchMenu.add("[C] Back");
+        
+        //Owner edit batch menu ID:13
+        edBatchMenu.add("Edit Batch");
+        edBatchMenu.add("[A] Quantity");
+        edBatchMenu.add("[B] Sale Method");
+        edBatchMenu.add("[C] Price");
+        edBatchMenu.add("[D] Source");
+        edBatchMenu.add("[E] Name");
+        edBatchMenu.add("[F] Back");
     }
 
     public void updateMsg(String detail)
@@ -254,47 +286,59 @@ public class UserInterface
         switch (menuID)
         {
             case 1:
-            range = startRange;
-            options = startMenu;
-            break;
+                range = startRange;
+                options = startMenu;
+                break;
             case 2:
-            range = cusStartRange;
-            options = cusStartMenu;
-            break;
+                range = cusStartRange;
+                options = cusStartMenu;
+                break;
             case 3:
-            range = ownStartRange;
-            options = ownStartMenu;
-            break;
+                range = ownStartRange;
+                options = ownStartMenu;
+                break;
             case 4:
-            range = cusProductRange;
-            options = cusProductMenu;
-            break;
+                range = cusProductRange;
+                options = cusProductMenu;
+                break;
             case 5:
-            range = prodSelectRange;
-            options = prodSelectMenu;
-            break;
+                range = prodSelectRange;
+                options = prodSelectMenu;
+                break;
             case 6:
-            range = ownProductRange;
-            options = ownProductMenu;
-            break;
+                range = ownProductRange;
+                options = ownProductMenu;
+                break;
             case 7:
-            range = cusProductRange2;
-            options = cusProductMenu2;
-            break;
+                range = cusProductRange2;
+                options = cusProductMenu2;
+                break;
             case 8:
-            range = ownProductRange2;
-            options = ownProductMenu2;
-            break;
+                range = ownProductRange2;
+                options = ownProductMenu2;
+                break;
             case 9:
-            range = accDetailsRange;
-            options = accDetailsMenu;
-            break;
+                range = accDetailsRange;
+                options = accDetailsMenu;
+                break;
             case 10:
-            range = editProdRange;
-            options = editProdMenu;
-            break;
+                range = editProdRange;
+                options = editProdMenu;
+                break;
+            case 11:
+                range = selBatchRange;
+                options = selBatchMenu;
+                break;
+            case 12:
+                range = batchRange;
+                options = batchMenu;
+                break;
+            case 13:
+                range = edBatchRange;
+                options = edBatchMenu;
+                break;
             default:
-            System.out.println("Menu failed to initialise, give it a valid argument.");
+                System.out.println("Menu failed to initialise, give it a valid argument.");
         }
 
         for (String i : options)
@@ -783,5 +827,41 @@ public class UserInterface
     public void purchMsg()
     {
         System.out.println("\n" + "Your selection has been added to your shopping cart." + "\n");
+    }
+    
+    public void updateAccountMsg()
+    {
+        System.out.println("\n" + "You need to update your account details before you can check out!" + "\n");
+    }
+    
+    public void confOrderDetailsMsg()
+    {
+        System.out.println("\n" + "These are your details associated with your order, now is your chance to go back and update anything if needed." + "\n");
+        System.out.println("\n" + "You can update your account details by following the 'Account Details' menu item and you can update your order by following the 'Shopping Cart' menu item." + "\n");
+    }
+    
+    public String checkOutConfirm()
+    {
+        Scanner scan = new Scanner(System.in);
+        String response = "";
+        System.out.println("Please confirm that your order and your personal details are correct (enter 'y' for yes or 'n' for no): ");
+        while (response.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().matches("[Yy]|[Nn]"))
+            {
+                response = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid response.");
+            }
+        }
+        return response; 
+    }
+    
+    public void checkoutComplete()
+    {
+        System.out.println("Your order has been successfully placed and your payment detils routed to our payment provider for processing. Thank you come again! -MFV");  
     }
 }
