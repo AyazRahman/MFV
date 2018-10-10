@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 /**
  * Write a description of class Menu here.
  *
@@ -668,7 +669,7 @@ public class UserInterface
     {
         Scanner scan = new Scanner(System.in);
         String maxShelf = "";
-        System.out.println("Enter the product's minimum shelf life in days: ");
+        System.out.println("Enter the product's maximum shelf life in days: ");
         while (maxShelf.equals(""))
         {
             String input = scan.nextLine();
@@ -712,7 +713,10 @@ public class UserInterface
         while (response.equals(""))
         {
             String input = scan.nextLine();
-            if (input.trim().matches("[Yy]|[Nn])"))
+            //Pattern p = Pattern.compile("[Yy]|[Nn])");
+            //Matcher m = p.matcher(input.trim());
+            //if (m.find())
+            if (input.trim().matches("[Yy]|[Nn]"))
             {
                 response = input.trim();
             }
