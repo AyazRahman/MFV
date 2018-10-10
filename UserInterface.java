@@ -737,4 +737,51 @@ public class UserInterface
     {
         System.out.println("\n" + "Product Added!" + "\n");
     }
+    
+    public String batchIDInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        String bid = "";
+        System.out.println("Enter the ID of the product you want to purchase: ");
+        while (bid.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().equals(""))
+            {
+                System.out.println("Enter a valid product ID.");
+            }
+            else
+            {
+                bid = input;
+            }
+        }
+        return bid; 
+    }
+    
+    public String prodQtyInput(int availQuant)
+    {
+        Scanner scan = new Scanner(System.in);
+        String qty = "";
+        int availQty = availQuant;
+        System.out.println("Enter the quantity you want to purchase: ");
+        
+        while (qty.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateQty(input) == true && Integer.parseInt(input) <= availQty)
+            {
+                qty = input;
+            }
+            else
+            {
+                System.out.println("Enter a valid quantity");
+            }
+        }
+        return qty; 
+    }
+    
+    public void purchMsg()
+    {
+        System.out.println("\n" + "Your selection has been added to your shopping cart." + "\n");
+    }
 }

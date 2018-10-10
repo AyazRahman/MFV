@@ -170,7 +170,7 @@ public class Validation
     
     public boolean validateShelfLife(String days)
     {
-        if (days.trim().matches("[0-9]") && days.trim().length() < 4)
+        if (days.trim().matches("^[0-9]{1,3}$") && days.trim() != "0")
         {
             return true;
         }
@@ -190,5 +190,13 @@ public class Validation
         return false;
     }
     
-    
+    public boolean validateQty(String qty)
+    {
+        if (qty.trim().matches("^[0-9]{1,3}$") && qty.trim() != "0")
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 }
