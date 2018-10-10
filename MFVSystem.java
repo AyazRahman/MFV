@@ -125,13 +125,26 @@ public class MFVSystem
     private void addProduct()
     {
         String productName = ui.prodNameInput();
-        String minShelfLife = ui.minShelfLifeInput();
-        String maxShelfLife = ui.maxShelfLifeInput();
-        String saleType = ui.saleTypeInput(); //Run this multiple times to get multiple sale types
-        ui.addSaleType(); //Prompts user if he wants to add additional sale type, only returns y or n
-        ui.addProductMsg(); //Success message when product is added
+        int minShelfLife = Integer.parseInt(ui.minShelfLifeInput());
+        int maxShelfLife = Integer.parseInt(ui.maxShelfLifeInput());
+        String saleType1 = ui.saleTypeInput(); //Run this multiple times to get multiple sale types
+        String saleType2 = " ";
+        if (ui.addSaleType().matches("[Yy]")) //Prompts user if he wants to add additional sale type, only returns y or n
+        {
+            saleType2 = ui.saleTypeInput();
+        }
+        String[] saleTypes = {saleType1, saleType2};
+        int pId = 100 + db.getProducts().size();
+        if(db.addProduct(pId, productName, minShelfLife, maxShelfLife, saleTypes))
+        {
+            ui.addProductMsg(); //Success message when product is added
+        }
+        else
+        {
+            System.out.println("Failed to add product. Something went wrong");
+        }
     }
-    
+
     private void updateAccount()
     {
         String selection = ui.displayMenu(9);
