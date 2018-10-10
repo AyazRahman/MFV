@@ -284,9 +284,14 @@ public class UserInterface
             case 8:
             range = ownProductRange2;
             options = ownProductMenu2;
+            break;
             case 9:
             range = accDetailsRange;
             options = accDetailsMenu;
+            break;
+            case 10:
+            range = editProdRange;
+            options = editProdMenu;
             break;
             default:
             System.out.println("Menu failed to initialise, give it a valid argument.");
