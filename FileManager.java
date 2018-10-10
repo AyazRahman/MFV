@@ -94,15 +94,16 @@ public class FileManager
             FileReader inputFile = new FileReader(filename);
             Scanner parser = new Scanner(inputFile);
             while (parser.hasNextLine())
-            {   
+            {   //Abdelah: avgSelfLife added in the array
                 String [] productInfo = parser.nextLine().split(",");
-                String[] saleTypes = {productInfo[3].trim(), (productInfo[4].equals(" ") ? productInfo[4] : productInfo[4].trim())};
+                String[] saleTypes = {productInfo[4].trim(), (productInfo[5].equals(" ") ? productInfo[5] : productInfo[5].trim())};
                 int productID = Integer.parseInt(productInfo[0].trim());
                 String name = productInfo[1].trim();
                 products.put(productID, new Product(productID, 
                                                     name, 
                                                     Integer.parseInt(productInfo[2].trim()),
-                                                    
+                                                    //avgShelfLife
+                                                    Integer.parseInt(productInfo[3].trim()),
                                                     saleTypes));
                 //add to HashMap if name is not in keywords
                 if (!keywords.containsKey(name.toLowerCase()))
@@ -447,13 +448,13 @@ public class FileManager
     /**
      * Adds a new product to the hashtable
      */
-    
+    //Abdelah: min and maxShelfLife added insted of avg
     private boolean addProduct(int productID, String name, 
-                               int avgShelfLife, String[] saleTypes)
+                               int minShelfLife, int maxShelfLife, String[] saleTypes)
     {
         int initialSize = products.size();
         
-        products.put(productID, new Product(productID, name, avgShelfLife, saleTypes));
+        products.put(productID, new Product(productID, name, minShelfLife, maxShelfLife, saleTypes));
         if (!keywords.containsKey(name))
         {
             keywords.put(name, productID);
