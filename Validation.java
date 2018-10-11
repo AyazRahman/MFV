@@ -244,4 +244,18 @@ public class Validation
         System.out.println("Date format is not valid");
         return false;
     }
+    
+    public boolean validateWord(String word)
+    {
+        for (char c : word.toCharArray()) {
+            if (!Character.isAlphabetic(c)){
+                System.out.println("INVALID");
+                return false;
+            }
+        }
+        
+        if (word.length() < 2 || word.length() > 20)
+            return false;
+        return true;
+    }
 }
