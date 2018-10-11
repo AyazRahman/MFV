@@ -294,7 +294,7 @@ public class MFVSystem
         {
             //call Admin menu
             String selection = ui.displayMenu(3);
-            while (!selection.matches("[Dd]") && !selection.matches("[Ee]"))
+            while (!selection.matches("[Ee]") && !selection.matches("[Ff]"))
             {
                 if (selection.matches("[Aa]"))
                 {
@@ -308,13 +308,17 @@ public class MFVSystem
                 {
                     //TODO:UI Account Edit form
                 }
+                else if (selection.matches("[Dd]"))
+                {
+                    //TODO:UI System Report form
+                }
                 selection = ui.displayMenu(3);
             }
-            if (selection.matches("[Dd]"))
+            if (selection.matches("[Ee]"))
             {
                 loggedUser = new User();
             }
-            else if (selection.matches("[Ee]"))
+            else if (selection.matches("[Ff]"))
             {
                 exitProgram();
             }
