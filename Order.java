@@ -185,6 +185,15 @@ public class Order
         return d;
     }
     
+    public boolean checkDate(String date)
+    {
+        if (orderDate.compareTo(stringToDate(date)) == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Set the order receipt method.
      */

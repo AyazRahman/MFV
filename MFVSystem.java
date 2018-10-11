@@ -400,6 +400,14 @@ public class MFVSystem
                 {
                     //TODO:UI Add batch form and  System sequence
                 }
+                else if (selection.matches("[Dd]"))
+                {
+                    //TODO:UI View Batches
+                }
+                else if (selection.matches("[Ee]"))
+                {
+                    //TODO:UI Add keyword
+                }
                 //  confusion for rest of the options
                 selection = ui.displayMenu(8);
             }
@@ -450,7 +458,7 @@ public class MFVSystem
             input = ui.displayMenu(10);
         }
     }
-    
+
     private void orderManagement()
     {
         //TODO: call orderManagement menu
@@ -500,20 +508,42 @@ public class MFVSystem
         {
             if (selection.matches("[Aa]"))
             {
-                //TODO: BackEnd Development needed
-                // geting today's date
-                System.out.println("Date Selected is:" + ui.getCurrentDate());
+                reportOrders();
             }
             else if (selection.matches("[Bb]"))
             {
-                //TODO: BackEnd Development needed 
-                // getting Owner Entred valadated date
-                System.out.println("Date Selected is:" + ui.getEntredDate());
+                reportOrders();
             }
             selection = ui.displayMenu(14);
         }
     }
-    
+
+    private void reportOrders()
+    {
+        List<Order> orders = new ArrayList<Order>();
+        int num = 0;
+        double totalPrice = 0.00;
+        String input = ui.getCurrentDate();
+        System.out.println("Date Selected is:" + input);
+        for (Order o : db.getOrders())
+        {
+            if (o.checkDate(input))
+            {
+                orders.add(o);
+                num++;
+                totalPrice += o.getPrice();
+            }
+        }
+        if (num != 0)
+        {
+            //TODO: implement ui.displayReport(num, totalPrice, );
+        }
+        else
+        {
+            System.out.println("No orders to show for the given date");
+        }
+    }
+
     private void exitProgram()
     {
         db.saveData();
