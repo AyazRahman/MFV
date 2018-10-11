@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.text.SimpleDateFormat;  
 
 /**
  * Write a description of class Menu here.
@@ -36,6 +36,8 @@ public class UserInterface
     String batchRange;
     private ArrayList<String> edBatchMenu;
     String edBatchRange;
+    private ArrayList<String> sysReportMenu;
+    String sysReportRange;
     Validation valid;
 
     /**
@@ -85,6 +87,9 @@ public class UserInterface
         //ID: 13
         edBatchMenu = new ArrayList<String>();
         edBatchRange = "[A-Fa-f]";
+        //ID: 14
+        sysReportMenu = new ArrayList<String>();
+        sysReportRange = "[A-Ca-c]";
     }
 
     public void loadMenuItems()
@@ -188,6 +193,12 @@ public class UserInterface
         edBatchMenu.add("[D] Source");
         edBatchMenu.add("[E] Name");
         edBatchMenu.add("[F] Back");
+        
+        //Owner get system report ID:14
+        sysReportMenu.add("System Report");
+        sysReportMenu.add("[A] Today's Report");
+        sysReportMenu.add("[B] Report for Selected date");
+        sysReportMenu.add("[C] Back");
     }
 
     public void updateMsg(String detail)
@@ -336,6 +347,10 @@ public class UserInterface
             case 13:
                 range = edBatchRange;
                 options = edBatchMenu;
+                break;
+            case 14:
+                range = sysReportRange;
+                options = sysReportMenu;
                 break;
             default:
                 System.out.println("Menu failed to initialise, give it a valid argument.");
@@ -864,4 +879,33 @@ public class UserInterface
     {
         System.out.println("Your order has been successfully placed and your payment detils routed to our payment provider for processing. Thank you come again! -MFV");  
     }
+    
+    public String getCurrentDate()
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+        Date date = new Date();  
+        return formatter.format(date);
+    }
+    
+    public String getEntredDate()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Date (format dd/mm/yyyy): ");
+        String date = "";
+        while(date.equals(""))
+        {
+            String input = scan.nextLine();  
+            if (valid.validateDate(input.trim()) == true)
+            {
+                date = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter Date (format dd/mm/yyyy):");
+            }
+      }  
+        return date; 
+    }
+    
+    
 }

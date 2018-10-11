@@ -311,6 +311,7 @@ public class MFVSystem
                 else if (selection.matches("[Dd]"))
                 {
                     //TODO:UI System Report form
+                    systemReport();
                 }
                 selection = ui.displayMenu(3);
             }
@@ -491,6 +492,28 @@ public class MFVSystem
         productMenu(p);
     }
 
+    //14
+    private void systemReport()
+    {
+        String selection  = ui.displayMenu(14);
+        while (!selection.matches("[Cc]"))
+        {
+            if (selection.matches("[Aa]"))
+            {
+                //TODO: BackEnd Development needed
+                // geting today's date
+                System.out.println("Date Selected is:" + ui.getCurrentDate());
+            }
+            else if (selection.matches("[Bb]"))
+            {
+                //TODO: BackEnd Development needed 
+                // getting Owner Entred valadated date
+                System.out.println("Date Selected is:" + ui.getEntredDate());
+            }
+            selection = ui.displayMenu(14);
+        }
+    }
+    
     private void exitProgram()
     {
         db.saveData();

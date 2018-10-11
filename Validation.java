@@ -1,6 +1,10 @@
 import java.math.BigInteger; 
 import java.util.*;
 import java.util.regex.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;  
+//import java.time.LocalDateTime;
+// java.time.LocalDate;  
 /**
  * Write a description of class Validation here.
  *
@@ -198,5 +202,46 @@ public class Validation
         }
         else
             return false;
+    }
+    
+    //validating date entred for system report
+    //checking the formate to match dd/mm/yyyy
+    //prevent future dates
+    public static boolean validateDate(String entredDate)
+    {
+        String dateRegex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern p = Pattern.compile(dateRegex);
+        Matcher m = p.matcher(entredDate);
+      
+        if (m.matches())
+        {
+            LocalDateTime today = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String todayString = today.format(formatter);
+          
+            LocalDate entredDateToDate = LocalDate.parse(entredDate,formatter);
+            LocalDate todayStringToDate = LocalDate.parse(todayString,formatter);
+
+            if (entredDateToDate.isBefore(todayStringToDate)) 
+            {
+                System.out.println("Date is valid ");
+                return true;
+            }
+            if (entredDateToDate.isAfter(todayStringToDate)) 
+            {
+                System.out.println("Future date not acceptable");
+                return false;
+            }
+            if (entredDateToDate.isEqual(todayStringToDate)) 
+            {
+                System.out.println("Date should not be current date, select past date please");
+                return false;
+            }
+            else
+            System.out.println("Date is not valid  ");
+            return false;
+        }
+        System.out.println("Date format is not valid");
+        return false;
     }
 }
