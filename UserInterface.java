@@ -71,7 +71,7 @@ public class UserInterface
         ownProductRange = "[A-Da-d]";
         //ID: 7
         cusProductMenu2 = new ArrayList<String>();
-        cusProductRange = "[A-Ba-b]";
+        cusProductRange2 = "[A-Ba-b]";
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
         ownProductRange2 = "[A-Fa-f]";
@@ -1064,4 +1064,23 @@ public class UserInterface
         return bid; 
     }
     
+    public String selRecDate()
+    {
+        Scanner scan = new Scanner(System.in);
+        String recDate = "";
+        System.out.println("Enter the date you want to receive your order: ");
+        while (recDate.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateReceiptDate(input) == true)
+            {
+                recDate = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid delivery date (i.e. at least one day from today): ");
+            }
+        }
+        return recDate; 
+    }
 }

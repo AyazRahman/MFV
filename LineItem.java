@@ -13,6 +13,7 @@ public class LineItem
     private int qty;
     private double unitPrice;
     private double price;
+    private String batchID;
 
     /**
      * Constructor for objects of class LineItem
@@ -24,17 +25,19 @@ public class LineItem
         qty = 0;
         unitPrice = 0.00;
         price = 0.00;
+        batchID = "";
     }
     
     /**
      * Alt. constructor for creating line items.
      */
-    public LineItem(String name, int qty, double unitPrice)
+    public LineItem(String name, int qty, double unitPrice, String batchID)
     {
         this.name = name;
         this.qty = qty;
         this.unitPrice = unitPrice;
         price = qty * unitPrice;
+        this.batchID = batchID;
     }
     
     public void setItem(String name)
@@ -82,4 +85,13 @@ public class LineItem
         return name + "," + qty + "," + unitPrice + "," + price;
     }
    
+    public String getBatchID()
+    {
+        return batchID;
+    }
+    
+    public void setBatchID(String batchID)
+    {
+        this.batchID = batchID;
+    }
 }

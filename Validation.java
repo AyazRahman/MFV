@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.regex.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;  
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 //import java.time.LocalDateTime;
 // java.time.LocalDate;  
 /**
@@ -258,4 +260,38 @@ public class Validation
             return false;
         return true;
     }
+    
+    public boolean validateReceiptDate(String receiptDate)
+    {
+        String dateRegex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern p = Pattern.compile(dateRegex);
+        Matcher m = p.matcher(receiptDate);
+      
+        if (m.matches())
+        {
+            LocalDateTime today = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String todayString = today.format(formatter);
+          
+            LocalDate entredDateToDate = LocalDate.parse(receiptDate,formatter);
+            LocalDate todayStringToDate = LocalDate.parse(todayString,formatter);
+
+            if (entredDateToDate.isBefore(todayStringToDate)) 
+            {
+                return false;
+            }
+            if (entredDateToDate.isAfter(todayStringToDate)) 
+            {
+                return true;
+            }
+            if (entredDateToDate.isEqual(todayStringToDate)) 
+            {
+                return false;
+            }
+            else
+            return false;
+        }
+        return false;
+    }
+
 }
