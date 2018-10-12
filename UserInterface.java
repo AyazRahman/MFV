@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  */
 public class UserInterface
 {
-    // instance variables - replace the example below with your own
+    Validation valid;
     private ArrayList<String> startMenu;
     String startRange;
     private ArrayList<String> cusStartMenu;
@@ -38,8 +38,11 @@ public class UserInterface
     String edBatchRange;
     private ArrayList<String> sysReportMenu;
     String sysReportRange;
-    Validation valid;
-
+    private ArrayList<String> cartMenu;
+    String cartRange;
+    private ArrayList<String> orderMgmtMenu;
+    String orderMgmtRange;
+    
     /**
      * Constructor for objects of class Menu
      */
@@ -90,6 +93,13 @@ public class UserInterface
         //ID: 14
         sysReportMenu = new ArrayList<String>();
         sysReportRange = "[A-Ca-c]";
+        //ID: 15
+        cartMenu = new ArrayList<String>();
+        cartRange = "[A-Ca-c]";
+        //ID: 16
+        orderMgmtMenu = new ArrayList<String>();
+        orderMgmtRange = "[A-Da-d]";
+        
     }
 
     public void loadMenuItems()
@@ -167,7 +177,7 @@ public class UserInterface
         accDetailsMenu.add("[M] Delivery Preference");
         accDetailsMenu.add("[N] Unregister");
         accDetailsMenu.add("[O] Back");
-        
+
         //Owner edit product menu ID:10
         editProdMenu.add("Edit Product");
         editProdMenu.add("[A] Name");
@@ -175,16 +185,16 @@ public class UserInterface
         editProdMenu.add("[C] Maximum Shelf Life");
         editProdMenu.add("[D] Sale Types");
         editProdMenu.add("[E] Back");
-        
+
         //Owner select batch menu ID:11
         selBatchMenu.add("[A] Select Batch"); //Prompt form
         selBatchMenu.add("[B] Back");
-        
+
         //Owner batch interaction menu ID: 12
         batchMenu.add("[A] Edit Batch"); //Hasan
         batchMenu.add("[B] Remove Batch"); //Hasan
         batchMenu.add("[C] Back");
-        
+
         //Owner edit batch menu ID:13
         edBatchMenu.add("Edit Batch");
         edBatchMenu.add("[A] Quantity");
@@ -193,12 +203,26 @@ public class UserInterface
         edBatchMenu.add("[D] Source");
         edBatchMenu.add("[E] Name");
         edBatchMenu.add("[F] Back");
-        
+
         //Owner get system report ID:14
         sysReportMenu.add("System Report");
         sysReportMenu.add("[A] Today's Report");
         sysReportMenu.add("[B] Report for Selected date");
         sysReportMenu.add("[C] Back");
+        
+        //Customer cart menu ID:15
+        cartMenu.add("Shopping Cart");
+        cartMenu.add("[A] Edit Order Quantity");
+        cartMenu.add("[B] Remove Product From Order");
+        cartMenu.add("[C] Back");
+        
+        //Owner order management menu ID: 16
+        orderMgmtMenu.add("Order Management");
+        orderMgmtMenu.add("[A] View All Orders");
+        orderMgmtMenu.add("[B] View Unfulfilled Orders");
+        orderMgmtMenu.add("[C] View Completed Orders");
+        orderMgmtMenu.add("[D] Back");
+        
     }
 
     public void updateMsg(String detail)
@@ -297,63 +321,71 @@ public class UserInterface
         switch (menuID)
         {
             case 1:
-                range = startRange;
-                options = startMenu;
-                break;
+            range = startRange;
+            options = startMenu;
+            break;
             case 2:
-                range = cusStartRange;
-                options = cusStartMenu;
-                break;
+            range = cusStartRange;
+            options = cusStartMenu;
+            break;
             case 3:
-                range = ownStartRange;
-                options = ownStartMenu;
-                break;
+            range = ownStartRange;
+            options = ownStartMenu;
+            break;
             case 4:
-                range = cusProductRange;
-                options = cusProductMenu;
-                break;
+            range = cusProductRange;
+            options = cusProductMenu;
+            break;
             case 5:
-                range = prodSelectRange;
-                options = prodSelectMenu;
-                break;
+            range = prodSelectRange;
+            options = prodSelectMenu;
+            break;
             case 6:
-                range = ownProductRange;
-                options = ownProductMenu;
-                break;
+            range = ownProductRange;
+            options = ownProductMenu;
+            break;
             case 7:
-                range = cusProductRange2;
-                options = cusProductMenu2;
-                break;
+            range = cusProductRange2;
+            options = cusProductMenu2;
+            break;
             case 8:
-                range = ownProductRange2;
-                options = ownProductMenu2;
-                break;
+            range = ownProductRange2;
+            options = ownProductMenu2;
+            break;
             case 9:
-                range = accDetailsRange;
-                options = accDetailsMenu;
-                break;
+            range = accDetailsRange;
+            options = accDetailsMenu;
+            break;
             case 10:
-                range = editProdRange;
-                options = editProdMenu;
-                break;
+            range = editProdRange;
+            options = editProdMenu;
+            break;
             case 11:
-                range = selBatchRange;
-                options = selBatchMenu;
-                break;
+            range = selBatchRange;
+            options = selBatchMenu;
+            break;
             case 12:
-                range = batchRange;
-                options = batchMenu;
-                break;
+            range = batchRange;
+            options = batchMenu;
+            break;
             case 13:
-                range = edBatchRange;
-                options = edBatchMenu;
-                break;
+            range = edBatchRange;
+            options = edBatchMenu;
+            break;
             case 14:
-                range = sysReportRange;
-                options = sysReportMenu;
-                break;
+            range = sysReportRange;
+            options = sysReportMenu;
+            break;
+            case 15:
+            range = cartRange;
+            options = cartMenu;
+            break;
+            case 16:
+            range = orderMgmtRange;
+            options = orderMgmtMenu;
+            break;
             default:
-                System.out.println("Menu failed to initialise, give it a valid argument.");
+            System.out.println("Menu failed to initialise, give it a valid argument.");
         }
 
         for (String i : options)
@@ -796,7 +828,7 @@ public class UserInterface
     {
         System.out.println("\n" + "Product Added!" + "\n");
     }
-    
+
     public String batchIDInput()
     {
         Scanner scan = new Scanner(System.in);
@@ -816,45 +848,45 @@ public class UserInterface
         }
         return bid; 
     }
-    
+
     public String prodQtyInput(int availQuant)
     {
         Scanner scan = new Scanner(System.in);
         String qty = "";
         int availQty = availQuant;
         System.out.println("Enter the quantity you want to purchase: ");
-        
+
         while (qty.equals(""))
         {
             String input = scan.nextLine();
-            if (valid.validateQty(input) == true && Integer.parseInt(input) <= availQty)
+            if (valid.validateQty(input.trim()) == true && Integer.parseInt(input.trim()) <= availQty)
             {
                 qty = input;
             }
             else
             {
-                System.out.println("Enter a valid quantity");
+                System.out.println("Enter a valid quantity.");
             }
         }
         return qty; 
     }
-    
+
     public void purchMsg()
     {
         System.out.println("\n" + "Your selection has been added to your shopping cart." + "\n");
     }
-    
+
     public void updateAccountMsg()
     {
         System.out.println("\n" + "You need to update your account details before you can check out!" + "\n");
     }
-    
+
     public void confOrderDetailsMsg()
     {
         System.out.println("\n" + "These are your details associated with your order, now is your chance to go back and update anything if needed." + "\n");
         System.out.println("\n" + "You can update your account details by following the 'Account Details' menu item and you can update your order by following the 'Shopping Cart' menu item." + "\n");
     }
-    
+
     public String checkOutConfirm()
     {
         Scanner scan = new Scanner(System.in);
@@ -874,19 +906,19 @@ public class UserInterface
         }
         return response; 
     }
-    
+
     public void checkoutComplete()
     {
         System.out.println("Your order has been successfully placed and your payment detils routed to our payment provider for processing. Thank you come again! -MFV");  
     }
-    
+
     public String getCurrentDate()
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
         Date date = new Date();  
         return formatter.format(date);
     }
-    
+
     public String getEntredDate()
     {
         Scanner scan = new Scanner(System.in);
@@ -903,9 +935,133 @@ public class UserInterface
             {
                 System.out.println("Enter Date (format dd/mm/yyyy):");
             }
-      }  
+        }  
         return date; 
     }
     
+    public String cartUpdate()
+    {
+        Scanner scan = new Scanner(System.in);
+        String pid = "";
+        System.out.println("Enter the ID of the product whose quantity you wish to edit: ");
+        while (pid.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().equals("") == false)
+            {
+                pid = input;
+            }
+            else
+            {
+                System.out.println("Enter a valid product ID.");
+            }
+        }
+        return pid; 
+    }
+    
+    public String cartRemove()
+    {
+        Scanner scan = new Scanner(System.in);
+        String pid = "";
+        System.out.println("Enter the ID of the product you want to remove from your cart: ");
+        while (pid.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().equals("") == false)
+            {
+                pid = input;
+            }
+            else
+            {
+                System.out.println("Enter a valid product ID.");
+            }
+        }
+        return pid; 
+    }
+
+    public void pidNotExistMsg()
+    {
+        System.out.println("That product ID doesn't exist in your cart, please try again.");
+    }
+    
+    public String prodRmv()
+    {
+        Scanner scan = new Scanner(System.in);
+        String response = "";
+        System.out.println("Are you sure you want to delete this product? ('y' for yes or 'n' for no): ");
+        while (response.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().matches("[Yy]|[Nn]"))
+            {
+                response = input;
+            }
+            else
+            {
+                System.out.println("Enter a valid option.");
+            }
+        }
+        return response; 
+    }
+    
+    public void pidDontExistMsg()
+    {
+        System.out.println("That product ID doesn't exist, please try again.");
+    }
+    
+    public void msgCartUpdate()
+    {
+        System.out.println("Shopping Cart Updated!");
+    }
+    
+    public void prodRmvMsg()
+    {
+        System.out.println("Product Removed!");
+    }
+    
+    public String inpKeyWord()
+    {
+        Scanner scan = new Scanner(System.in);
+        String key = "";
+        System.out.println("Enter a key word you want to associate with this product: ");
+        while (key.equals(""))
+        {
+            String input = scan.nextLine();
+            if (valid.validateWord(input.trim()) == true)
+            {
+                key = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid word.");
+            }
+        }
+        return key; 
+    }
+    
+    public void keyWordMsg()
+    {
+        System.out.println("Key Word Added!");
+    }
+    
+    public String selBatch()
+    {
+        Scanner scan = new Scanner(System.in);
+        String bid = "";
+        System.out.println("Enter the ID of the batch you want to select: ");
+        while (bid.equals(""))
+        {
+            String input = scan.nextLine();
+            if (input.trim().equals("") == false)
+            {
+                bid = input.trim();
+            }
+            else
+            {
+                System.out.println("Enter a valid batch ID.");
+            }
+        }
+        return bid; 
+    }
     
 }
