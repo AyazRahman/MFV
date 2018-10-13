@@ -55,9 +55,11 @@ public class Order
     public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
 
+
         lineItems.add(new LineItem(name, qty, unitPrice, batchID));
 
         price += qty*unitPrice;
+
 
     }
     
