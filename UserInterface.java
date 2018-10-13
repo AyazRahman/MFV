@@ -441,6 +441,7 @@ public class UserInterface
             displayProduct(p);
         }
         //Needs validation
+        System.out.println("Press Enter to go back");
         System.out.println("Enter Product ID to select the product: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().trim();

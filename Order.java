@@ -49,11 +49,17 @@ public class Order
     public void addLineItem(LineItem line)
     {
         lineItems.add(line);
+        price += line.getPrice();
     }
     
     public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
+<<<<<<< HEAD
         lineItems.add(new LineItem(name, qty, unitPrice, batchID));
+=======
+        lineItems.add(new LineItem(name, qty, unitPrice));
+        price += qty*unitPrice;
+>>>>>>> ab2a000923d1e51bfe7b76d098504b95ad5bbbd5
     }
     
     /**
@@ -75,7 +81,7 @@ public class Order
      /**
      * Get line item collection.
      */
-    public ArrayList getLineItems()
+    public ArrayList<LineItem> getLineItems()
     {
         return lineItems;
     }
@@ -86,6 +92,12 @@ public class Order
     public Date getOrderDate()
     {
         return orderDate;
+    }
+    
+    public String getStringOrderDate()
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(orderDate);
     }
     
     /**
@@ -183,6 +195,15 @@ public class Order
             System.out.println("Could not set date");
         }
         return d;
+    }
+    
+    public boolean checkDate(String date)
+    {
+        if (orderDate.compareTo(stringToDate(date)) == 0)
+        {
+            return true;
+        }
+        return false;
     }
     
     /**
