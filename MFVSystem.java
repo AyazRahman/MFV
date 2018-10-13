@@ -270,7 +270,7 @@ public class MFVSystem
                             //edit order quantity
                             String lineId = ui.cartUpdate();
                             LineItem lineSelected = new LineItem();
-                            
+
                             for (LineItem l : order.getLineItems())
                             {
                                 if (l.getBatchID().equals(lineId))
@@ -298,7 +298,7 @@ public class MFVSystem
                             //remove Item from order
                             String lineId = ui.cartUpdate();
                             LineItem lineSelected = new LineItem();
-                            
+
                             for (LineItem l : order.getLineItems())
                             {
                                 if (l.getBatchID().equals(lineId))
@@ -334,25 +334,32 @@ public class MFVSystem
                     {
                         System.out.println("There are no items in your order.");
                     }
-                    else
+                    else if (editAcc.getCollectionPreference().equals("Delivery"))
                     {
-                        //TODO: check postcode for Order delivery option
-                        ui.confOrderDetailsMsg();
-                        System.out.println("Account Details:");
-                        System.out.println("Card Name: " + editAcc.getCardName());
-                        System.out.println("Card Number:" + editAcc.getCardName() + "\tCard CCV:" + editAcc.getCardCCV());
-                        System.out.println("Payment Preference: " + editAcc.getPaymentPreference() + "\tCollection Preference: " + editAcc.getCollectionPreference());
-                        System.out.println("Order Details:");
-                        printOrder(order);
-                        if (ui.checkOutConfirm().matches("[Yy]"))
+                        if (ui.valDelPostCode(""+editAcc.getPostcode()))
                         {
-                            //set delivery date
-                            db.getOrders().add(order);
-                            order = new Order();
-                            ui.checkoutComplete();
+                            //TODO: check postcode for Order delivery option
+                            ui.confOrderDetailsMsg();
+                            System.out.println("Account Details:");
+                            System.out.println("Card Name: " + editAcc.getCardName());
+                            System.out.println("Card Number:" + editAcc.getCardName() + "\tCard CCV:" + editAcc.getCardCCV());
+                            System.out.println("Payment Preference: " + editAcc.getPaymentPreference() + "\tCollection Preference: " + editAcc.getCollectionPreference());
+                            System.out.println("Order Details:");
+                            printOrder(order);
+                            if (ui.checkOutConfirm().matches("[Yy]"))
+                            {
+                                //set delivery date
+                                db.getOrders().add(order);
+                                order = new Order();
+                                ui.checkoutComplete();
+                            }
+                            else
+                            {
+                                System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
+                            }
                         }
-                    }
 
+                    }
                 }
                 else if (selection.matches("[Dd]"))
                 {
@@ -558,9 +565,9 @@ public class MFVSystem
             else
             {
                 int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
-            order.addLineItem(selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice(), "" + selBatch.getBatchID());
-            selBatch.setQuantity(selBatch.getQuantity() - qty);
-            ui.purchMsg();
+                order.addLineItem(selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice(), "" + selBatch.getBatchID());
+                selBatch.setQuantity(selBatch.getQuantity() - qty);
+                ui.purchMsg();
             }
         }
         else
@@ -685,7 +692,7 @@ public class MFVSystem
         List<Order> orders = new ArrayList<Order>();
         int num = 0;
         double totalPrice = 0.00;
-         
+
         System.out.println("Date Selected is:" + input);
         for (Order o : db.getOrders())
         {
