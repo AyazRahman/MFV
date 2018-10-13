@@ -21,11 +21,11 @@ public class LineItem
     public LineItem()
     {
         // initialise instance variables
-        name = "";
+        name = " ";
         qty = 0;
         unitPrice = 0.00;
         price = 0.00;
-        batchID = "";
+        batchID = " ";
     }
     
     /**
@@ -80,14 +80,14 @@ public class LineItem
         return unitPrice;
     }
     
-    public String toString()
-    {
-        return name + "," + qty + "," + unitPrice + "," + price;
-    }
-   
     public String getBatchID()
     {
         return batchID;
+    }
+    
+    public String toString()
+    {
+        return name + "," + qty + "," + unitPrice + "," + price + "," + batchID;
     }
     
     public void setBatchID(String batchID)

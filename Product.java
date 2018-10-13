@@ -140,6 +140,18 @@ public class Product
         return false;
     }
     
+    public Batch getBatch(int batchID)
+    {
+        for (Batch b : batches)
+        {
+            if (b.getBatchID() == batchID)
+            {
+                return b;
+            }
+        }
+        return new Batch();
+    }
+    
     /**
      * returns the total quantity in the form of an array for all the different saleMethods
      */

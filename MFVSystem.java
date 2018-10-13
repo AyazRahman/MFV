@@ -262,7 +262,66 @@ public class MFVSystem
                 else if (selection.matches("[Bb]"))
                 {
                     //shopping cart
-
+                    String input = ui.displayMenu(15);
+                    while (!input.matches("[Cc]"))
+                    {
+                        if (input.matches("[Aa]"))
+                        {
+                            //edit order quantity
+                            String lineId = ui.cartUpdate();
+                            LineItem lineSelected = new LineItem();
+                            
+                            for (LineItem l : order.getLineItems())
+                            {
+                                if (l.getBatchID().equals(lineId))
+                                {
+                                    lineSelected = l;
+                                    break;
+                                }
+                            }
+                            if (lineSelected.getBatchID().equals(" "))
+                            {
+                                ui.pidNotExistMsg(); 
+                            }
+                            else
+                            {
+                                int lid = Integer.parseInt(lineId);
+                                Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
+                                int newQty = Integer.parseInt(ui.prodQtyInput(editBatch.getQuantity() + lineSelected.getQuantity()));
+                                editBatch.setQuantity(editBatch.getQuantity() + lineSelected.getQuantity() - newQty);
+                                lineSelected.setQuantity(newQty);
+                                ui.msgCartUpdate();
+                            }
+                        }
+                        else if (input.matches("[Bb]"))
+                        {
+                            //remove Item from order
+                            String lineId = ui.cartUpdate();
+                            LineItem lineSelected = new LineItem();
+                            
+                            for (LineItem l : order.getLineItems())
+                            {
+                                if (l.getBatchID().equals(lineId))
+                                {
+                                    lineSelected = l;
+                                    break;
+                                }
+                            }
+                            if (lineSelected.getBatchID().equals(" "))
+                            {
+                                ui.pidNotExistMsg(); 
+                            }
+                            else
+                            {
+                                int lid = Integer.parseInt(lineId);
+                                int qty = lineSelected.getQuantity();
+                                Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
+                                editBatch.setQuantity(editBatch.getQuantity() + qty);
+                                order.getLineItems().remove(lineSelected);
+                                ui.msgCartUpdate();
+                            }
+                        }
+                    }
                 }
                 else if (selection.matches("[Cc]"))
                 {
@@ -492,10 +551,17 @@ public class MFVSystem
                     break;
                 }
             }
-            int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
+            if (selBatch.getName().equals(" "))
+            {
+                System.out.println("Wrong Id entered");
+            }
+            else
+            {
+                int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
             order.addLineItem(selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice(), "" + selBatch.getBatchID());
             selBatch.setQuantity(selBatch.getQuantity() - qty);
             ui.purchMsg();
+            }
         }
         else
         {
@@ -604,22 +670,22 @@ public class MFVSystem
         {
             if (selection.matches("[Aa]"))
             {
-                reportOrders();
+                reportOrders(ui.getCurrentDate());
             }
             else if (selection.matches("[Bb]"))
             {
-                reportOrders();
+                reportOrders(ui.getEntredDate());
             }
             selection = ui.displayMenu(14);
         }
     }
 
-    private void reportOrders()
+    private void reportOrders(String input)
     {
         List<Order> orders = new ArrayList<Order>();
         int num = 0;
         double totalPrice = 0.00;
-        String input = ui.getCurrentDate();
+         
         System.out.println("Date Selected is:" + input);
         for (Order o : db.getOrders())
         {
@@ -632,7 +698,11 @@ public class MFVSystem
         }
         if (num != 0)
         {
-            //TODO: implement ui.displayReport(num, totalPrice, );
+            System.out.println("Total Price: " + totalPrice + "\tNumber of Orders: " + num);
+            for (Order o : orders)
+            {
+                printOrder(o);
+            }
         }
         else
         {
