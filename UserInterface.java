@@ -1,5 +1,4 @@
 import java.util.*;
-import java.text.SimpleDateFormat;  
 
 /**
  * Comment
@@ -9,7 +8,7 @@ import java.text.SimpleDateFormat;
  */
 public class UserInterface
 {
-    Validation valid;
+    // instance variables - replace the example below with your own
     private ArrayList<String> startMenu;
     String startRange;
     private ArrayList<String> cusStartMenu;
@@ -28,21 +27,8 @@ public class UserInterface
     String ownProductRange2;
     private ArrayList<String> accDetailsMenu;
     String accDetailsRange;
-    private ArrayList<String> editProdMenu;
-    String editProdRange;
-    private ArrayList<String> selBatchMenu;
-    String selBatchRange;
-    private ArrayList<String> batchMenu;
-    String batchRange;
-    private ArrayList<String> edBatchMenu;
-    String edBatchRange;
-    private ArrayList<String> sysReportMenu;
-    String sysReportRange;
-    private ArrayList<String> cartMenu;
-    String cartRange;
-    private ArrayList<String> orderMgmtMenu;
-    String orderMgmtRange;
-    
+    Validation valid;
+
     /**
      * Constructor for objects of class Menu
      */
@@ -59,7 +45,7 @@ public class UserInterface
         cusStartRange = "[A-Ga-g]";
         //ID: 3
         ownStartMenu = new ArrayList<String>();
-        ownStartRange = "[A-Fa-f]";
+        ownStartRange = "[A-Ea-e]";
         //ID: 4
         cusProductMenu = new ArrayList<String>();
         cusProductRange = "[A-Ca-c]";
@@ -71,35 +57,13 @@ public class UserInterface
         ownProductRange = "[A-Da-d]";
         //ID: 7
         cusProductMenu2 = new ArrayList<String>();
-        cusProductRange2 = "[A-Ba-b]";
+        cusProductRange = "[A-Ba-b]";
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
-        ownProductRange2 = "[A-Fa-f]";
+        ownProductRange2 = "[A-Ga-g]";
         //ID: 9
         accDetailsMenu = new ArrayList<String>();
         accDetailsRange = "[A-Oa-o]";
-        //ID: 10
-        editProdMenu = new ArrayList<String>();
-        editProdRange = "[A-Ea-e]";
-        //ID: 11
-        selBatchMenu = new ArrayList<String>();
-        selBatchRange = "[A-Ba-b]";
-        //ID: 12
-        batchMenu = new ArrayList<String>();
-        batchRange = "[A-Ca-c]";
-        //ID: 13
-        edBatchMenu = new ArrayList<String>();
-        edBatchRange = "[A-Fa-f]";
-        //ID: 14
-        sysReportMenu = new ArrayList<String>();
-        sysReportRange = "[A-Ca-c]";
-        //ID: 15
-        cartMenu = new ArrayList<String>();
-        cartRange = "[A-Ca-c]";
-        //ID: 16
-        orderMgmtMenu = new ArrayList<String>();
-        orderMgmtRange = "[A-Da-d]";
-        
     }
 
     public void loadMenuItems()
@@ -112,21 +76,20 @@ public class UserInterface
         //Customer menu items ID: 2
         cusStartMenu.add("Menu");
         cusStartMenu.add("[A] View Products");
-        cusStartMenu.add("[B] Shopping Cart"); //TODO
-        cusStartMenu.add("[C] Checkout"); //TODO
-        cusStartMenu.add("[D] Order History"); //TODO
-        cusStartMenu.add("[E] Account Details"); 
+        cusStartMenu.add("[B] Shopping Cart");
+        cusStartMenu.add("[C] Checkout");
+        cusStartMenu.add("[D] Order History");
+        cusStartMenu.add("[E] Account Details");
         cusStartMenu.add("[F] Logout");
         cusStartMenu.add("[G] Exit");
 
         //Owner menu items ID: 3
         ownStartMenu.add("Menu");
-        ownStartMenu.add("[A] Product Management"); //Remove prod
-        ownStartMenu.add("[B] Order Management"); //View all order, complete, uncomplete => set to complete, cancel order
-        ownStartMenu.add("[C] Account Management"); //TODO
-        ownStartMenu.add("[D] Reporting"); //Daily report, total sales, order list, total orders
-        ownStartMenu.add("[E] Logout");
-        ownStartMenu.add("[F] Exit");
+        ownStartMenu.add("[A] Product Management");
+        ownStartMenu.add("[B] Order Management");
+        ownStartMenu.add("[C] Account Management");
+        ownStartMenu.add("[D] Logout");
+        ownStartMenu.add("[E] Exit");
 
         //Customer Initial product menu ID: 4
         cusProductMenu.add("Menu");
@@ -148,17 +111,18 @@ public class UserInterface
 
         //Customer product interaction menu ID: 7
         cusProductMenu2.add("Menu");
-        cusProductMenu2.add("[A] Purchase Product"); //TODO
+        cusProductMenu2.add("[A] Purchase Product");
         cusProductMenu2.add("[B] Back");
 
         //Owner product interaction menu ID: 8
         ownProductMenu2.add("Menu");
         ownProductMenu2.add("[A] Edit Product");
-        ownProductMenu2.add("[B] Remove Product"); //TODO
-        ownProductMenu2.add("[C] Add Batch"); //Hasan
-        ownProductMenu2.add("[D] View Batches"); //Print batch function
-        ownProductMenu2.add("[E] Add Keywords"); //TODO + error message
-        ownProductMenu2.add("[F] Back");
+        ownProductMenu2.add("[B] Remove Product");
+        ownProductMenu2.add("[C] Add Batch");
+        ownProductMenu2.add("[D] Edit Batch");
+        ownProductMenu2.add("[E] Remove Batch");
+        ownProductMenu2.add("[F] Add Keywords");
+        ownProductMenu2.add("[G] Back");
 
         //Customer update account details menu ID: 9
         accDetailsMenu.add("Set Account Details");
@@ -177,52 +141,6 @@ public class UserInterface
         accDetailsMenu.add("[M] Delivery Preference");
         accDetailsMenu.add("[N] Unregister");
         accDetailsMenu.add("[O] Back");
-
-        //Owner edit product menu ID:10
-        editProdMenu.add("Edit Product");
-        editProdMenu.add("[A] Name");
-        editProdMenu.add("[B] Minimum Shelf Life");
-        editProdMenu.add("[C] Maximum Shelf Life");
-        editProdMenu.add("[D] Sale Types");
-        editProdMenu.add("[E] Back");
-
-        //Owner select batch menu ID:11
-        selBatchMenu.add("[A] Select Batch"); //Prompt form
-        selBatchMenu.add("[B] Back");
-
-        //Owner batch interaction menu ID: 12
-        batchMenu.add("[A] Edit Batch"); //Hasan
-        batchMenu.add("[B] Remove Batch"); //Hasan
-        batchMenu.add("[C] Back");
-
-        //Owner edit batch menu ID:13
-        edBatchMenu.add("Edit Batch");
-        edBatchMenu.add("[A] Quantity");
-        edBatchMenu.add("[B] Sale Method");
-        edBatchMenu.add("[C] Price");
-        edBatchMenu.add("[D] Source");
-        edBatchMenu.add("[E] Name");
-        edBatchMenu.add("[F] Back");
-
-        //Owner get system report ID:14
-        sysReportMenu.add("System Report");
-        sysReportMenu.add("[A] Today's Report");
-        sysReportMenu.add("[B] Report for Selected date");
-        sysReportMenu.add("[C] Back");
-        
-        //Customer cart menu ID:15
-        cartMenu.add("Shopping Cart");
-        cartMenu.add("[A] Edit Order Quantity");
-        cartMenu.add("[B] Remove Product From Order");
-        cartMenu.add("[C] Back");
-        
-        //Owner order management menu ID: 16
-        orderMgmtMenu.add("Order Management");
-        orderMgmtMenu.add("[A] View All Orders");
-        orderMgmtMenu.add("[B] View Unfulfilled Orders");
-        orderMgmtMenu.add("[C] View Completed Orders");
-        orderMgmtMenu.add("[D] Back");
-        
     }
 
     public void updateMsg(String detail)
@@ -351,38 +269,9 @@ public class UserInterface
             case 8:
             range = ownProductRange2;
             options = ownProductMenu2;
-            break;
             case 9:
             range = accDetailsRange;
             options = accDetailsMenu;
-            break;
-            case 10:
-            range = editProdRange;
-            options = editProdMenu;
-            break;
-            case 11:
-            range = selBatchRange;
-            options = selBatchMenu;
-            break;
-            case 12:
-            range = batchRange;
-            options = batchMenu;
-            break;
-            case 13:
-            range = edBatchRange;
-            options = edBatchMenu;
-            break;
-            case 14:
-            range = sysReportRange;
-            options = sysReportMenu;
-            break;
-            case 15:
-            range = cartRange;
-            options = cartMenu;
-            break;
-            case 16:
-            range = orderMgmtRange;
-            options = orderMgmtMenu;
             break;
             default:
             System.out.println("Menu failed to initialise, give it a valid argument.");
@@ -441,7 +330,6 @@ public class UserInterface
             displayProduct(p);
         }
         //Needs validation
-        System.out.println("Press Enter to go back");
         System.out.println("Enter Product ID to select the product: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().trim();
@@ -766,7 +654,7 @@ public class UserInterface
     {
         Scanner scan = new Scanner(System.in);
         String maxShelf = "";
-        System.out.println("Enter the product's maximum shelf life in days: ");
+        System.out.println("Enter the product's minimum shelf life in days: ");
         while (maxShelf.equals(""))
         {
             String input = scan.nextLine();
@@ -786,7 +674,7 @@ public class UserInterface
     {
         Scanner scan = new Scanner(System.in);
         String saleType = "";
-        System.out.println("Enter the product's sale type (e.g. 'kg', 'bag', 'box', 'punnet', 'peice', 'bundle', 'stalk'): ");
+        System.out.println("Enter the product's sale type (e.g. 'kg', 'bag', 'box', 'punnet'): ");
         while (saleType.equals(""))
         {
             String input = scan.nextLine();
@@ -810,10 +698,7 @@ public class UserInterface
         while (response.equals(""))
         {
             String input = scan.nextLine();
-            //Pattern p = Pattern.compile("[Yy]|[Nn])");
-            //Matcher m = p.matcher(input.trim());
-            //if (m.find())
-            if (input.trim().matches("[Yy]|[Nn]"))
+            if (input.trim().matches("[Yy]|[Nn])"))
             {
                 response = input.trim();
             }
@@ -829,264 +714,254 @@ public class UserInterface
     {
         System.out.println("\n" + "Product Added!" + "\n");
     }
-
-    public String batchIDInput()
+    // add batch
+    public String addBatchRecievedDate()
     {
-        Scanner scan = new Scanner(System.in);
-        String bid = "";
-        System.out.println("Enter the ID of the product you want to purchase: ");
-        while (bid.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().equals(""))
-            {
-                System.out.println("Enter a valid product ID.");
-            }
-            else
-            {
-                bid = input;
-            }
+        //Date date = new Date();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch recieved date as dd/mm/yyyy: ");
+        String date = sc.next();
+        while (!date.matches("(0[1-9]|1[0-9]|2[0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](201[8-9]|202[0-9])")){
+            System.out.println("Invalid date, try agin: ");
+            date = sc.next();
         }
-        return bid; 
+        return date;
     }
-
-    public String prodQtyInput(int availQuant)
-    {
-        Scanner scan = new Scanner(System.in);
-        String qty = "";
-        int availQty = availQuant;
-        System.out.println("Enter the quantity you want to purchase: ");
-
-        while (qty.equals(""))
-        {
-            String input = scan.nextLine();
-            if (valid.validateQty(input.trim()) == true && Integer.parseInt(input.trim()) <= availQty)
-            {
-                qty = input;
-            }
-            else
-            {
-                System.out.println("Enter a valid quantity.");
-            }
+    
+    public int addBatchSaleMethod(String sOne, String sTwo){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select Batch Sale method from: "  + sOne + " or " + sTwo + ". Press 1 for " + sOne + " or press 2 for " + sTwo);
+        int choice = 0;
+        while (choice == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input == 1  || input == 2)
+                    choice = input;
+                 else
+                    System.out.println("invalid choice, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return qty; 
+        return choice;
     }
-
-    public void purchMsg()
-    {
-        System.out.println("\n" + "Your selection has been added to your shopping cart." + "\n");
-    }
-
-    public void updateAccountMsg()
-    {
-        System.out.println("\n" + "You need to update your account details before you can check out!" + "\n");
-    }
-
-    public void confOrderDetailsMsg()
-    {
-        System.out.println("\n" + "These are your details associated with your order, now is your chance to go back and update anything if needed." + "\n");
-        System.out.println("\n" + "You can update your account details by following the 'Account Details' menu item and you can update your order by following the 'Shopping Cart' menu item." + "\n");
-    }
-
-    public String checkOutConfirm()
-    {
-        Scanner scan = new Scanner(System.in);
-        String response = "";
-        System.out.println("Please confirm that your order and your personal details are correct (enter 'y' for yes or 'n' for no): ");
-        while (response.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().matches("[Yy]|[Nn]"))
-            {
-                response = input.trim();
-            }
-            else
-            {
-                System.out.println("Enter a valid response.");
-            }
+    
+    public boolean removeBatch(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("press 1 to confirm deletion or press 0 to go back");
+        int choice = 2;
+        while (choice == 2){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input == 1  || input == 0)
+                    choice = input;
+                 else
+                    System.out.println("invalid choice, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return response; 
+        if (choice == 0)
+            return false;
+        else
+            return true;
     }
+    
+    public int addBatchQuantity(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch qty");
+        int qty = 0;
+        while (qty == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input > 0  && input < 1000)
+                    qty = input;
+                 else
+                    System.out.println("invalid qty range, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
+        }
+        return qty;
+    }
+    
+    public double addBatchPrice(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch price");
+        double price = 0.0;
+        while (price == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input > 0  && input < 1000)
+                    price = input;
+                 else
+                    System.out.println("invalid price range, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
+        }
+        return price;
+        }
+ 
+    public String addBatchName(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch Name");
+        String input = sc.next();
+        while(!valid.validateProdName(input)){
+            System.out.println("try again: ");
+            input = sc.next();
+        }
+        String name = input;
+        return name;
+    }
+    
+     public String addBatchSource(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch Source");
+        String input = sc.next();
+        while(!valid.validateProdName(input)){
+            System.out.println("try again: ");
+            input = sc.next();
+        }
+        String source = input;
+        return source;
+    }
+    
+    //Add Batch
 
-    public void checkoutComplete()
+public String addBatchRecievedDate()
     {
-        System.out.println("Your order has been successfully placed and your payment detils routed to our payment provider for processing. Thank you come again! -MFV");  
-    }
-
-    public String getCurrentDate()
-    {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-        Date date = new Date();  
-        return formatter.format(date);
-    }
-
-    public String getEntredDate()
-    {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter Date (format dd/mm/yyyy): ");
-        String date = "";
-        while(date.equals(""))
-        {
-            String input = scan.nextLine();  
-            if (valid.validateDate(input.trim()) == true)
-            {
-                date = input.trim();
-            }
-            else
-            {
-                System.out.println("Enter Date (format dd/mm/yyyy):");
-            }
-        }  
-        return date; 
-    }
-    
-    public String cartUpdate()
-    {
-        Scanner scan = new Scanner(System.in);
-        String pid = "";
-        System.out.println("Enter the ID of the product whose quantity you wish to edit: ");
-        while (pid.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().equals("") == false)
-            {
-                pid = input;
-            }
-            else
-            {
-                System.out.println("Enter a valid product ID.");
-            }
+        //Date date = new Date();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch recieved date as dd/mm/yyyy: ");
+        String date = sc.next();
+        while (!date.matches("(0[1-9]|1[0-9]|2[0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](201[8-9]|202[0-9])")){
+            System.out.println("Invalid date, try agin: ");
+            date = sc.next();
         }
-        return pid; 
+        return date;
     }
     
-    public String cartRemove()
-    {
-        Scanner scan = new Scanner(System.in);
-        String pid = "";
-        System.out.println("Enter the ID of the product you want to remove from your cart: ");
-        while (pid.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().equals("") == false)
-            {
-                pid = input;
-            }
-            else
-            {
-                System.out.println("Enter a valid product ID.");
-            }
+    public int addBatchSaleMethod(String sOne, String sTwo){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select Batch Sale method from: "  + sOne + " or " + sTwo + ". Press 1 for " + sOne + " or press 2 for " + sTwo);
+        int choice = 0;
+        while (choice == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input == 1  || input == 2)
+                    choice = input;
+                 else
+                    System.out.println("invalid choice, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return pid; 
-    }
-
-    public void pidNotExistMsg()
-    {
-        System.out.println("That product ID doesn't exist in your cart, please try again.");
+        return choice;
     }
     
-    public String prodRmv()
-    {
-        Scanner scan = new Scanner(System.in);
-        String response = "";
-        System.out.println("Are you sure you want to delete this product? ('y' for yes or 'n' for no): ");
-        while (response.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().matches("[Yy]|[Nn]"))
-            {
-                response = input;
-            }
-            else
-            {
-                System.out.println("Enter a valid option.");
-            }
+    public boolean removeBatch(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("press 1 to confirm deletion or press 0 to go back");
+        int choice = 2;
+        while (choice == 2){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input == 1  || input == 0)
+                    choice = input;
+                 else
+                    System.out.println("invalid choice, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return response; 
+        if (choice == 0)
+            return false;
+        else
+            return true;
     }
     
-    public void pidDontExistMsg()
-    {
-        System.out.println("That product ID doesn't exist, please try again.");
-    }
-    
-    public void msgCartUpdate()
-    {
-        System.out.println("Shopping Cart Updated!");
-    }
-    
-    public void prodRmvMsg()
-    {
-        System.out.println("Product Removed!");
-    }
-    
-    public String inpKeyWord()
-    {
-        Scanner scan = new Scanner(System.in);
-        String key = "";
-        System.out.println("Enter a key word you want to associate with this product: ");
-        while (key.equals(""))
-        {
-            String input = scan.nextLine();
-            if (valid.validateWord(input.trim()) == true)
-            {
-                key = input.trim();
-            }
-            else
-            {
-                System.out.println("Enter a valid word.");
-            }
+    public int addBatchQuantity(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch qty");
+        int qty = 0;
+        while (qty == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input > 0  && input < 1000)
+                    qty = input;
+                 else
+                    System.out.println("invalid qty range, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return key; 
+        return qty;
     }
     
-    public void keyWordMsg()
-    {
-        System.out.println("Key Word Added!");
-    }
-    
-    public String selBatch()
-    {
-        Scanner scan = new Scanner(System.in);
-        String bid = "";
-        System.out.println("Enter the ID of the batch you want to select: ");
-        while (bid.equals(""))
-        {
-            String input = scan.nextLine();
-            if (input.trim().equals("") == false)
-            {
-                bid = input.trim();
-            }
-            else
-            {
-                System.out.println("Enter a valid batch ID.");
-            }
+    public double addBatchPrice(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch price");
+        double price = 0.0;
+        while (price == 0){
+             try
+             {
+                 int input = Integer.parseInt(sc.next());
+                 if (input > 0  && input < 1000)
+                    price = input;
+                 else
+                    System.out.println("invalid price range, try again");
+             }
+             catch (NumberFormatException nfe)
+             {
+                  System.out.println("NumberFormatException, try again: ");
+             }
         }
-        return bid; 
-    }
-    
-    public String selRecDate()
-    {
-        Scanner scan = new Scanner(System.in);
-        String recDate = "";
-        System.out.println("Enter the date you want to receive your order: ");
-        while (recDate.equals(""))
-        {
-            String input = scan.nextLine();
-            if (valid.validateReceiptDate(input) == true)
-            {
-                recDate = input.trim();
-            }
-            else
-            {
-                System.out.println("Enter a valid delivery date (i.e. at least one day from today): ");
-            }
+        return price;
         }
-        return recDate; 
+ 
+    public String addBatchName(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch Name");
+        String input = sc.next();
+        while(!valid.validateProdName(input)){
+            System.out.println("try again: ");
+            input = sc.next();
+        }
+        String name = input;
+        return name;
     }
     
-    public boolean valDelPostcode(String postcode)
-    {
-        return valid.validatePostcodeDelivery(postcode.trim());
+     public String addBatchSource(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter batch Source");
+        String input = sc.next();
+        while(!valid.validateProdName(input)){
+            System.out.println("try again: ");
+            input = sc.next();
+        }
+        String source = input;
+        return source;
     }
 }
