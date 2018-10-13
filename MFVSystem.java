@@ -491,7 +491,7 @@ public class MFVSystem
                 }
             }
             int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
-            order.addLineItem(/*selBatch.getBatchID(),*/selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice());
+            order.addLineItem(selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice(),""+selBatch.getBatchID());
             selBatch.setQuantity(selBatch.getQuantity() - qty);
             ui.purchMsg();
         }
