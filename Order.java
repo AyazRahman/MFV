@@ -54,12 +54,11 @@ public class Order
     
     public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
-<<<<<<< HEAD
+
         lineItems.add(new LineItem(name, qty, unitPrice, batchID));
-=======
-        lineItems.add(new LineItem(name, qty, unitPrice));
+
         price += qty*unitPrice;
->>>>>>> ab2a000923d1e51bfe7b76d098504b95ad5bbbd5
+
     }
     
     /**
