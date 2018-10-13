@@ -18,6 +18,7 @@ public class MFVSystem
     private UserInterface ui;
     private User loggedUser;
     private Customer editAcc;
+    private Order order;
 
     public MFVSystem()
     {
@@ -27,6 +28,7 @@ public class MFVSystem
         ui.loadMenuItems();
         loggedUser = new User();
         editAcc = new Customer();
+        order = new Order();
     }
 
     public void systemStart()
@@ -71,6 +73,7 @@ public class MFVSystem
                 if (loggedUser instanceof Customer)
                 {
                     editAcc = (Customer)u;
+                    order.setAccID(Integer.toString(u.getUId()));
                 }
                 ui.logSuccess();
                 break;
@@ -106,7 +109,6 @@ public class MFVSystem
         if (userExist)
         {
             ui.userExistsMsg();
-            //systemStart();
         }
         else
         {
@@ -265,6 +267,30 @@ public class MFVSystem
                 else if (selection.matches("[Cc]"))
                 {
                     //checkout
+                    if (editAcc.updateAcc())
+                    {
+                        ui.updateAccountMsg();
+                    }
+                    else if (order.getLineItems().size() == 0)
+                    {
+                        System.out.println("There are no items in your order.");
+                    }
+                    else
+                    {
+                        //TODO: check postcode for Order delivery option
+                        ui.confOrderDetailsMsg();
+                        System.out.println("Account Details:");
+                        System.out.println("Card Name: " + editAcc.getCardName());
+                        System.out.println("Card Number:" + editAcc.getCardName() + "\tCard CCV:" + editAcc.getCardCCV());
+                        System.out.println("Payment Preference: " + editAcc.getPaymentPreference() + "\tCollection Preference: " + editAcc.getCollectionPreference());
+                        System.out.println("Order Details:");
+                        printOrder(order);
+                        if (ui.checkOutConfirm().matches("[Yy]"))
+                        {
+                            ui.checkoutComplete();
+                            //set delivery date
+                        }
+                    }
 
                 }
                 else if (selection.matches("[Dd]"))
@@ -326,6 +352,17 @@ public class MFVSystem
         }
     }
 
+    private void printOrder(Order o)
+    {
+        System.out.println("Total Order Price: " + o.getPrice() + "\tOrder Placed: " + o.getStringOrderDate());
+        System.out.println("Order Items:");
+        for (LineItem l : o.getLineItems())
+        {
+            System.out.println("Name: " + l.getItem() + "\tQuantity: " + l.getQuantity()+ "\tUnit Price: " + l.getUnitPrice() + "\tPrice: " + l.getPrice());
+        }
+
+    }
+
     private void productManagement()
     {
         String selection  = ui.displayMenu(6);
@@ -351,6 +388,10 @@ public class MFVSystem
     private void browse()
     {
         String id = ui.displayAllProduct(db.getProductArray());
+        if (id.equals(""))
+        {
+            return ;
+        }
         int pid = Integer.parseInt(id);
         if (db.getProducts().containsKey(pid))
         {
@@ -371,11 +412,8 @@ public class MFVSystem
             String selection = ui.displayMenu(7);
             while (!selection.matches("[Bb]"))
             {
-                if (selection.matches("[Aa]"))
-                {
-                    //TODO: purchase product sequence and logic for customer
-                    //TODO: UI need options for purchasing a batch
-                }
+                selectProduct(p);
+                selection = ui.displayMenu(7);
             }
         }
         else
@@ -390,10 +428,12 @@ public class MFVSystem
                 }
                 else if (selection.matches("[Bb]"))
                 {
-                    //TODO:UI confirmation for removing product form. Return type boolean
-                    if (false)
+                    String confirm = ui.prodRmv();
+                    if (confirm.matches("[Yy]"))
                     {
-                        //TODO: remove product Logic
+                        db.getProducts().remove(p.getProductID());
+                        selection = "F";
+                        continue;
                     }
                 }
                 else if (selection.matches("[Cc]"))
@@ -407,11 +447,65 @@ public class MFVSystem
                 else if (selection.matches("[Ee]"))
                 {
                     //TODO:UI Add keyword
+                    String keyword = ui.inpKeyWord().toLowerCase();
+                    if(db.getKeywords().containsKey(keyword))
+                    {
+                        System.out.println("Keyword already exists");
+                    }
+                    else
+                    {
+                        db.getKeywords().put(keyword, p.getProductID());
+                        ui.keyWordMsg();
+                    }
                 }
                 //  confusion for rest of the options
                 selection = ui.displayMenu(8);
             }
         }
+    }
+
+    private void selectProduct(Product p)
+    {
+        System.out.println("Selected Product: ");
+        System.out.println("Product Id: " + p.getProductID() + "\tProduct Name: " + p.getName());
+        System.out.println("Batch list:");
+        List<Integer> bId = new LinkedList();
+
+        //TODO: purchase product sequence and logic for customer
+        //TODO: UI need options for purchasing a batch
+        for (Batch b : p.getBatches())
+        {
+            bId.add(b.getBatchID()%10000);
+            displayBatch(b);
+        }
+        int input = Integer.parseInt(ui.batchIDInput().trim());
+        if (bId.contains(input))
+        {
+            Batch selBatch = new Batch();
+            for (Batch b : p.getBatches())
+            {
+                if (b.getBatchID() == (input*10000 + p.getProductID()))
+                {
+                    selBatch = b;
+                    break;
+                }
+            }
+            int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
+            order.addLineItem(/*selBatch.getBatchID(),*/selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice());
+            selBatch.setQuantity(selBatch.getQuantity() - qty);
+            ui.purchMsg();
+        }
+        else
+        {
+            System.out.println("Not a Valid ID");
+        }
+
+    }
+
+    private void displayBatch(Batch b)
+    {
+        System.out.println("Batch ID: " + b.getBatchID()%10000 + "\tName: " + b.getName() + "\tQuantity: " + b.getQuantity() 
+            + "\t Price: " + b.getPrice() + "\tSource: " + b.getSource());
     }
 
     private void editProduct(Product p)

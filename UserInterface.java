@@ -71,7 +71,7 @@ public class UserInterface
         ownProductRange = "[A-Da-d]";
         //ID: 7
         cusProductMenu2 = new ArrayList<String>();
-        cusProductRange = "[A-Ba-b]";
+        cusProductRange2 = "[A-Ba-b]";
         //ID: 8
         ownProductMenu2 = new ArrayList<String>();
         ownProductRange2 = "[A-Fa-f]";
@@ -441,6 +441,7 @@ public class UserInterface
             displayProduct(p);
         }
         //Needs validation
+        System.out.println("Press Enter to go back");
         System.out.println("Enter Product ID to select the product: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().trim();
