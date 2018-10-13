@@ -26,7 +26,7 @@ public class Customer extends User
         cardNumber = " ";
         cardName = " ";
         cardCCV = " ";
-        accountStatus = false;
+        accountStatus = true;
         paymentPreference = " ";
         collectionPreference = " ";
     }
@@ -67,12 +67,6 @@ public class Customer extends User
         return collectionPreference;
     }
     
-//     public ArrayList<String> getOrderArray()
-//     {
-//         // put your code here
-//         return orderArray;
-//     }
-    
      public String getPaymentPreference()
     {
         // put your code here
@@ -109,16 +103,21 @@ public class Customer extends User
         collectionPreference = preference;
     }
     
-//     public void setOrderArray()
-//     {
-//         // put your code here
-//         ;
-//     }
-    
      public void setPaymentPreference(String preference)
     {
         // put your code here
         paymentPreference = preference;
+    }
+    
+    public boolean updateAcc()
+    {
+        if (cardNumber.equals(" ") || cardName.equals(" ") || cardCCV.equals(" ") || paymentPreference.equals(" ")
+            || collectionPreference.equals(" ") || this.getAddress().equals(" ") || this.getSuburb().equals(" ") 
+            || this.getPostcode() == 0 || this.getState().equals(" "))
+        {
+            return true;
+        }
+        return false;
     }
     
     public String toString()
