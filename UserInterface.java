@@ -42,7 +42,7 @@ public class UserInterface
     String cartRange;
     private ArrayList<String> orderMgmtMenu;
     String orderMgmtRange;
-    
+
     /**
      * Constructor for objects of class Menu
      */
@@ -99,7 +99,7 @@ public class UserInterface
         //ID: 16
         orderMgmtMenu = new ArrayList<String>();
         orderMgmtRange = "[A-Da-d]";
-        
+
     }
 
     public void loadMenuItems()
@@ -209,20 +209,20 @@ public class UserInterface
         sysReportMenu.add("[A] Today's Report");
         sysReportMenu.add("[B] Report for Selected date");
         sysReportMenu.add("[C] Back");
-        
+
         //Customer cart menu ID:15
         cartMenu.add("Shopping Cart");
         cartMenu.add("[A] Edit Order Quantity");
         cartMenu.add("[B] Remove Product From Order");
         cartMenu.add("[C] Back");
-        
+
         //Owner order management menu ID: 16
         orderMgmtMenu.add("Order Management");
         orderMgmtMenu.add("[A] View All Orders");
         orderMgmtMenu.add("[B] View Unfulfilled Orders");
         orderMgmtMenu.add("[C] View Completed Orders");
         orderMgmtMenu.add("[D] Back");
-        
+
     }
 
     public void updateMsg(String detail)
@@ -939,7 +939,7 @@ public class UserInterface
         }  
         return date; 
     }
-    
+
     public String cartUpdate()
     {
         Scanner scan = new Scanner(System.in);
@@ -959,7 +959,7 @@ public class UserInterface
         }
         return pid; 
     }
-    
+
     public String cartRemove()
     {
         Scanner scan = new Scanner(System.in);
@@ -984,7 +984,7 @@ public class UserInterface
     {
         System.out.println("That product ID doesn't exist in your cart, please try again.");
     }
-    
+
     public String prodRmv()
     {
         Scanner scan = new Scanner(System.in);
@@ -1004,22 +1004,22 @@ public class UserInterface
         }
         return response; 
     }
-    
+
     public void pidDontExistMsg()
     {
         System.out.println("That product ID doesn't exist, please try again.");
     }
-    
+
     public void msgCartUpdate()
     {
         System.out.println("Shopping Cart Updated!");
     }
-    
+
     public void prodRmvMsg()
     {
         System.out.println("Product Removed!");
     }
-    
+
     public String inpKeyWord()
     {
         Scanner scan = new Scanner(System.in);
@@ -1039,12 +1039,12 @@ public class UserInterface
         }
         return key; 
     }
-    
+
     public void keyWordMsg()
     {
         System.out.println("Key Word Added!");
     }
-    
+
     public String selBatch()
     {
         Scanner scan = new Scanner(System.in);
@@ -1064,7 +1064,7 @@ public class UserInterface
         }
         return bid; 
     }
-    
+
     public String selRecDate()
     {
         Scanner scan = new Scanner(System.in);
@@ -1083,5 +1083,10 @@ public class UserInterface
             }
         }
         return recDate; 
+    }
+
+    public boolean valDelPostCode(String pc)
+    {
+        return valid.validatePostcodeDelivery(pc.trim());
     }
 }
