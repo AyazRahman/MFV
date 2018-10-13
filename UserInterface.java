@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Write a description of class Menu here.
+ * Comment
  *
  * @author Team118
  * @version 1.0
