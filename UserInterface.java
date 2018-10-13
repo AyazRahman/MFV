@@ -1084,4 +1084,9 @@ public class UserInterface
         }
         return recDate; 
     }
+    
+    public boolean valDelPostcode(String postcode)
+    {
+        return valid.validatePostcodeDelivery(postcode.trim());
+    }
 }
