@@ -51,9 +51,9 @@ public class Order
         lineItems.add(line);
     }
     
-    public void addLineItem(String name, int qty, double unitPrice)
+    public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
-        lineItems.add(new LineItem(name, qty, unitPrice));
+        lineItems.add(new LineItem(name, qty, unitPrice, batchID));
     }
     
     /**

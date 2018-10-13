@@ -277,7 +277,8 @@ public class FileManager
                         String name = lineInfo[0].trim();
                         int qty = Integer.parseInt(lineInfo[1].trim());
                         double unitPrice = Double.parseDouble(lineInfo[2].trim());
-                        orderItem.addLineItem(name, qty, unitPrice);
+                        String batchID = lineInfo[3].trim();
+                        orderItem.addLineItem(name, qty, unitPrice, batchID);
                         lineInfo = parser.nextLine().split(",");
                     }
                 }
