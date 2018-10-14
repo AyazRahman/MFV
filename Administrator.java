@@ -37,6 +37,11 @@ public class Administrator extends User
         accountStatus = status;
     }
     
+    /**
+    * This method is used to covert variables to String and 
+    * add commas between each variable integers to be easly saved in csv file.
+    * @return String This returns a string of all Administrator and User classes variables.
+    */
     public String toString()
     {
         return (this.getUId() + "," + this.getFName() + "," + this.getLName() + "," + this.getAddress()
