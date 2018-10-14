@@ -1089,4 +1089,9 @@ public class UserInterface
     {
         return valid.validatePostcodeDelivery(pc.trim());
     }
+    
+    public boolean checkNumericString(String string)
+    {
+        return valid.valNum(string);
+    }
 }

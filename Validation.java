@@ -293,5 +293,9 @@ public class Validation
         }
         return false;
     }
-
+    
+    public boolean valNum(String string)
+    {
+        return string.matches("[0-9]+");
+    }
 }
