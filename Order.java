@@ -44,14 +44,22 @@ public class Order
     }
     
     /**
-     * Add line items to order.
-     */
+    * This method is used to Add line items to order.
+    * @param line This is the first paramter to addLineItem method
+    */
     public void addLineItem(LineItem line)
     {
         lineItems.add(line);
         price += line.getPrice();
     }
     
+    /**
+    * This method is used to Add line items to order.
+    * @param name This is the first paramter to addLineItem method
+    * @param qty This is the first paramter to AddLineItem method
+    * @param unitPrice This is the first paramter to AddLineItem method
+    * @param batchID This is the first paramter to AddLineItem method
+    */
     public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
 
@@ -95,6 +103,10 @@ public class Order
         return orderDate;
     }
     
+    /**
+    * This method is used to parse Date variable to String
+    * @return String This returns converted Date of orderDate varable to String
+    */
     public String getStringOrderDate()
     {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -183,6 +195,11 @@ public class Order
         orderDate = stringToDate(date);
     }
     
+    /**
+    * This method is used to parse String variable to Date
+    * @param date  This is the first parameter to stringToDate method
+    * @return Date This returns converted String varable to Date
+    */
     private Date stringToDate(String date)
     {
         Date d = new Date();
@@ -198,6 +215,11 @@ public class Order
         return d;
     }
     
+    /**
+    * This method is used to compare the parameter date to orderDate
+    * @param date  This is the first parameter to checkDate method
+    * @return boolean This returns true if orderDate is equal to date and false for else
+    */
     public boolean checkDate(String date)
     {
         if (orderDate.compareTo(stringToDate(date)) == 0)
@@ -239,6 +261,12 @@ public class Order
         price = p;
     }
     
+    /**
+    * This method is used to parse all Order class variables and 
+    * all line items for each order to String array,
+    * to make it fit with the saving format to csv file.
+    * @return String[] This returns all orders and linked lineitems to each order.
+    */
     public String[] toStringArray()
     {
         String[] s = new String[lineItems.size() + 3];
