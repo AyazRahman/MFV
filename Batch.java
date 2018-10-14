@@ -34,6 +34,9 @@ public class Batch
         name = " ";
     }
     
+    /**
+     * Constructor for objects of class Batch
+     */
     public Batch(int newBatchID, int newQuantity, 
                  String newDateReceived, String newSaleMethod, 
                  double newPrice, String newSource, String newName)
@@ -127,6 +130,11 @@ public class Batch
         name = newName;
     }
     
+    /**
+    * This method is used to covert variables to String and
+    * add commas between each variable integers to be easly saved in csv file.
+    * @return String This returns a string of all Batch and User classes variables.
+    */
     public String toString()
     {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
