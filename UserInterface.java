@@ -1094,4 +1094,10 @@ public class UserInterface
     {
         return valid.valNum(string);
     }
+    
+    public String accNum()
+    {
+        Scanner scan =  new Scanner(System.in);
+        return scan.nextLine().trim();
+    }
 }

@@ -234,7 +234,10 @@ public class MFVSystem
                 if (choice.matches("[Yy]"))
                 {
                     //System TODO
-                    System.out.println("Call unregister method here");
+                    editAcc.setAccountStatus(false);
+                    System.out.println("Your account has been unregistered");
+                    selection = "O";
+                    continue;
                 }
 
             }
@@ -250,7 +253,7 @@ public class MFVSystem
         {
             //call Customer menu
             String selection = ui.displayMenu(2);
-            while (!selection.matches("[Ff]") && !selection.matches("[Gg]"))
+            while (!selection.matches("[Ff]") && !selection.matches("[Gg]") && !editAcc.getaccountStatus())
             {
                 //TODO: check for user menu options
                 if (selection.matches("[Aa]"))
@@ -426,6 +429,7 @@ public class MFVSystem
                 else if (selection.matches("[Cc]"))
                 {
                     //TODO:UI Account Edit form
+                    removeAcc();
                 }
                 else if (selection.matches("[Dd]"))
                 {
@@ -443,6 +447,42 @@ public class MFVSystem
                 exitProgram();
             }
         }
+    }
+
+    private void removeAcc()
+    {
+        HashMap<Integer, Customer> allCustomer = new HashMap<Integer, Customer>();
+
+        for (User u : db.getUsers())
+        {
+            if ((u instanceof Customer))
+            {
+                Customer c = (Customer)u;
+                if (c.getaccountStatus())
+                {
+                    allCustomer.put(u.getUId(), (Customer)u);
+                    displayAcc(u);
+                }
+            }
+        }
+        System.out.println("Press Enter to go back");
+        System.out.println("Enter the Id of the customer to disable: ");
+        String accInput = ui.accNum();
+        if (ui.checkNumericString(accInput))
+        {
+            int accNum = Integer.parseInt(accInput);
+            if (allCustomer.containsKey(accNum))
+            {
+                allCustomer.get(accNum).setAccountStatus(false);
+            }
+        }
+    }
+
+    private void displayAcc(User u)
+    {
+
+        System.out.println("Account ID: " + u.getUId() + "\tName: " +u.getFName() + " " + u.getLName() +"\tEmail: " + u.getEmail());
+
     }
 
     private void printOrder(Order o)
