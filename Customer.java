@@ -31,12 +31,7 @@ public class Customer extends User
         collectionPreference = " ";
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
+    
     public boolean getaccountStatus()
     {
         // put your code here
@@ -103,12 +98,16 @@ public class Customer extends User
         collectionPreference = preference;
     }
     
-     public void setPaymentPreference(String preference)
+    public void setPaymentPreference(String preference)
     {
         // put your code here
         paymentPreference = preference;
     }
     
+    /**
+    * This method is used to return if customer need to update his info 
+    * @return boolean This returns true if any of varable empty.
+    */
     public boolean updateAcc()
     {
         if (cardNumber.equals(" ") || cardName.equals(" ") || cardCCV.equals(" ") || paymentPreference.equals(" ")
@@ -120,6 +119,11 @@ public class Customer extends User
         return false;
     }
     
+    /**
+    * This method is used to covert variables to String and 
+    * add commas between each variable integers to be easly saved in csv file.
+    * @return String This returns a string of all Customer and User classes variables.
+    */
     public String toString()
     {
         return (this.getUId() + "," + this.getFName() + "," + this.getLName() + "," + this.getAddress()
