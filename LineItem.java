@@ -4,8 +4,9 @@
 /**
  * A unique instance of product-price-quantity detailing a specific line item e.g. on an invoice.
  *
- * @author Team118
+ * @author  Team118
  * @version v1.1.0
+ * @since   2018-10-14
  */
 public class LineItem
 {
@@ -85,6 +86,11 @@ public class LineItem
         return batchID;
     }
     
+   /**
+   * This method is used to covert variables to String and 
+   * add commas between each variable integers to be easly saved in csv file.
+   * @return String This returns a string of name, qty, unitPrice, price and batchID.
+   */
     public String toString()
     {
         return name + "," + qty + "," + unitPrice + "," + price + "," + batchID;
