@@ -1100,4 +1100,10 @@ public class UserInterface
         Scanner scan =  new Scanner(System.in);
         return scan.nextLine().trim();
     }
+    
+     public void displayBatch(Batch b)
+    {
+        System.out.println("Batch ID: " + b.getBatchID() + "quantity: " + b.getQuantity() + "date recieved: " + b.getDateReceived() + "sale method: " + b.getSaleMethod() 
+        + "price: " + b.getPrice() + "source: " + b.getSource() + "name: " + b.getName());
+    }
 }

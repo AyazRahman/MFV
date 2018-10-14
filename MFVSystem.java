@@ -572,6 +572,7 @@ public class MFVSystem
                 else if (selection.matches("[Cc]"))
                 {
                     //TODO:UI Add batch form and  System sequence
+                    addBatch(p);
                 }
                 else if (selection.matches("[Dd]"))
                 {
@@ -789,7 +790,82 @@ public class MFVSystem
             System.out.println("No orders to show for the given date");
         }
     }
-
+    // MFV hasan latest changes 1
+    private void addBatch(Product p)
+    {
+        int bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
+        String name = ui.addBatchName();
+        String dateRecieved = ui.addBatchRecievedDate();
+        String[] saleTypes = p.getSaleTypes();
+        int saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
+        double price = ui.addBatchPrice();
+        int quantity = ui.addBatchQuantity();
+        String source = ui.addBatchSource();
+        p.addBatch(bId, quantity, dateRecieved, saleTypes[saleMethod - 1], price, source, name);
+    }
+    // MFV hasan latest changes 2
+     private void editBatch(Batch b, Product p)
+    {
+        ui.displayBatch(b);
+        String input = ui.displayMenu(13);
+        while (!input.matches("[Ff]"))
+        {
+            if (input.matches("[Aa]"))
+            {
+                // quantity
+                System.out.println("Current Quantity: " + b.getQuantity());
+                b.setQuantity(ui.addBatchQuantity());
+            }
+            else if (input.matches("[Bb]"))
+            {
+                // sale method
+                System.out.println("Current Sale Method: " + b.getSaleMethod());
+                String[] saleTypes = p.getSaleTypes();
+                int saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
+                b.setSaleMethod(saleTypes[saleMethod-1]);
+            }
+            else if (input.matches("[Cc]"))
+            {
+                // price
+                System.out.println("Current Price: " + b.getPrice());
+                b.setPrice((ui.addBatchPrice()));
+            }
+            else if (input.matches("[Dd]"))
+            {
+                // source
+                System.out.println("Current Source: " + b.getSource());
+                b.setSource(ui.addBatchSource());
+            }
+            else if (input.matches("[Ee]"))
+            {
+                //name
+                System.out.println("Current name: " + b.getName());
+                b.setName((ui.addBatchName()));
+            }
+            ui.displayBatch(b);
+            input = ui.displayMenu(13);
+        }
+    }
+   // MFV hasan latest changes 3
+    private void BatchMenu(Batch b, Product p)
+    {
+        String selection = ui.displayMenu(12);
+        while (!selection.matches("[Cc]"))
+        {
+             if (selection.matches("[Aa]"))
+             {
+                    editBatch(b, p);
+             }
+             else if (selection.matches("[Bb]"))
+             {
+                    p.removeBatch(b);
+                    selection = "C";
+                    continue;
+             }
+              selection = ui.displayMenu(12);
+        }
+    }
+    
     private void exitProgram()
     {
         db.saveData();
