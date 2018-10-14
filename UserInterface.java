@@ -98,7 +98,7 @@ public class UserInterface
         cartRange = "[A-Ca-c]";
         //ID: 16
         orderMgmtMenu = new ArrayList<String>();
-        orderMgmtRange = "[A-Da-d]";
+        orderMgmtRange = "[A-Ba-b]";
 
     }
 
@@ -219,9 +219,8 @@ public class UserInterface
         //Owner order management menu ID: 16
         orderMgmtMenu.add("Order Management");
         orderMgmtMenu.add("[A] View All Orders");
-        orderMgmtMenu.add("[B] View Unfulfilled Orders");
-        orderMgmtMenu.add("[C] View Completed Orders");
-        orderMgmtMenu.add("[D] Back");
+        orderMgmtMenu.add("[B] Back");
+        
 
     }
 
@@ -852,6 +851,7 @@ public class UserInterface
 
     public String prodQtyInput(int availQuant)
     {
+
         Scanner scan = new Scanner(System.in);
         String qty = "";
         int availQty = availQuant;
