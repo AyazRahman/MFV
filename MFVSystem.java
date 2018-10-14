@@ -69,14 +69,24 @@ public class MFVSystem
         {
             if (email.equals(u.getEmail()) && password.equals(u.getPassword()))
             {
+
                 loggedUser = u;
                 if (loggedUser instanceof Customer)
                 {
                     editAcc = (Customer)u;
-                    order.setAccID(Integer.toString(u.getUId()));
+                    if (editAcc.getaccountStatus())
+                    {
+                        order.setAccID(Integer.toString(u.getUId()));
+                    }
+                    else
+                    {
+                        System.out.println("The Account is disabled");
+                        break;
+                    }
                 }
                 ui.logSuccess();
                 break;
+
             }
         }
 
@@ -372,7 +382,14 @@ public class MFVSystem
                 else if (selection.matches("[Dd]"))
                 {
                     //order history
-
+                    // List<Order> allOrder = new ArrayList();
+                    for (Order o : db.getOrders())
+                    {
+                        if (o.getAccID().equals("" + editAcc.getUId()))
+                        {
+                            printOrder(o);
+                        }
+                    }
                 }
                 else if (selection.matches("[Ee]"))
                 {
@@ -390,7 +407,6 @@ public class MFVSystem
             {
                 exitProgram();
             }
-            
 
         }
         else
@@ -437,7 +453,7 @@ public class MFVSystem
         {
             System.out.println("Name: " + l.getItem() + "\tQuantity: " + l.getQuantity()+ "\tUnit Price: " + l.getUnitPrice() + "\tPrice: " + l.getPrice());
         }
-
+        System.out.println("");
     }
 
     private void productManagement()
@@ -455,7 +471,7 @@ public class MFVSystem
             }
             else if (selection.matches("[Cc]"))
             {
-                //TODO:UI Add product form
+
                 addProduct();
             }
             selection = ui.displayMenu(6);
@@ -575,7 +591,7 @@ public class MFVSystem
             {
                 int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
                 order.addLineItem(selBatch.getName(), qty, 
-                selBatch.getPrice(), "" + selBatch.getBatchID());
+                    selBatch.getPrice(), "" + selBatch.getBatchID());
                 selBatch.setQuantity(selBatch.getQuantity() - qty);
                 ui.purchMsg();
             }
@@ -637,8 +653,6 @@ public class MFVSystem
             input = ui.displayMenu(10);
         }
     }
-
-    
 
     private void orderMenu()
     {
