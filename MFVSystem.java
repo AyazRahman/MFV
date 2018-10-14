@@ -257,68 +257,76 @@ public class MFVSystem
                         {
                             browse();
                         }
+                        s = ui.displayMenu(4);
                     }
                 }
                 else if (selection.matches("[Bb]"))
                 {
                     //shopping cart
-                    String input = ui.displayMenu(15);
-                    while (!input.matches("[Cc]"))
+                    if (order.getLineItems().isEmpty())
                     {
-                        if (input.matches("[Aa]"))
+                        System.out.println("Your cart is empty");
+                    }
+                    else
+                    {
+                        String input = ui.displayMenu(15);
+                        while (!input.matches("[Cc]"))
                         {
-                            //edit order quantity
-                            String lineId = ui.cartUpdate();
-                            LineItem lineSelected = new LineItem();
-
-                            for (LineItem l : order.getLineItems())
+                            if (input.matches("[Aa]"))
                             {
-                                if (l.getBatchID().equals(lineId))
+                                //edit order quantity
+                                String lineId = ui.cartUpdate();
+                                LineItem lineSelected = new LineItem();
+
+                                for (LineItem l : order.getLineItems())
                                 {
-                                    lineSelected = l;
-                                    break;
+                                    if (l.getBatchID().equals(lineId))
+                                    {
+                                        lineSelected = l;
+                                        break;
+                                    }
+                                }
+                                if (lineSelected.getBatchID().equals(" "))
+                                {
+                                    ui.pidNotExistMsg(); 
+                                }
+                                else
+                                {
+                                    int lid = Integer.parseInt(lineId);
+                                    Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
+                                    int newQty = Integer.parseInt(ui.prodQtyInput(editBatch.getQuantity() + lineSelected.getQuantity()));
+                                    editBatch.setQuantity(editBatch.getQuantity() + lineSelected.getQuantity() - newQty);
+                                    lineSelected.setQuantity(newQty);
+                                    ui.msgCartUpdate();
                                 }
                             }
-                            if (lineSelected.getBatchID().equals(" "))
+                            else if (input.matches("[Bb]"))
                             {
-                                ui.pidNotExistMsg(); 
-                            }
-                            else
-                            {
-                                int lid = Integer.parseInt(lineId);
-                                Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
-                                int newQty = Integer.parseInt(ui.prodQtyInput(editBatch.getQuantity() + lineSelected.getQuantity()));
-                                editBatch.setQuantity(editBatch.getQuantity() + lineSelected.getQuantity() - newQty);
-                                lineSelected.setQuantity(newQty);
-                                ui.msgCartUpdate();
-                            }
-                        }
-                        else if (input.matches("[Bb]"))
-                        {
-                            //remove Item from order
-                            String lineId = ui.cartUpdate();
-                            LineItem lineSelected = new LineItem();
+                                //remove Item from order
+                                String lineId = ui.cartUpdate();
+                                LineItem lineSelected = new LineItem();
 
-                            for (LineItem l : order.getLineItems())
-                            {
-                                if (l.getBatchID().equals(lineId))
+                                for (LineItem l : order.getLineItems())
                                 {
-                                    lineSelected = l;
-                                    break;
+                                    if (l.getBatchID().equals(lineId))
+                                    {
+                                        lineSelected = l;
+                                        break;
+                                    }
                                 }
-                            }
-                            if (lineSelected.getBatchID().equals(" "))
-                            {
-                                ui.pidNotExistMsg(); 
-                            }
-                            else
-                            {
-                                int lid = Integer.parseInt(lineId);
-                                int qty = lineSelected.getQuantity();
-                                Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
-                                editBatch.setQuantity(editBatch.getQuantity() + qty);
-                                order.getLineItems().remove(lineSelected);
-                                ui.msgCartUpdate();
+                                if (lineSelected.getBatchID().equals(" "))
+                                {
+                                    ui.pidNotExistMsg(); 
+                                }
+                                else
+                                {
+                                    int lid = Integer.parseInt(lineId);
+                                    int qty = lineSelected.getQuantity();
+                                    Batch editBatch = db.getProducts().get(lid/10000).getBatch(lid);
+                                    editBatch.setQuantity(editBatch.getQuantity() + qty);
+                                    order.getLineItems().remove(lineSelected);
+                                    ui.msgCartUpdate();
+                                }
                             }
                         }
                     }
@@ -382,6 +390,7 @@ public class MFVSystem
             {
                 exitProgram();
             }
+            
 
         }
         else
@@ -396,7 +405,7 @@ public class MFVSystem
                 }
                 else if (selection.matches("[Bb]"))
                 {
-                    orderManagement();
+                    orderMenu();
                 }
                 else if (selection.matches("[Cc]"))
                 {
@@ -552,7 +561,7 @@ public class MFVSystem
             Batch selBatch = new Batch();
             for (Batch b : p.getBatches())
             {
-                if (b.getBatchID() == (input*10000 + p.getProductID()))
+                if (b.getBatchID() == (input + p.getProductID()*10000))
                 {
                     selBatch = b;
                     break;
@@ -565,7 +574,8 @@ public class MFVSystem
             else
             {
                 int qty = Integer.parseInt(ui.prodQtyInput(selBatch.getQuantity()));
-                order.addLineItem(selBatch.getName(),selBatch.getQuantity(),selBatch.getPrice(), "" + selBatch.getBatchID());
+                order.addLineItem(selBatch.getName(), qty, 
+                selBatch.getPrice(), "" + selBatch.getBatchID());
                 selBatch.setQuantity(selBatch.getQuantity() - qty);
                 ui.purchMsg();
             }
@@ -628,14 +638,23 @@ public class MFVSystem
         }
     }
 
-    private void orderManagement()
-    {
-        //TODO: call orderManagement menu
-    }
+    
 
     private void orderMenu()
     {
         //TODO: need form for Order Management
+        String select = ui.displayMenu(16);
+        while (!select.matches("[Bb]"))
+        {
+            if (select.matches("[Aa]"))
+            {
+                for (Order o : db.getOrders())
+                {
+                    printOrder(o);
+                }
+            }
+            select = ui.displayMenu(16);
+        }
     }
     //turn to private after testing
     public void search()

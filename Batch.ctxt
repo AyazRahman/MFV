@@ -2,7 +2,7 @@
 comment0.target=Batch
 comment1.params=
 comment1.target=Batch()
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Batch\n
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Batch\r\n
 comment10.params=newBatchID
 comment10.target=void\ setBatchID(int)
 comment11.params=newQuantity

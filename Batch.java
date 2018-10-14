@@ -28,10 +28,10 @@ public class Batch
         batchID = 0;
         quantity = 0;
         dateReceived = new Date();
-        saleMethod = "";
+        saleMethod = " ";
         price = 0.0;
-        source = "";
-        name = "";
+        source = " ";
+        name = " ";
     }
     
     public Batch(int newBatchID, int newQuantity, 
