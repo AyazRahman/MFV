@@ -56,9 +56,9 @@ public class Order
     /**
     * This method is used to Add line items to order.
     * @param name This is the first paramter to addLineItem method
-    * @param qty This is the first paramter to AddLineItem method
-    * @param unitPrice This is the first paramter to AddLineItem method
-    * @param batchID This is the first paramter to AddLineItem method
+    * @param qty This is the second paramter to AddLineItem method
+    * @param unitPrice This is the third paramter to AddLineItem method
+    * @param batchID This is the fourth paramter to AddLineItem method
     */
     public void addLineItem(String name, int qty, double unitPrice, String batchID)
     {
