@@ -25,7 +25,7 @@ public class MFVSystem
     public MFVSystem()
     {
         db = new FileManager();
-        
+        db.loadData();
         ui = new UserInterface();
         ui.loadMenuItems();
         loggedUser = new User();
