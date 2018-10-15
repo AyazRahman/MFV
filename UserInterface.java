@@ -2,7 +2,7 @@ import java.util.*;
 import java.text.SimpleDateFormat;  
 
 /**
- * Write a description of class Menu here.
+ * UserInterface class that responsible about all UI.
  *
  * @author Team118
  * @version 1.0
@@ -102,6 +102,10 @@ public class UserInterface
 
     }
 
+    /**
+     * This method is used to load all system menues
+     * @return Nothing.
+     */
     public void loadMenuItems()
     {
         //Start menu items ID: 1
@@ -223,16 +227,28 @@ public class UserInterface
 
     }
 
+    /**
+     * This method is used display an update message
+     * @return Nothing.
+     */
     public void updateMsg(String detail)
     {
         System.out.println("\n" + detail + " Updated!" + "\n");
     }
 
+    /**
+     * This method is used display an account existing method 
+     * @return Nothing.
+     */
     public void userExistsMsg()
     {
         System.out.println("You already have an account. Login or register with a different email address.");
     }
 
+    /**
+     * This method is used to ask for email for login and register forms
+     * @return String This returns entred email.
+     */
     public String emailInput()
     {
         Scanner scan = new Scanner(System.in);
@@ -253,6 +269,10 @@ public class UserInterface
         return email;
     }
 
+    /**
+     * This method is used display password login form
+     * @return String This returns entred password.
+     */
     public String pwdLogin()
     {
         Scanner scan = new Scanner(System.in);
@@ -266,11 +286,19 @@ public class UserInterface
         return pwd;
     }
 
+    /**
+     * This method is used display login error message
+     * @return Nothing.
+     */
     public void loginError()
     {
         System.out.println("Error: Check your login credentials and try again.");
     }
 
+    /**
+     * This method is used for register form
+     * @return String This returns entred password.
+     */
     public String pwdInput()
     {
         Scanner scan = new Scanner(System.in);
@@ -300,6 +328,10 @@ public class UserInterface
         return pwd;
     }
 
+    /**
+     * This method is used display Logo
+     * @return Nothing.
+     */
     public void displayLogo()
     {
         System.out.println(" __  __ _____   __ ");
@@ -309,6 +341,10 @@ public class UserInterface
 
     }
 
+    /**
+     * This method is used to display menues
+     * @return String This returns entred password.
+     */
     public String displayMenu(int menuID)
     {
         String range = "";
@@ -407,6 +443,10 @@ public class UserInterface
         return selection;
     }
 
+    /**
+     * This method is used to display search box form
+     * @return String This returns earched product.
+     */
     public String searchBox()
     {
         clearScreen();
@@ -416,6 +456,12 @@ public class UserInterface
         return input.trim();
     }
 
+    /**
+     * This method is used display searched result 
+     * @param input This is the first paramter to searchResult method
+     * @param p  This is the second parameter to searchResult method
+     * @return Nothing
+     */
     public void searchResult(String input, Product p)
     {
         clearScreen();
@@ -425,6 +471,11 @@ public class UserInterface
         displayProduct(p);
     }
 
+    /**
+     * This method is used browse searched result 
+     * @param p This is the first paramter to searchResult method
+     * @return Nothing
+     */
     public void browseResult(Product p)
     {
         clearScreen();
