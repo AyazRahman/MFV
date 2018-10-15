@@ -31,7 +31,7 @@ public class FileManager
     {
         return products;
     }
-    
+
     /**
      * returns an array of products instead of the entire hashtable
      */
@@ -39,56 +39,55 @@ public class FileManager
     {
         return products.values().toArray(new Product[0]);
     }
-    
+
     public HashMap<String, Integer> getKeywords()
     {
         return keywords;
     }
-    
-    
+
     public List<User> getUsers()
     {
         return users;
     }
-    
+
     public List<Order> getOrders()
     {
         return orders;
     }
-    
+
     //setters
     public void setProducts(Hashtable<Integer, Product> newProducts)
     {
         products = newProducts;
     }
-    
+
     public void setKeywords(HashMap<String, Integer> newKeywords)
     {
         keywords = newKeywords;
     }
-    
+
     /*public void setLoggedUser(User newUser)
     {
-        loggedUser = newUser;
+    loggedUser = newUser;
     }*/
-    
+
     public void setUsers(List<User> newUsers)
     {
         users = newUsers;
     }
-    
+
     public void setOrders(List<Order> newOrders)
     {
         orders = newOrders;
     }
-    
+
     /**
      * reads from the Products.csv file and creates all the products
      */
     private void createProducts()
     {
         String filename = ("Products.csv");
-        
+
         try
         {
             FileReader inputFile = new FileReader(filename);
@@ -100,10 +99,10 @@ public class FileManager
                 int productID = Integer.parseInt(productInfo[0].trim());
                 String name = productInfo[1].trim();
                 products.put(productID, new Product(productID, 
-                                                    name, 
-                                                    Integer.parseInt(productInfo[2].trim()),
-                                                    Integer.parseInt(productInfo[3].trim()),
-                                                    saleTypes));
+                        name, 
+                        Integer.parseInt(productInfo[2].trim()),
+                        Integer.parseInt(productInfo[3].trim()),
+                        saleTypes));
                 //add to HashMap if name is not in keywords
                 if (!keywords.containsKey(name.toLowerCase()))
                 {
@@ -127,14 +126,14 @@ public class FileManager
             System.out.println("Something went wrong");
         }
     }
-    
+
     /**
      * reads from Batches.csv files and creates and adds the products 
      */
     private void createBatches()
     {
         String filename = ("Batches.csv");
-        
+
         try
         {
             FileReader inputFile = new FileReader(filename);
@@ -142,7 +141,7 @@ public class FileManager
             while (parser.hasNextLine())
             {
                 String [] batchInfo = parser.nextLine().split(",");
-                
+
                 int batchID = Integer.parseInt(batchInfo[0].trim()); 
                 int productID = batchID/10000;
                 Product p = products.get(productID);
@@ -152,7 +151,7 @@ public class FileManager
                 double price = Double.parseDouble(batchInfo[4].trim());
                 String source = batchInfo[5].trim();
                 String name = batchInfo[6].trim();
-                
+
                 p.addBatch(batchID, quantity, dateReceived, saleMethod, price, source, name);
                 //add to dictionary if keyword doesnt exist
                 if (!keywords.containsKey(name.toLowerCase()))
@@ -177,16 +176,51 @@ public class FileManager
             System.out.println("Something went wrong");
         }
     }
-    
-    private void createUsers()
+
+    private void createKeyword()
     {
-        String filename = ("User.csv");
-        
+        String filename = ("Keyword.csv");
+
         try
         {
             FileReader inputFile = new FileReader(filename);
             Scanner parser = new Scanner(inputFile);
-            
+            while (parser.hasNextLine())
+            {
+                String [] keys = parser.nextLine().split(",");
+
+                if (!keywords.containsKey(keys[0].trim().toLowerCase()))
+                {
+                    keywords.put(keys[0].trim().toLowerCase(), Integer.parseInt(keys[1].trim()));
+                }
+            }
+            inputFile.close();
+        }
+
+        catch(FileNotFoundException e)
+        {
+            System.out.println(filename + " not found");
+        }
+
+        catch(IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+    }
+
+    private void createUsers()
+    {
+        String filename = ("User.csv");
+
+        try
+        {
+            FileReader inputFile = new FileReader(filename);
+            Scanner parser = new Scanner(inputFile);
+
             //for admin user
             String[] adminInfo = parser.nextLine().split(",");
             Administrator admin = new Administrator();
@@ -201,14 +235,14 @@ public class FileManager
             admin.setPassword(adminInfo[8].trim());
             admin.setAccountStatus(Boolean.parseBoolean(adminInfo[9].trim()));
             users.add(admin);
-            
+
             //for all other users
             while (parser.hasNextLine())
             {
                 String [] userInfo = parser.nextLine().split(",");
-                
+
                 Customer newCustomer = new Customer();
-                
+
                 newCustomer.setUId(Integer.parseInt(userInfo[0].trim())); 
                 newCustomer.setFName(userInfo[1].equals(" ") ? userInfo[1] : userInfo[1].trim());
                 newCustomer.setLName(userInfo[2].equals(" ") ? userInfo[2] : userInfo[2].trim());
@@ -224,9 +258,9 @@ public class FileManager
                 newCustomer.setAccountStatus(Boolean.parseBoolean(userInfo[12].trim()));
                 newCustomer.setPaymentPreference(userInfo[13].equals(" ") ? userInfo[13] : userInfo[13].trim());
                 newCustomer.setCollectionPreference(userInfo[14].equals(" ") ? userInfo[14] : userInfo[14].trim());
-                
+
                 users.add(newCustomer);
-                
+
             }
             inputFile.close();
         }
@@ -244,14 +278,14 @@ public class FileManager
             System.out.println(e);
         }
     }
-    
+
     /**
      * 
      */
     private void createOrders()
     {
         String filename = ("Orders.csv");
-        
+
         try
         {
             FileReader inputFile = new FileReader(filename);
@@ -273,7 +307,7 @@ public class FileManager
                     lineInfo = parser.nextLine().split(",");
                     while (parser.hasNextLine() && !(lineInfo[0].trim().equals("--End--")))
                     {
-                        
+
                         String name = lineInfo[0].trim();
                         int qty = Integer.parseInt(lineInfo[1].trim());
                         double unitPrice = Double.parseDouble(lineInfo[2].trim());
@@ -300,19 +334,20 @@ public class FileManager
             System.out.println(e);
         }
     }
-    
+
     /**
      * Loads data from the CSV files according to the type of entity
      */
-    
+
     public void loadData()
     {
         createProducts();
         createBatches();
         createUsers();
         createOrders();
+        createKeyword();
     }
-    
+
     /**
      * Sava data into the corresponding CSV files
      */
@@ -323,150 +358,179 @@ public class FileManager
         saveBatches(allProducts);
         saveUsers();
         saveOrders();
+        saveKeyword();
     }
-    
+
     /**
      * Saves all Products information into Products.csv file
      */
     private void saveProducts(Product[] allProducts)
     {
         String filename = ("Products.csv");
-            try
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(filename);
+            for (Product p : allProducts)
             {
-                PrintWriter outputFile = new PrintWriter(filename);
-                for (Product p : allProducts)
-                {
-                    outputFile.println(p.toString());
-                }
-                outputFile.close();
+                outputFile.println(p.toString());
             }
-            catch (IOException e)
-            {
-                System.out.println("Unexpected I/O error");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Something went wrong");
-            }
-            finally
-            {
-                System.out.println("Products saved");
-            }
+            outputFile.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+        finally
+        {
+            System.out.println("Products saved");
+        }
     }
-    
+
     /**
      * Saves all Batch information into Batches.csv
      */
     private void saveBatches(Product[] allProducts)
     {
         String filename = ("Batches.csv");
-            try
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(filename);
+            for (Product p : allProducts)
             {
-                PrintWriter outputFile = new PrintWriter(filename);
-                for (Product p : allProducts)
+                for (Batch b : p.getBatches())
                 {
-                    for (Batch b : p.getBatches())
-                    {
-                        outputFile.println(b.toString());
-                    }
+                    outputFile.println(b.toString());
                 }
-                outputFile.close();
             }
-            catch (IOException e)
-            {
-                System.out.println("Unexpected I/O error");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Something went wrong");
-            }
-            finally
-            {
-                System.out.println("Batches saved");
-            }
+            outputFile.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+        finally
+        {
+            System.out.println("Batches saved");
+        }
     }
-    
+
+    private void saveKeyword()
+    {
+        //products.values().toArray(new Product[0])
+
+        String filename = ("Keyword.csv");
+        try
+        {
+            PrintWriter outputFile = new PrintWriter(filename);
+            for (Map.Entry<String, Integer> entry : keywords.entrySet())
+            {
+                outputFile.println(entry.getKey()+","+entry.getValue());
+            }
+            outputFile.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+        finally
+        {
+            System.out.println("Keywords saved");
+        }
+    }
+
     private void saveUsers()
     {
         String filename = ("User.csv");
-        
+
         try
+        {
+            PrintWriter outputFile = new PrintWriter(filename);
+            for (User u : users)
             {
-                PrintWriter outputFile = new PrintWriter(filename);
-                for (User u : users)
-                {
-                    outputFile.println(u.toString());
-                    //System.out.println(u.toString());
-                }
-                outputFile.close();
+                outputFile.println(u.toString());
+                //System.out.println(u.toString());
             }
-            catch (IOException e)
-            {
-                System.out.println("Unexpected I/O error");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Something went wrong");
-            }
-            finally
-            {
-                System.out.println("Users saved");
-            }
+            outputFile.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+        finally
+        {
+            System.out.println("Users saved");
+        }
     }
-    
+
     private void saveOrders()
     {
         String filename = ("Orders.csv");
-        
+
         try
+        {
+            PrintWriter outputFile = new PrintWriter(filename);
+            for (Order o : orders)
             {
-                PrintWriter outputFile = new PrintWriter(filename);
-                for (Order o : orders)
+                String[] s = o.toStringArray();
+                for (String line: s)
                 {
-                    String[] s = o.toStringArray();
-                    for (String line: s)
-                    {
-                        outputFile.println(line);
-                    }
+                    outputFile.println(line);
                 }
-                outputFile.close();
             }
-            catch (IOException e)
-            {
-                System.out.println("Unexpected I/O error");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Something went wrong");
-            }
-            finally
-            {
-                System.out.println("Orders saved");
-            }
+            outputFile.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unexpected I/O error");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong");
+        }
+        finally
+        {
+            System.out.println("Orders saved");
+        }
     }
-    
+
     /**
      * Adds a new product to the hashtable
      */
-    
+
     public boolean addProduct(int productID, String name, 
-                               int minShelfLife, int maxShelfLife, String[] saleTypes)
+    int minShelfLife, int maxShelfLife, String[] saleTypes)
     {
         int initialSize = products.size();
-        
-         products.put(productID, new Product(productID, name, minShelfLife,maxShelfLife, saleTypes));
+
+        products.put(productID, new Product(productID, name, minShelfLife,maxShelfLife, saleTypes));
         if (!keywords.containsKey(name))
         {
             keywords.put(name, productID);
         }
         return (products.size() == (initialSize + 1));
     }
-    
+
     /**
      * Adds a batch to it relevant product
      */
     private boolean addBatch(int batchID, int quantity, String dateReceived, String saleMethod, 
-                             double price, String source, String name)
+    double price, String source, String name)
     {
         int productID = batchID/10000;
         Product p = products.get(productID);
@@ -478,7 +542,7 @@ public class FileManager
         }
         return (p.getBatches().size() == (initialSize + 1));
     }
-    
+
     /**
      * Remove batch with its given ID
      */
@@ -488,5 +552,5 @@ public class FileManager
         Product p = products.get(productID);
         return p.removeBatch(batchID);
     }
-  
+
 }

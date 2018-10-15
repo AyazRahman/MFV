@@ -20,8 +20,8 @@ public class MFVSystem
     private Order order;
 
     /**
-    * Constructor for objects of class Menu
-    */
+     * Constructor for objects of class Menu
+     */
     public MFVSystem()
     {
         db = new FileManager();
@@ -34,8 +34,8 @@ public class MFVSystem
     }
 
     /**
-    * This method is displied when system started
-    */
+     * This method is displied when system started
+     */
     public void systemStart()
     {
         ui.displayLogo();
@@ -66,11 +66,11 @@ public class MFVSystem
     }
 
     /**
-    * This method is showed when user selects login and
-    * it checks if the the entred info met with existing user info and 
-    * checks if the user account status is enabled in FIleManager class then
-    * send the user to the right methods to UserInterface class and User class 
-    */
+     * This method is showed when user selects login and
+     * it checks if the the entred info met with existing user info and 
+     * checks if the user account status is enabled in FIleManager class then
+     * send the user to the right methods to UserInterface class and User class 
+     */
     private void userLogin()
     {
         //TODO: create Login form to get email and password from user
@@ -114,11 +114,11 @@ public class MFVSystem
     }
 
     /**
-    * This method is showed when a User selects Rigister and
-    * it checks if the the entred user info is exist with FileManager class and 
-    * save account info if not exists then 
-    * send the user to the right methods such as UserInterface class and User class 
-    */
+     * This method is showed when a User selects Rigister and
+     * it checks if the the entred user info is exist with FileManager class and 
+     * save account info if not exists then 
+     * send the user to the right methods such as UserInterface class and User class 
+     */
     private void userRegister()
     {
         //TODO create register form and get more information other that email and password
@@ -152,11 +152,11 @@ public class MFVSystem
     }
 
     /**
-    * This method is showed when the Admin selects Add Product and
-    * it checks if the the entred info met with the conditions with the right method in UserInterface then
-    * save Product info if not exists then 
-    * send the Admin to the methods from UserInterface class and User class 
-    */
+     * This method is showed when the Admin selects Add Product and
+     * it checks if the the entred info met with the conditions with the right method in UserInterface then
+     * save Product info if not exists then 
+     * send the Admin to the methods from UserInterface class and User class 
+     */
     private void addProduct()
     {
         String productName = ui.prodNameInput();
@@ -181,11 +181,11 @@ public class MFVSystem
     }
 
     /**
-    * This method is showed when the Customer selects Update Account and
-    * it checks if the the entred info met with the conditions with the right method in UserInterface then
-    * save Accouotn info then
-    * send the Customer to the methods from UserInterface class and User class 
-    */
+     * This method is showed when the Customer selects Update Account and
+     * it checks if the the entred info met with the conditions with the right method in UserInterface then
+     * save Accouotn info then
+     * send the Customer to the methods from UserInterface class and User class 
+     */
     private void updateAccount()
     {
         String selection = ui.displayMenu(9);
@@ -276,12 +276,12 @@ public class MFVSystem
     }
 
     /**
-    * This method is the Customer Menu showed when the Customer logged successfully and
-    * display all cresponding customer menues and enteractios with the right method in UserInterface then
-    * save Accouotn info in FileManager class then
-    * send the Customer to the methods from UserInterface class and User class 
-    * it finishes when if the Customer logged off or exit
-    */
+     * This method is the Customer Menu showed when the Customer logged successfully and
+     * display all cresponding customer menues and enteractios with the right method in UserInterface then
+     * save Accouotn info in FileManager class then
+     * send the Customer to the methods from UserInterface class and User class 
+     * it finishes when if the Customer logged off or exit
+     */
     //TODO: change the method to private after testing
     private void userMenu()
     {
@@ -318,9 +318,11 @@ public class MFVSystem
                     }
                     else
                     {
+                        printOrder(order);
                         String input = ui.displayMenu(15);
-                        while (!input.matches("[Cc]"))
+                        while (!input.matches("[Cc]") && !order.getLineItems().isEmpty())
                         {
+                            printOrder(order);
                             if (input.matches("[Aa]"))
                             {
                                 //edit order quantity
@@ -377,6 +379,11 @@ public class MFVSystem
                                     ui.msgCartUpdate();
                                 }
                             }
+                            input = ui.displayMenu(15);
+                        }
+                        if (order.getLineItems().isEmpty())
+                        {
+                            System.out.println("Your Cart is Empty now");
                         }
                     }
                 }
@@ -410,10 +417,11 @@ public class MFVSystem
                                 order = new Order();
                                 ui.checkoutComplete();
                             }
-                            else
-                            {
-                                System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
-                            }
+
+                        }
+                        else
+                        {
+                            System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
                         }
 
                     }
@@ -421,14 +429,20 @@ public class MFVSystem
                 else if (selection.matches("[Dd]"))
                 {
                     //order history
-                    // List<Order> allOrder = new ArrayList();
+                    List<Order> allOrder = new ArrayList();
                     for (Order o : db.getOrders())
                     {
                         if (o.getAccID().equals("" + editAcc.getUId()))
                         {
                             printOrder(o);
+                            allOrder.add(o);
                         }
                     }
+                    if (allOrder.isEmpty())
+                    {
+                        System.out.println("No orders to display");
+                    }
+                    
                 }
                 else if (selection.matches("[Ee]"))
                 {
@@ -436,7 +450,14 @@ public class MFVSystem
 
                 }
 
-                selection = ui.displayMenu(2);
+                if  (editAcc.getaccountStatus())
+                {
+                    selection = ui.displayMenu(2);
+                }
+                else 
+                {
+                    selection = "f";
+                }
             }
             if (selection.matches("[Ff]"))
             {
@@ -527,7 +548,7 @@ public class MFVSystem
         System.out.println("Order Items:");
         for (LineItem l : o.getLineItems())
         {
-            System.out.println("Name: " + l.getItem() + "\tQuantity: " + l.getQuantity()+ "\tUnit Price: " + l.getUnitPrice() + "\tPrice: " + l.getPrice());
+            System.out.println("ID: "+l.getBatchID()+"\tName: " + l.getItem() + "\tQuantity: " + l.getQuantity()+ "\tUnit Price: " + l.getUnitPrice() + "\tPrice: " + l.getPrice());
         }
         System.out.println("");
     }
@@ -582,7 +603,8 @@ public class MFVSystem
             while (!selection.matches("[Bb]"))
             {
                 selectProduct(p);
-                selection = ui.displayMenu(7);
+                //selection = ui.displayMenu(7);
+                selection = "b";
             }
         }
         else
@@ -748,7 +770,7 @@ public class MFVSystem
         }
     }
     //turn to private after testing
-    public void search()
+    private void search()
     {
         String input = ui.searchBox();
         if (db.getKeywords().containsKey(input.toLowerCase()))
@@ -840,7 +862,7 @@ public class MFVSystem
         p.addBatch(bId, quantity, dateRecieved, saleTypes[saleMethod - 1], price, source, name);
     }
     // MFV hasan latest changes 2
-     private void editBatch(Batch b, Product p)
+    private void editBatch(Batch b, Product p)
     {
         ui.displayBatch(b);
         String input = ui.displayMenu(13);
@@ -882,26 +904,26 @@ public class MFVSystem
             input = ui.displayMenu(13);
         }
     }
-   // MFV hasan latest changes 3
+    // MFV hasan latest changes 3
     private void BatchMenu(Batch b, Product p)
     {
         String selection = ui.displayMenu(12);
         while (!selection.matches("[Cc]"))
         {
-             if (selection.matches("[Aa]"))
-             {
-                    editBatch(b, p);
-             }
-             else if (selection.matches("[Bb]"))
-             {
-                    p.removeBatch(b);
-                    selection = "C";
-                    continue;
-             }
-              selection = ui.displayMenu(12);
+            if (selection.matches("[Aa]"))
+            {
+                editBatch(b, p);
+            }
+            else if (selection.matches("[Bb]"))
+            {
+                p.removeBatch(b);
+                selection = "C";
+                continue;
+            }
+            selection = ui.displayMenu(12);
         }
     }
-    
+
     private void exitProgram()
     {
         db.saveData();

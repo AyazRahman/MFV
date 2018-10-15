@@ -49,6 +49,7 @@ public class LineItem
     public void setQuantity(int qty)
     {
         this.qty = qty;
+        price = qty * unitPrice;
     }
     
     public void setTotalPrice(double price)
@@ -59,6 +60,7 @@ public class LineItem
     public void setUnitPrice(double unitPrice)
     {
         this.unitPrice = unitPrice;
+        price = qty * unitPrice;
     }
     
     public String getItem()

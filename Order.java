@@ -142,6 +142,11 @@ public class Order
      */
     public double getPrice()
     {
+        price = 0;
+        for (LineItem l : lineItems)
+        {
+            price += l.getPrice();
+        }
         return price;
     }
     
