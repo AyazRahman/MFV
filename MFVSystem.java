@@ -968,6 +968,11 @@ public class MFVSystem
             System.out.println("No orders to show for the given date");
         }
     }
+    
+    /**
+     * This method is used for adding batch for a certain product.
+     * @return Nothing.
+     */
     // MFV hasan latest changes 1
     private void addBatch(Product p)
     {
@@ -990,6 +995,11 @@ public class MFVSystem
         String source = ui.addBatchSource();
         p.addBatch(bId, quantity, dateRecieved, saleTypes[saleMethod - 1], price, source, name);
     }
+    
+    /**
+     * This method is used to edit batch in product.
+     * @return Nothing.
+     */
     // MFV hasan latest changes 2
     private void editBatch(Batch b, Product p)
     {
@@ -1040,6 +1050,11 @@ public class MFVSystem
             input = ui.displayMenu(13);
         }
     }
+    
+    /**
+     * This method is used to display batch menu options for admin.
+     * @return Nothing.
+     */
     // MFV hasan latest changes 3
     private void BatchMenu(Batch b, Product p)
     {
@@ -1060,6 +1075,11 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is used to when exiting the app to
+     * save the data to database files.
+     * @return Nothing.
+     */
     private void exitProgram()
     {
         db.saveData();
