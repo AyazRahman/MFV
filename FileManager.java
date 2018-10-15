@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 /**
- * Write a description of class FileManager here.
+ * FileManager class for retreving, editing, deleting and saving the database.
  * 
  * @author M Muhtasim Ayaz Rahman 
  * @version 21/09/2018
@@ -82,7 +82,8 @@ public class FileManager
     }
 
     /**
-     * reads from the Products.csv file and creates all the products
+     * This method is used to reads from the Products.csv file and creates all the products.
+     * @return Nothing.
      */
     private void createProducts()
     {
@@ -128,7 +129,8 @@ public class FileManager
     }
 
     /**
-     * reads from Batches.csv files and creates and adds the products 
+     * This method is used to reads from Batches.csv files and creates and adds the products 
+     * @return Nothing.
      */
     private void createBatches()
     {
@@ -177,6 +179,10 @@ public class FileManager
         }
     }
 
+    /**
+     * This method is used to reads from Keyword.csv file and creates and adds the keyword to similar products 
+     * @return Nothing.
+     */
     private void createKeyword()
     {
         String filename = ("Keyword.csv");
@@ -212,6 +218,10 @@ public class FileManager
         }
     }
 
+    /**
+     * This method is used to read from User.csv files and create and add the Users 
+     * @return Nothing.
+     */
     private void createUsers()
     {
         String filename = ("User.csv");
@@ -280,7 +290,8 @@ public class FileManager
     }
 
     /**
-     * 
+     * This method is used to reads from Orders.csv files and creates and adds the orders 
+     * @return Nothing.
      */
     private void createOrders()
     {
@@ -336,9 +347,9 @@ public class FileManager
     }
 
     /**
-     * Loads data from the CSV files according to the type of entity
+     * This method is used to Loads data from the CSV files according to the type of entity
+     * @return Nothing.
      */
-
     public void loadData()
     {
         products = new Hashtable<Integer, Product>();
@@ -354,7 +365,8 @@ public class FileManager
     }
 
     /**
-     * Sava data into the corresponding CSV files
+     * This method is used to Sava data into the corresponding CSV files
+     * @return Nothing.
      */
     public void saveData()
     {
@@ -367,7 +379,8 @@ public class FileManager
     }
 
     /**
-     * Saves all Products information into Products.csv file
+     * This method is used to Saves all Products information into Products.csv file
+     * @return Nothing.
      */
     private void saveProducts(Product[] allProducts)
     {
@@ -396,7 +409,8 @@ public class FileManager
     }
 
     /**
-     * Saves all Batch information into Batches.csv
+     * This method is used to Saves all Batch information into Batches.csv
+     * @return Nothing.
      */
     private void saveBatches(Product[] allProducts)
     {
@@ -427,6 +441,10 @@ public class FileManager
         }
     }
 
+    /**
+     * This method is used to Saves all Keyword information into Keyword.csv file
+     * @return Nothing.
+     */
     private void saveKeyword()
     {
         //products.values().toArray(new Product[0])
@@ -455,6 +473,10 @@ public class FileManager
         }
     }
 
+    /**
+     * This method is used to Saves all Users information into User.csv file
+     * @return Nothing.
+     */
     private void saveUsers()
     {
         String filename = ("User.csv");
@@ -483,6 +505,10 @@ public class FileManager
         }
     }
 
+    /**
+     * This method is used to Saves all Orders information into Orders.csv file
+     * @return Nothing.
+     */
     private void saveOrders()
     {
         String filename = ("Orders.csv");
@@ -515,9 +541,9 @@ public class FileManager
     }
 
     /**
-     * Adds a new product to the hashtable
+     * This method is used to Adds a new product to the hashtable
+     * @return Nothing.
      */
-
     public boolean addProduct(int productID, String name, 
     int minShelfLife, int maxShelfLife, String[] saleTypes)
     {
@@ -532,7 +558,8 @@ public class FileManager
     }
 
     /**
-     * Adds a batch to it relevant product
+     * This method is used to Adds a batch to it relevant product
+     * @return Nothing.
      */
     private boolean addBatch(int batchID, int quantity, String dateReceived, String saleMethod, 
     double price, String source, String name)
@@ -549,7 +576,8 @@ public class FileManager
     }
 
     /**
-     * Remove batch with its given ID
+     * This method is used to remove batch with its given ID
+     * @return Nothing.
      */
     public boolean removeBatch(int batchID)
     {
