@@ -289,7 +289,7 @@ public class MFVSystem
         {
             //call Customer menu
             String selection = ui.displayMenu(2);
-            while (!selection.matches("[Ff]") && !selection.matches("[Gg]") /*&& !editAcc.getaccountStatus()*/)
+            while (/*!selection.matches("[Ff]") &&*/ !selection.matches("[Gg]") /*&& !editAcc.getaccountStatus()*/)
             {
                 //TODO: check for user menu options
                 if (selection.matches("[Aa]"))
@@ -468,6 +468,17 @@ public class MFVSystem
                     updateAccount();
 
                 }
+                else if (selection.matches("[Ff]"))
+                {
+                    if (!order.getLineItems().isEmpty())
+                    {
+                        System.out.println("Your cart has items. Remove/Purchase them to logout");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
 
                 if  (editAcc.getaccountStatus())
                 {
@@ -481,6 +492,7 @@ public class MFVSystem
             if (selection.matches("[Ff]"))
             {
                 loggedUser = new User();
+                db.saveData();
             }
             else if (selection.matches("[Gg]"))
             {
@@ -517,6 +529,7 @@ public class MFVSystem
             if (selection.matches("[Ee]"))
             {
                 loggedUser = new User();
+                db.saveData();
             }
             else if (selection.matches("[Ff]"))
             {
@@ -870,7 +883,11 @@ public class MFVSystem
     // MFV hasan latest changes 1
     private void addBatch(Product p)
     {
-        int bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
+        int bId;
+        if (p.getBatches().isEmpty())
+            bId = p.getProductID() * 1000;
+        else
+            bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
         String name = ui.addBatchName();
         String dateRecieved = ui.addBatchRecievedDate();
         String[] saleTypes = p.getSaleTypes();
