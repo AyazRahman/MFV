@@ -860,7 +860,7 @@ public class UserInterface
         while (qty.equals(""))
         {
             String input = scan.nextLine();
-            if (valid.validateQty(input.trim()) == true && Integer.parseInt(input.trim()) <= availQty)
+            if (valid.validateQty(input.trim()) == true && Integer.parseInt(input.trim()) <= availQty && Integer.parseInt(input.trim()) >0 )
             {
                 qty = input;
             }
