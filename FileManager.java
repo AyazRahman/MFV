@@ -341,6 +341,11 @@ public class FileManager
 
     public void loadData()
     {
+        products = new Hashtable<Integer, Product>();
+        keywords = new HashMap<String, Integer>();
+        users  = new ArrayList<User>();
+        orders = new ArrayList<Order>();
+        
         createProducts();
         createBatches();
         createUsers();
