@@ -95,7 +95,7 @@ public class FileManager
             while (parser.hasNextLine())
             {   
                 String [] productInfo = parser.nextLine().split(",");
-                String[] saleTypes = {productInfo[4].trim(), (productInfo[4].equals(" ") ? productInfo[5] : productInfo[4].trim())};
+                String[] saleTypes = {productInfo[4].trim(), (productInfo[5].equals(" ") ? productInfo[5] : productInfo[5].trim())};
                 int productID = Integer.parseInt(productInfo[0].trim());
                 String name = productInfo[1].trim();
                 products.put(productID, new Product(productID, 

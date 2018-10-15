@@ -1108,8 +1108,8 @@ public class UserInterface
 
     public void displayBatch(Batch b)
     {
-        System.out.println("Batch ID: " + b.getBatchID() + "quantity: " + b.getQuantity() + "date recieved: " + b.getDateReceived() + "sale method: " + b.getSaleMethod() 
-            + "price: " + b.getPrice() + "source: " + b.getSource() + "name: " + b.getName());
+        System.out.println("Quantity: " + b.getQuantity() + "\tDate Recieved: " + b.getStringDateReceived() + "\tSale method: " + b.getSaleMethod() 
+            + "\tPrice: " + b.getPrice() + "\tSource: " + b.getSource() + "\tName: " + b.getName());
     }
 
     public String addBatchRecievedDate()

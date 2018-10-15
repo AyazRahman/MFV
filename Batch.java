@@ -74,6 +74,12 @@ public class Batch
         return dateReceived;
     }
     
+    public String getStringDateReceived()
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(dateReceived);
+    }
+    
     public String getSaleMethod()
     {
         return saleMethod;
