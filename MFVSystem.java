@@ -700,7 +700,24 @@ public class MFVSystem
                 }
                 else if (selection.matches("[Dd]"))
                 {
-                    //TODO:UI View Batches
+                    //View Batches
+                    HashMap<Integer, Batch> allBatches = new HashMap<Integer, Batch>();
+                    for (Batch b : p.getBatches())
+                    {
+                        displayBatch(b);
+                        allBatches.put(b.getBatchID()%10000, b);
+                    }
+                    int bid = Integer.parseInt(ui.batchIDInput().trim());
+                    if (allBatches.containsKey(bid))
+                    {
+                        Batch selBatch = allBatches.get(bid);
+                        BatchMenu(selBatch, p);
+                    }
+                    else
+                    {
+                        System.out.println("Invalid Batch Input");
+                    }
+
                 }
                 else if (selection.matches("[Ee]"))
                 {
@@ -781,7 +798,7 @@ public class MFVSystem
     private void displayBatch(Batch b)
     {
         System.out.println("Batch ID: " + b.getBatchID()%10000 + "\tName: " + b.getName() + "\tQuantity: " + b.getQuantity() 
-            + "\t Price: " + b.getPrice() + "\tSource: " + b.getSource());
+            + "\tPrice: " + b.getPrice() + "\tSource: " + b.getSource());
     }
 
     /**
@@ -854,7 +871,7 @@ public class MFVSystem
             select = ui.displayMenu(16);
         }
     }
-    
+
     /**
      * This method is used for display searched product.
      * @return Nothing.
@@ -962,7 +979,12 @@ public class MFVSystem
         String name = ui.addBatchName();
         String dateRecieved = ui.addBatchRecievedDate();
         String[] saleTypes = p.getSaleTypes();
-        int saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
+        int saleMethod = 1;
+        if (!saleTypes[1].equals(" "))
+        {
+            saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
+        }
+
         double price = ui.addBatchPrice();
         int quantity = ui.addBatchQuantity();
         String source = ui.addBatchSource();
@@ -986,8 +1008,15 @@ public class MFVSystem
                 // sale method
                 System.out.println("Current Sale Method: " + b.getSaleMethod());
                 String[] saleTypes = p.getSaleTypes();
-                int saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
-                b.setSaleMethod(saleTypes[saleMethod-1]);
+                if (!saleTypes[1].equals(" "))
+                {
+                    int saleMethod = ui.addBatchSaleMethod(saleTypes[0], saleTypes[1]);
+                    b.setSaleMethod(saleTypes[saleMethod-1]);
+                }
+                else
+                {
+                    System.out.println("Cannot change SaleType. Product contains only one sale type");
+                }
             }
             else if (input.matches("[Cc]"))
             {
