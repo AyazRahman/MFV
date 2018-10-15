@@ -870,7 +870,11 @@ public class MFVSystem
     // MFV hasan latest changes 1
     private void addBatch(Product p)
     {
-        int bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
+        int bId;
+        if (p.getBatches().size() == 0)
+            bId = p.getProductID() * 1000;
+        else
+            bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
         String name = ui.addBatchName();
         String dateRecieved = ui.addBatchRecievedDate();
         String[] saleTypes = p.getSaleTypes();
