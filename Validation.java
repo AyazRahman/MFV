@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 /**
  * Write a description of class Validation here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Team118
+ * @version 1.0
  */
 public class Validation
 {

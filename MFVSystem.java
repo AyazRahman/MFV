@@ -1,14 +1,13 @@
-
-/**
- * Write a description of class System here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-
 import java.io.*;
 import java.lang.*;
 import java.util.*;
+
+/**
+ * MFVSystem class is a controller class that controlles all the logic for .
+ *
+ * @author Team118
+ * @version 1.0
+ */
 
 public class MFVSystem
 {
@@ -20,6 +19,9 @@ public class MFVSystem
     private Customer editAcc;
     private Order order;
 
+    /**
+    * Constructor for objects of class Menu
+    */
     public MFVSystem()
     {
         db = new FileManager();
@@ -31,6 +33,9 @@ public class MFVSystem
         order = new Order();
     }
 
+    /**
+    * This method is displied when system started
+    */
     public void systemStart()
     {
         ui.displayLogo();
@@ -60,6 +65,12 @@ public class MFVSystem
         //Unexpected input handled inside Menu class
     }
 
+    /**
+    * This method is showed when user selects login and
+    * it checks if the the entred info met with existing user info and 
+    * checks if the user account status is enabled in FIleManager class then
+    * send the user to the right methods to UserInterface class and User class 
+    */
     private void userLogin()
     {
         //TODO: create Login form to get email and password from user
@@ -102,6 +113,12 @@ public class MFVSystem
         }
     }
 
+    /**
+    * This method is showed when a User selects Rigister and
+    * it checks if the the entred user info is exist with FileManager class and 
+    * save account info if not exists then 
+    * send the user to the right methods such as UserInterface class and User class 
+    */
     private void userRegister()
     {
         //TODO create register form and get more information other that email and password
@@ -134,6 +151,12 @@ public class MFVSystem
 
     }
 
+    /**
+    * This method is showed when the Admin selects Add Product and
+    * it checks if the the entred info met with the conditions with the right method in UserInterface then
+    * save Product info if not exists then 
+    * send the Admin to the methods from UserInterface class and User class 
+    */
     private void addProduct()
     {
         String productName = ui.prodNameInput();
@@ -157,6 +180,12 @@ public class MFVSystem
         }
     }
 
+    /**
+    * This method is showed when the Customer selects Update Account and
+    * it checks if the the entred info met with the conditions with the right method in UserInterface then
+    * save Accouotn info then
+    * send the Customer to the methods from UserInterface class and User class 
+    */
     private void updateAccount()
     {
         String selection = ui.displayMenu(9);
@@ -246,6 +275,13 @@ public class MFVSystem
 
     }
 
+    /**
+    * This method is the Customer Menu showed when the Customer logged successfully and
+    * display all cresponding customer menues and enteractios with the right method in UserInterface then
+    * save Accouotn info in FileManager class then
+    * send the Customer to the methods from UserInterface class and User class 
+    * it finishes when if the Customer logged off or exit
+    */
     //TODO: change the method to private after testing
     private void userMenu()
     {
@@ -253,7 +289,7 @@ public class MFVSystem
         {
             //call Customer menu
             String selection = ui.displayMenu(2);
-            while (!selection.matches("[Ff]") && !selection.matches("[Gg]") && !editAcc.getaccountStatus())
+            while (!selection.matches("[Ff]") && !selection.matches("[Gg]") /*&& !editAcc.getaccountStatus()*/)
             {
                 //TODO: check for user menu options
                 if (selection.matches("[Aa]"))
