@@ -34,7 +34,8 @@ public class MFVSystem
     }
 
     /**
-     * This method is displied when system started
+     * This method is displied when system started.
+     * @return Nothing.
      */
     public void systemStart()
     {
@@ -69,7 +70,8 @@ public class MFVSystem
      * This method is showed when user selects login and
      * it checks if the the entred info met with existing user info and 
      * checks if the user account status is enabled in FIleManager class then
-     * send the user to the right methods to UserInterface class and User class 
+     * send the user to the right methods to UserInterface class and User class.
+     * @return Nothing.
      */
     private void userLogin()
     {
@@ -118,7 +120,8 @@ public class MFVSystem
      * This method is showed when a User selects Rigister and
      * it checks if the the entred user info is exist with FileManager class and 
      * save account info if not exists then 
-     * send the user to the right methods such as UserInterface class and User class 
+     * send the user to the right methods such as UserInterface class and User class.
+     * @return Nothing.
      */
     private void userRegister()
     {
@@ -156,7 +159,8 @@ public class MFVSystem
      * This method is showed when the Admin selects Add Product and
      * it checks if the the entred info met with the conditions with the right method in UserInterface then
      * save Product info if not exists then 
-     * send the Admin to the methods from UserInterface class and User class 
+     * send the Admin to the methods from UserInterface class and User class.
+     * @return Nothing.
      */
     private void addProduct()
     {
@@ -186,6 +190,7 @@ public class MFVSystem
      * it checks if the the entred info met with the conditions with the right method in UserInterface then
      * save Accouotn info then
      * send the Customer to the methods from UserInterface class and User class 
+     * @return Nothing.
      */
     private void updateAccount()
     {
@@ -281,7 +286,8 @@ public class MFVSystem
      * display all cresponding customer menues and enteractios with the right method in UserInterface then
      * save Accouotn info in FileManager class then
      * send the Customer to the methods from UserInterface class and User class 
-     * it finishes when if the Customer logged off or exit
+     * it finishes when if the Customer logged off or exit.
+     * @return Nothing.
      */
     //TODO: change the method to private after testing
     private void userMenu()
@@ -539,6 +545,10 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is for the Admin to disable a Customer account so the customer can't login again.
+     * @return Nothing.
+     */
     private void removeAcc()
     {
         HashMap<Integer, Customer> allCustomer = new HashMap<Integer, Customer>();
@@ -568,6 +578,10 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is to display account info.
+     * @return Nothing.
+     */
     private void displayAcc(User u)
     {
 
@@ -575,6 +589,11 @@ public class MFVSystem
 
     }
 
+    /**
+     * This method is used to display an order info of a given order.
+     * @param o This is the first paramter to printOrder method.
+     * @return Nothing.
+     */
     private void printOrder(Order o)
     {
         System.out.println("Total Order Price: " + o.getPrice() + "\tOrder Placed: " + o.getStringOrderDate());
@@ -586,6 +605,11 @@ public class MFVSystem
         System.out.println("");
     }
 
+    /**
+     * This method for the admin to display product management options that has
+     * search, browse and addProducts.
+     * @return Nothing.
+     */
     private void productManagement()
     {
         String selection  = ui.displayMenu(6);
@@ -608,6 +632,10 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method for browsing the list of the products.
+     * @return Nothing.
+     */
     private void browse()
     {
         String id = ui.displayAllProduct(db.getProductArray());
@@ -627,6 +655,11 @@ public class MFVSystem
 
     }
 
+    /**
+     * This method is used for displaying the product menues for
+     * admin and customers.
+     * @return Nothing.
+     */
     private void productMenu(Product p)
     {
         if (loggedUser instanceof Customer)
@@ -689,6 +722,11 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is used for displaying selected product and
+     * display its batches for pruchase.
+     * @return Nothing.
+     */
     private void selectProduct(Product p)
     {
         System.out.println("Selected Product: ");
@@ -735,12 +773,22 @@ public class MFVSystem
 
     }
 
+    /**
+     * This method is used for displaying selected batch
+     * @param b This is the first paramter to displayBatch method
+     * @return Nothing.
+     */
     private void displayBatch(Batch b)
     {
         System.out.println("Batch ID: " + b.getBatchID()%10000 + "\tName: " + b.getName() + "\tQuantity: " + b.getQuantity() 
             + "\t Price: " + b.getPrice() + "\tSource: " + b.getSource());
     }
 
+    /**
+     * This method is used for editing selected product and
+     * @param p This is the first paramter to editProduct method
+     * @return Nothing.
+     */
     private void editProduct(Product p)
     {
         ui.displayProduct(p);
@@ -786,6 +834,10 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is used for displaying the order menu options
+     * @return Nothing.
+     */
     private void orderMenu()
     {
         //TODO: need form for Order Management
@@ -802,7 +854,11 @@ public class MFVSystem
             select = ui.displayMenu(16);
         }
     }
-    //turn to private after testing
+    
+    /**
+     * This method is used for display searched product.
+     * @return Nothing.
+     */
     private void search()
     {
         String input = ui.searchBox();
@@ -825,6 +881,11 @@ public class MFVSystem
 
     }
 
+    /**
+     * This method is used display selected product by id
+     * @param pid This is the first paramter to browseSelect method
+     * @return Nothing.
+     */
     private void browseSelect(int pid)
     {
         Product p = db.getProducts().get(pid);
@@ -834,7 +895,11 @@ public class MFVSystem
         productMenu(p);
     }
 
-    //14
+    /**
+     * This method is used for the admin to display optioins for the system report then
+     * run the selected method by option.
+     * @return Nothing.
+     */
     private void systemReport()
     {
         String selection  = ui.displayMenu(14);
@@ -852,6 +917,11 @@ public class MFVSystem
         }
     }
 
+    /**
+     * This method is used for the admin to display optioins for the system report then
+     * run the selected method by option
+     * @return Nothing.
+     */
     private void reportOrders(String input)
     {
         List<Order> orders = new ArrayList<Order>();
