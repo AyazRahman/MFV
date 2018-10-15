@@ -398,11 +398,36 @@ public class MFVSystem
                     {
                         System.out.println("There are no items in your order.");
                     }
-                    else if (editAcc.getCollectionPreference().equals("Delivery"))
+                    else 
                     {
-                        if (ui.valDelPostCode(""+editAcc.getPostcode()))
+                        if (editAcc.getCollectionPreference().equalsIgnoreCase("d"))
                         {
-                            //TODO: check postcode for Order delivery option
+                            if (ui.valDelPostCode(""+editAcc.getPostcode()))
+                            {
+                                //TODO: check postcode for Order delivery option
+                                ui.confOrderDetailsMsg();
+                                System.out.println("Account Details:");
+                                System.out.println("Card Name: " + editAcc.getCardName());
+                                System.out.println("Card Number:" + editAcc.getCardNumber() + "\tCard CCV:" + editAcc.getCardCCV());
+                                System.out.println("Payment Preference: " + editAcc.getPaymentPreference() + "\tCollection Preference: " + editAcc.getCollectionPreference());
+                                System.out.println("Order Details:");
+                                printOrder(order);
+                                if (ui.checkOutConfirm().matches("[Yy]"))
+                                {
+                                    //set delivery date
+                                    db.getOrders().add(order);
+                                    order = new Order();
+                                    ui.checkoutComplete();
+                                }
+
+                            }
+                            else
+                            {
+                                System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
+                            }
+                        }
+                        else
+                        {
                             ui.confOrderDetailsMsg();
                             System.out.println("Account Details:");
                             System.out.println("Card Name: " + editAcc.getCardName());
@@ -417,13 +442,7 @@ public class MFVSystem
                                 order = new Order();
                                 ui.checkoutComplete();
                             }
-
                         }
-                        else
-                        {
-                            System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
-                        }
-
                     }
                 }
                 else if (selection.matches("[Dd]"))
@@ -442,7 +461,7 @@ public class MFVSystem
                     {
                         System.out.println("No orders to display");
                     }
-                    
+
                 }
                 else if (selection.matches("[Ee]"))
                 {
@@ -851,11 +870,7 @@ public class MFVSystem
     // MFV hasan latest changes 1
     private void addBatch(Product p)
     {
-        int bId;
-        if (p.getBatches().size() == 0)
-            bId = p.getProductID() * 1000;
-        else
-            bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
+        int bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
         String name = ui.addBatchName();
         String dateRecieved = ui.addBatchRecievedDate();
         String[] saleTypes = p.getSaleTypes();
