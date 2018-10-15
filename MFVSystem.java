@@ -886,7 +886,7 @@ public class MFVSystem
     {
         int bId;
         if (p.getBatches().isEmpty())
-            bId = p.getProductID() * 1000;
+            bId = p.getProductID() * 10000;
         else
             bId = 1 + p.getBatches().get(p.getBatches().size() - 1).getBatchID();
         String name = ui.addBatchName();
