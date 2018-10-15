@@ -220,7 +220,6 @@ public class UserInterface
         orderMgmtMenu.add("Order Management");
         orderMgmtMenu.add("[A] View All Orders");
         orderMgmtMenu.add("[B] Back");
-        
 
     }
 
@@ -761,7 +760,7 @@ public class UserInterface
         return minShelf; 
     }
 
-    public String maxShelfLifeInput()
+    public String maxShelfLifeInput(int minShelfLife)
     {
         Scanner scan = new Scanner(System.in);
         String maxShelf = "";
@@ -771,11 +770,17 @@ public class UserInterface
             String input = scan.nextLine();
             if (valid.validateShelfLife(input.trim()) == true)
             {
-                maxShelf = input.trim();
+                if (Integer.parseInt(input.trim()) > minShelfLife)
+                {
+                    maxShelf = input.trim();
+                }
+                else
+                    System.out.println("Enter a valid number.");
+
             }
             else
             {
-                System.out.println("Enter a valid product name.");
+                System.out.println("Enter a valid number.");
             }
         }
         return maxShelf; 
@@ -1089,24 +1094,24 @@ public class UserInterface
     {
         return valid.validatePostcodeDelivery(pc.trim());
     }
-    
+
     public boolean checkNumericString(String string)
     {
         return valid.valNum(string);
     }
-    
+
     public String accNum()
     {
         Scanner scan =  new Scanner(System.in);
         return scan.nextLine().trim();
     }
-    
-     public void displayBatch(Batch b)
+
+    public void displayBatch(Batch b)
     {
         System.out.println("Batch ID: " + b.getBatchID() + "quantity: " + b.getQuantity() + "date recieved: " + b.getDateReceived() + "sale method: " + b.getSaleMethod() 
-        + "price: " + b.getPrice() + "source: " + b.getSource() + "name: " + b.getName());
+            + "price: " + b.getPrice() + "source: " + b.getSource() + "name: " + b.getName());
     }
-    
+
     public String addBatchRecievedDate()
     {
         //Date date = new Date();
@@ -1119,94 +1124,94 @@ public class UserInterface
         }
         return date;
     }
-    
+
     public int addBatchSaleMethod(String sOne, String sTwo){
         Scanner sc = new Scanner(System.in);
         System.out.println("Select Batch Sale method from: "  + sOne + " or " + sTwo + ". Press 1 for " + sOne + " or press 2 for " + sTwo);
         int choice = 0;
         while (choice == 0){
-             try
-             {
-                 int input = Integer.parseInt(sc.next());
-                 if (input == 1  || input == 2)
+            try
+            {
+                int input = Integer.parseInt(sc.next());
+                if (input == 1  || input == 2)
                     choice = input;
-                 else
+                else
                     System.out.println("invalid choice, try again");
-             }
-             catch (NumberFormatException nfe)
-             {
-                  System.out.println("NumberFormatException, try again: ");
-             }
+            }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("NumberFormatException, try again: ");
+            }
         }
         return choice;
     }
-    
+
     public boolean removeBatch(){
         Scanner sc = new Scanner(System.in);
         System.out.println("press 1 to confirm deletion or press 0 to go back");
         int choice = 2;
         while (choice == 2){
-             try
-             {
-                 int input = Integer.parseInt(sc.next());
-                 if (input == 1  || input == 0)
+            try
+            {
+                int input = Integer.parseInt(sc.next());
+                if (input == 1  || input == 0)
                     choice = input;
-                 else
+                else
                     System.out.println("invalid choice, try again");
-             }
-             catch (NumberFormatException nfe)
-             {
-                  System.out.println("NumberFormatException, try again: ");
-             }
+            }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("NumberFormatException, try again: ");
+            }
         }
         if (choice == 0)
             return false;
         else
             return true;
     }
-    
+
     public int addBatchQuantity(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter batch qty");
         int qty = 0;
         while (qty == 0){
-             try
-             {
-                 int input = Integer.parseInt(sc.next());
-                 if (input > 0  && input < 1000)
+            try
+            {
+                int input = Integer.parseInt(sc.next());
+                if (input > 0  && input < 1000)
                     qty = input;
-                 else
+                else
                     System.out.println("invalid qty range, try again");
-             }
-             catch (NumberFormatException nfe)
-             {
-                  System.out.println("NumberFormatException, try again: ");
-             }
+            }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("NumberFormatException, try again: ");
+            }
         }
         return qty;
     }
-    
+
     public double addBatchPrice(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter batch price");
         double price = 0.0;
         while (price == 0){
-             try
-             {
-                 int input = Integer.parseInt(sc.next());
-                 if (input > 0  && input < 1000)
+            try
+            {
+                int input = Integer.parseInt(sc.next());
+                if (input > 0  && input < 1000)
                     price = input;
-                 else
+                else
                     System.out.println("invalid price range, try again");
-             }
-             catch (NumberFormatException nfe)
-             {
-                  System.out.println("NumberFormatException, try again: ");
-             }
+            }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("NumberFormatException, try again: ");
+            }
         }
         return price;
-        }
- 
+    }
+
     public String addBatchName(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter batch Name");
@@ -1218,8 +1223,8 @@ public class UserInterface
         String name = input;
         return name;
     }
-    
-     public String addBatchSource(){
+
+    public String addBatchSource(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter batch Source");
         String input = sc.next();

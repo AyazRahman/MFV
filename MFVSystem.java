@@ -161,7 +161,7 @@ public class MFVSystem
     {
         String productName = ui.prodNameInput();
         int minShelfLife = Integer.parseInt(ui.minShelfLifeInput());
-        int maxShelfLife = Integer.parseInt(ui.maxShelfLifeInput());
+        int maxShelfLife = Integer.parseInt(ui.maxShelfLifeInput(minShelfLife));
         String saleType1 = ui.saleTypeInput(); //Run this multiple times to get multiple sale types
         String saleType2 = " ";
         if (ui.addSaleType().matches("[Yy]")) //Prompts user if he wants to add additional sale type, only returns y or n
@@ -748,7 +748,7 @@ public class MFVSystem
             {
                 //max shelf life
                 System.out.println("Current Max Shelf Life: " + p.getMaxShelfLife());
-                p.setMaxShelfLife(Integer.parseInt(ui.maxShelfLifeInput()));
+                p.setMaxShelfLife(Integer.parseInt(ui.maxShelfLifeInput(p.getMinShelfLife())));
             }
             else if (input.matches("[Dd]"))
             {
