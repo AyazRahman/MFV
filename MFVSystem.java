@@ -398,36 +398,11 @@ public class MFVSystem
                     {
                         System.out.println("There are no items in your order.");
                     }
-                    else 
+                    else if (editAcc.getCollectionPreference().equals("Delivery"))
                     {
-                        if (editAcc.getCollectionPreference().equalsIgnoreCase("d"))
+                        if (ui.valDelPostCode(""+editAcc.getPostcode()))
                         {
-                            if (ui.valDelPostCode(""+editAcc.getPostcode()))
-                            {
-                                //TODO: check postcode for Order delivery option
-                                ui.confOrderDetailsMsg();
-                                System.out.println("Account Details:");
-                                System.out.println("Card Name: " + editAcc.getCardName());
-                                System.out.println("Card Number:" + editAcc.getCardNumber() + "\tCard CCV:" + editAcc.getCardCCV());
-                                System.out.println("Payment Preference: " + editAcc.getPaymentPreference() + "\tCollection Preference: " + editAcc.getCollectionPreference());
-                                System.out.println("Order Details:");
-                                printOrder(order);
-                                if (ui.checkOutConfirm().matches("[Yy]"))
-                                {
-                                    //set delivery date
-                                    db.getOrders().add(order);
-                                    order = new Order();
-                                    ui.checkoutComplete();
-                                }
-
-                            }
-                            else
-                            {
-                                System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
-                            }
-                        }
-                        else
-                        {
+                            //TODO: check postcode for Order delivery option
                             ui.confOrderDetailsMsg();
                             System.out.println("Account Details:");
                             System.out.println("Card Name: " + editAcc.getCardName());
@@ -442,7 +417,13 @@ public class MFVSystem
                                 order = new Order();
                                 ui.checkoutComplete();
                             }
+
                         }
+                        else
+                        {
+                            System.out.println("Cannot deliver to the postcode. Please change delivery preference or postcode");
+                        }
+
                     }
                 }
                 else if (selection.matches("[Dd]"))
@@ -461,7 +442,7 @@ public class MFVSystem
                     {
                         System.out.println("No orders to display");
                     }
-
+                    
                 }
                 else if (selection.matches("[Ee]"))
                 {
